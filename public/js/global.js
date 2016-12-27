@@ -762,6 +762,8 @@ $(function() {
             .done(function(data){
                 console.log(data);
 
+
+
             })
             .fail(function(jqXHR){
                 console.log('Text: ' + jqXHR.responseText);

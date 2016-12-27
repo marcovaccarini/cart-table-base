@@ -36,7 +36,7 @@ class Cart extends Model
 
         //return $this->hasManyThrough('App\ProductImage', 'App\Product');
         return $this->hasManyThrough('App\ProductImage', 'App\Product',
-            'id', 'product_id', 'id');
+            'id', 'product_id', 'id')->where('product_images.featured', 1);
     }
 
 }

@@ -78,13 +78,15 @@ class CartController extends Controller
             'size_id' => $size_id,
             'qty' => $qty,
         ]);
-        //$cart_items = Cart::where('cart_id', '=', $cart_id);
+        //$cart_items = Cart::where('cart_id', '=', $cart_id)->with('product')->get(); //OK but no images
+        $cart_items = Cart::where('cart_id', '=', $cart_id)->with('product')->with('ProductImages')->get();
+
 
        // return redirect('products')->with('status', 'The product has been added to your cart!');
 
 
-        return Cart::where('cart_id', '=', $cart_id)->get()->toJson();
-        //return $cart_items->toJson();
+        //return Cart::where('cart_id', '=', $cart_id)->get()->toJson();
+        return $cart_items->toJson();
        // dd($cart);
 
     }

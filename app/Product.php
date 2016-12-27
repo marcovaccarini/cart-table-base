@@ -81,6 +81,26 @@ class Product extends Model
         return $this->belongsToMany('App\Size')->withPivot('product_id', 'size_id');
 
     }
+    
+    /**
+     * A product belong to many carts
+     * 
+     * @return
+     */
+   /* public function carts()
+    {
+        return $this->belongsToMany('App\Cart');
+    }*/
+
+    /**
+     * Get all of the product_images for the product.
+     */
+    public function ProductImages()
+    {
+
+        //return $this->hasManyThrough('App\ProductImage', 'App\Product');
+        return $this->hasManyThrough('App\ProductImage', 'App\Product');
+    }
 
 
 

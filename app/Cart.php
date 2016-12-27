@@ -23,13 +23,20 @@ class Cart extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    /*public function Products()
-    {
-        return $this->belongsTo('Product', 'product_id');
-    }*/
-
     public function product()
     {
-        return $this->hasOne('App\Product');
+        return $this->belongsTo('App\Product', 'product_id');
     }
+
+    /**
+     * Get all of the product_images for the product.
+     */
+    public function ProductImages()
+    {
+
+        //return $this->hasManyThrough('App\ProductImage', 'App\Product');
+        return $this->hasManyThrough('App\ProductImage', 'App\Product',
+            'id', 'product_id', 'id');
+    }
+
 }

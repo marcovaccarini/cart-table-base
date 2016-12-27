@@ -783,7 +783,7 @@ var product_pics, size_name, html_price;
                     });
                     if (obj.product['custom_discount']) {
                         var current = obj.product['price'] - (obj.product['price']/100)*obj.product['custom_discount']
-                        html_price = '<div class=\"prev\">$'+obj.product['price']*obj.qty +'</div> <div class=\"current\">$'+ obj.qty*current.toFixed(2) +'</div>';
+                        html_price = '<div class=\"prev\">$'+obj.product['price']*obj.qty +'</div> <div class=\"current\">$'+ parseFloat(obj.qty*current).toFixed(2) +'</div>';
                     }
                     else {
                         html_price = '<div class=\"current\">$'+ obj.product['price'] +'</div>';

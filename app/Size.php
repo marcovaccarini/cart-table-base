@@ -14,4 +14,5 @@ class Size extends Model
         return $this->belongsToMany('App\Product');
 
     }
+
 }

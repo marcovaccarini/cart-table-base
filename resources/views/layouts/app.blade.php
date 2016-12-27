@@ -488,23 +488,28 @@
 <!-- MODAL FOR CART -->
 <div class="cart-box popup">
     <div class="popup-container">
-        <div class="cart-entry">
-            <a class="image"><img src="//img/product-menu-1.jpg" alt="" /></a>
-            <div class="content">
-                <a class="title" href="#">Pullover Batwing Sleeve Zigzag</a>
-                <div class="quantity">Quantity: 4</div>
-                <div class="price">$990,00</div>
+        <div id="cart-item-container">
+            <div class="cart-entry">
+                <a class="image"><img src="//img/product-menu-1.jpg" alt="" /></a>
+                <div class="content">
+                    <a class="title" href="#">Pullover Batwing Sleeve Zigzag</a>
+                    <div class="quantity">Quantity: 4</div>
+                    <div class="price">
+                        <div class="prev">$16.86</div>
+                        <div class="current">$990,00</div>
+                    </div>
+                </div>
+                <div class="button-x"><i class="fa fa-close"></i></div>
             </div>
-            <div class="button-x"><i class="fa fa-close"></i></div>
-        </div>
-        <div class="cart-entry">
-            <a class="image"><img src="//img/product-menu-1_.jpg" alt="" /></a>
-            <div class="content">
-                <a class="title" href="#">Pullover Batwing Sleeve Zigzag</a>
-                <div class="quantity">Quantity: 4</div>
-                <div class="price">$990,00</div>
+            <div class="cart-entry">
+                <a class="image"><img src="//img/product-menu-1_.jpg" alt="" /></a>
+                <div class="content">
+                    <a class="title" href="#">Pullover Batwing Sleeve Zigzag</a>
+                    <div class="quantity">Quantity: 4</div>
+                    <div class="price">$990,00</div>
+                </div>
+                <div class="button-x"><i class="fa fa-close"></i></div>
             </div>
-            <div class="button-x"><i class="fa fa-close"></i></div>
         </div>
         <div class="summary">
             <div class="subtotal">Subtotal: $990,00</div>

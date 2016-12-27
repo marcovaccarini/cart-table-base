@@ -82,7 +82,8 @@ class CartController extends Controller
         $cart_items = Cart::where('cart_id', '=', $cart_id)
             ->with('product')
             ->with('ProductImages')
-
+            ->with('sizenames')
+            ->orderBy('updated_at', 'desc')
             ->get()->toJson();
 
         return $cart_items;

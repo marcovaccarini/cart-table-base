@@ -723,7 +723,7 @@ $(function() {
     /*===========================*/
 
    urlToCart = "cart";
-
+var product_pics, size_name, html_price;
     $("#btn-add-to-cart").click(function (e) {
         $.ajaxSetup({
             headers: {
@@ -761,6 +761,65 @@ $(function() {
 
             .done(function(data){
                 console.log(data);
+                //$('.cart-entry').remove();
+                $("#cart-item-container").html("");
+                $.each(data, function(id, obj) {
+                 //   console.log('product_name: '+obj.product_name);
+                        //alert(obj.description);
+                        // add all to cart-container
+                        /*<div class="cart-entry">
+                             <a class="image"><img src="//img/product-menu-1_.jpg" alt="" /></a>
+                             <div class="content">
+                                 <a class="title" href="#">Pullover Batwing Sleeve Zigzag</a>
+                                 <div class="quantity">Quantity: 4</div>
+                                 <div class="price">$990,00</div>
+                             </div>
+                         </div>*/
+                    $.each(obj.product_images, function(idx, filenames) {
+                        product_pics = filenames.filename;
+                    });
+                    $.each(obj.sizenames, function(id, sizename) {
+                        size_name = sizename.name;
+                    });
+                    if (obj.product['custom_discount']) {
+                        var current = obj.product['price'] - (obj.product['price']/100)*obj.product['custom_discount']
+                        html_price = '<div class=\"prev\">$'+obj.product['price']*obj.qty +'</div> <div class=\"current\">$'+ obj.qty*current.toFixed(2) +'</div>';
+                    }
+                    else {
+                        html_price = '<div class=\"current\">$'+ obj.product['price'] +'</div>';
+                    }
+
+                    $('#cart-item-container').append('<div class=\"cart-entry\">' +
+                        '<a class=\"image\"><img src=\"/img/small/'+product_pics+'\" alt=\"\" /></a>' +
+                        '<div class=\"content\">' +
+                        '<a class=\"title\" href=\"#\">'+ obj.product['product_name'] +'</a>' +
+                        '<div class=\"quantity\">Quantity: '+ obj.qty + ' | Size: '+size_name+'</div>' +
+                        '<div class=\"price\">'+ html_price +'</div>' +
+                        '</div></div>');
+                        /*$('#cart-item-container').append('<div class=\"cart-entry\">');
+                            $.each(obj.product_images, function(idx, filenames) {
+                                $('#cart-item-container').append('<a class=\"image\"><img src=\"/img/small/'+filenames.filename+'\" alt=\"\" /></a>');
+                            });
+                            // TODO implement category and subcategory slug on the CartController
+                            $('#cart-item-container').append('<div class=\"content\">');
+                                $('#cart-item-container').append('<a class=\"title\" href=\"#\">'+ obj.product['product_name'] +'</a>');
+                                $('#cart-item-container').append('<div class=\"quantity\">Quantity: '+ obj.qty + ' | Size: ');
+                                $.each(obj.sizenames, function(id, sizename) {
+                                    $('#cart-item-container').append(sizename.name);
+                                });
+
+                            $('#cart-item-container').append('</div><div class=\"price\">');
+                            if (obj.product['custom_discount']) {
+                                var current = obj.product['price'] - (obj.product['price']/100)*obj.product['custom_discount']
+                                $('#cart-item-container').append('<div class=\"prev\">$'+ obj.product['price'] +'</div>');
+                                $('#cart-item-container').append('<div class=\"current\">$'+ current +'</div>');
+                            }
+                            else {
+                                $('#cart-item-container').append('<div class=\"current\">$'+ obj.product['price'] +'</div>');
+                            }
+                        $('#cart-item-container').append('</div></div>');*/
+
+                    });
 
 
 
@@ -769,56 +828,7 @@ $(function() {
                 console.log('Text: ' + jqXHR.responseText);
                 alert('Json Request Failed...');
             });
-            /*.fail(function(){
 
-                //var jsonValue = jQuery.parseJSON( jqXHR.responseText );
-                console.log(jsonValue.Message);
-                alert('Json Request Failed...');
-            });*/
-
-
-        /*//used to determine the http verb to use [add=POST], [update=PUT]
-        var state = $('#btn-save').val();
-
-        var type = "POST"; //for creating new resource
-        var task_id = $('#task_id').val();
-        var my_url = url;
-
-        if (state == "update"){
-            type = "PUT"; //for updating existing resource
-            my_url += '/' + task_id;
-        }
-
-        console.log(formData);
-
-        $.ajax({
-
-            type: type,
-            url: my_url,
-            data: formData,
-            dataType: 'json',
-            success: function (data) {
-                console.log(data);
-
-                var task = '<tr id="task' + data.id + '"><td>' + data.id + '</td><td>' + data.task + '</td><td>' + data.description + '</td><td>' + data.created_at + '</td>';
-                task += '<td><button class="btn btn-warning btn-xs btn-detail open-modal" value="' + data.id + '">Edit</button>';
-                task += '<button class="btn btn-danger btn-xs btn-delete delete-task" value="' + data.id + '">Delete</button></td></tr>';
-
-                if (state == "add"){ //if user added a new record
-                    $('#tasks-list').append(task);
-                }else{ //if user updated an existing record
-
-                    $("#task" + task_id).replaceWith( task );
-                }
-
-                $('#frmTasks').trigger("reset");
-
-                $('#myModal').modal('hide')
-            },
-            error: function (data) {
-                console.log('Error:', data);
-            }
-        });*/
     });
 
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Cart;
+use App\Category;
 use App\Product;
 use App\Size;
 use App\ProductImage;
@@ -84,17 +85,22 @@ class CartController extends Controller
             ->with('ProductImages')
             ->with('sizenames')
             ->orderBy('updated_at', 'desc')
-            ->get()->toJson();
-
-
-
+            ->get();
 
         $total=0;
         foreach($cart_items as $item){
-          //  $total+=$item->product->price;
+            $total+=($item->product->price - ($item->product->price/100)*$item->product->custom_discount)*$item->qty;
+            
+            $subCategory = Category::where('id', '=', $item->product->category_id);
+            $subCategorySlug = $subCategory->slug;
+
+
+            //$path = $mainCategorySlug.'/'.$categorySlug.'/'.$subCategorySlug.'/'.$item->product->slug;
         }
 
+        //return $cart_items->toJson();
         return [$cart_items, 'total'=>$total];
+
        // dd($cart);
         //  TODO make total cart
 

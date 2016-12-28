@@ -763,18 +763,7 @@ var product_pics, size_name, html_price;
                 console.log(data);
                 //$('.cart-entry').remove();
                 $("#cart-item-container").html("");
-                $.each(data, function(id, obj) {
-                 //   console.log('product_name: '+obj.product_name);
-                        //alert(obj.description);
-                        // add all to cart-container
-                        /*<div class="cart-entry">
-                             <a class="image"><img src="//img/product-menu-1_.jpg" alt="" /></a>
-                             <div class="content">
-                                 <a class="title" href="#">Pullover Batwing Sleeve Zigzag</a>
-                                 <div class="quantity">Quantity: 4</div>
-                                 <div class="price">$990,00</div>
-                             </div>
-                         </div>*/
+                $.each(data[0], function(id, obj) {
 
                     if (obj.product['custom_discount']) {
                         var current = obj.product['price'] - (obj.product['price']/100)*obj.product['custom_discount']
@@ -791,6 +780,8 @@ var product_pics, size_name, html_price;
                         '<div class=\"quantity\">Quantity: '+ obj.qty + ' | Size: '+obj.sizenames['name']+'</div>' +
                         '<div class=\"price\">'+ html_price +'</div>' +
                         '</div></div>');
+
+
                     //  TODO implement category and subcategory slug on the CartController
                     //  TODO popup cart and modal animation
                         /*$('#cart-item-container').append('<div class=\"cart-entry\">');
@@ -817,7 +808,8 @@ var product_pics, size_name, html_price;
                         $('#cart-item-container').append('</div></div>');*/
 
                     });
-
+                $('#cart_total').html('');
+                $('#cart_total').append('<div class=\"grandtotal\">Total <span>$'+ parseFloat(data['total']).toFixed(2)+'</span></div>');
 
 
             })

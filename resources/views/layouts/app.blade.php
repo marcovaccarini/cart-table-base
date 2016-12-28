@@ -511,9 +511,9 @@
                 <div class="button-x"><i class="fa fa-close"></i></div>
             </div>
         </div>
-        <div class="summary">
-            <div class="subtotal">Subtotal: $990,00</div>
-            <div class="grandtotal">Grand Total <span>$1029,79</span></div>
+        <div class="summary" id="cart_total">
+            {{--<div class="subtotal">Subtotal: $990,00</div>--}}
+            <div class="grandtotal">Total <span>$1029,79</span></div>
         </div>
         <div class="cart-buttons">
             <div class="column">

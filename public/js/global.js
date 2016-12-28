@@ -775,12 +775,7 @@ var product_pics, size_name, html_price;
                                  <div class="price">$990,00</div>
                              </div>
                          </div>*/
-                    $.each(obj.product_images, function(idx, filenames) {
-                        product_pics = filenames.filename;
-                    });
-                    $.each(obj.sizenames, function(id, sizename) {
-                        size_name = sizename.name;
-                    });
+
                     if (obj.product['custom_discount']) {
                         var current = obj.product['price'] - (obj.product['price']/100)*obj.product['custom_discount']
                         html_price = '<div class=\"prev\">$'+obj.product['price']*obj.qty +'</div> <div class=\"current\">$'+ parseFloat(obj.qty*current).toFixed(2) +'</div>';
@@ -790,10 +785,10 @@ var product_pics, size_name, html_price;
                     }
 
                     $('#cart-item-container').append('<div class=\"cart-entry\">' +
-                        '<a class=\"image\"><img src=\"/img/small/'+product_pics+'\" alt=\"\" /></a>' +
+                        '<a class=\"image\"><img src=\"/img/small/'+obj.product_images['filename']+'\" alt=\"\" /></a>' +
                         '<div class=\"content\">' +
                         '<a class=\"title\" href=\"#\">'+ obj.product['product_name'] +'</a>' +
-                        '<div class=\"quantity\">Quantity: '+ obj.qty + ' | Size: '+size_name+'</div>' +
+                        '<div class=\"quantity\">Quantity: '+ obj.qty + ' | Size: '+obj.sizenames['name']+'</div>' +
                         '<div class=\"price\">'+ html_price +'</div>' +
                         '</div></div>');
                         /*$('#cart-item-container').append('<div class=\"cart-entry\">');

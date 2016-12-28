@@ -31,15 +31,33 @@ class Cart extends Model
     /**
      * Get all of the product_images for the product.
      */
-    public function ProductImages()
+/*    public function ProductImages()
     {
         return $this->hasManyThrough('App\ProductImage', 'App\Product',
             'id', 'product_id', 'id')->where('product_images.featured', 1);
+    }*/
+
+
+    /**
+     * A picture belong to a cart
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function ProductImages()
+    {
+        return $this->belongsTo('App\ProductImage', 'product_id');
     }
 
+
+    /**
+     * A size belong to a cart
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function sizenames()
     {
-        return $this->hasManyThrough('App\Size', 'App\Product', 'id', 'id', 'id');
+        return $this->belongsTo('App\Size', 'size_id');
     }
+
 
 }

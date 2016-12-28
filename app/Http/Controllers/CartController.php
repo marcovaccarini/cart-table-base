@@ -88,14 +88,30 @@ class CartController extends Controller
             ->get();
 
         $total=0;
+
         foreach($cart_items as $item){
             $total+=($item->product->price - ($item->product->price/100)*$item->product->custom_discount)*$item->qty;
-            
-            $subCategory = Category::where('id', '=', $item->product->category_id);
+
+            $subCategory = Category::where('id', '=', $item->product->category_id)->firstOrFail();
             $subCategorySlug = $subCategory->slug;
+            $subCategoryId = $subCategory->id;
+//            dd($subCategoryId);
+
+            $category = Category::where('id', '=', $subCategoryId)->firstOrFail();
+            $categorySlug = $category->slug;
+            $categoryId = $category->parent_id;
 
 
-            //$path = $mainCategorySlug.'/'.$categorySlug.'/'.$subCategorySlug.'/'.$item->product->slug;
+            $mainCategory = Category::where('id', '=', $categoryId)->firstOrFail();
+            $mainCategorySlug = $mainCategory->slug;
+
+            $path = '/'.$mainCategorySlug.'/'.$categorySlug.'/'.$subCategorySlug.'/'.$item->product->slug.'/';
+
+            $cart_items->map(function ($cart_item) use ($path) {
+                $cart_item['path'] = $path;
+
+                return $cart_item;
+            });
         }
 
         //return $cart_items->toJson();

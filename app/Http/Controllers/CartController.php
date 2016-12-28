@@ -86,8 +86,17 @@ class CartController extends Controller
             ->orderBy('updated_at', 'desc')
             ->get()->toJson();
 
-        return $cart_items;
+
+
+
+        $total=0;
+        foreach($cart_items as $item){
+          //  $total+=$item->product->price;
+        }
+
+        return [$cart_items, 'total'=>$total];
        // dd($cart);
+        //  TODO make total cart
 
     }
 

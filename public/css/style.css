@@ -456,7 +456,8 @@ body:not(.mobile) .socials-box a:hover .fa{top: -5px;}
 .search-box.popup:before{width: 28px; height: 15px; position: absolute; content: ""; background: url(../img/search-angle.png); top: -15px; right: 30px;}
 .search-box.popup.bottom-align:before{transform: rotate(180deg); -moz-transform: rotate(180deg); -webkit-transform: rotate(180deg); -ms-transform: rotate(180deg); top: 100%;}
 .cart-box.popup{position: fixed; padding: 15px 0 0 0; width: 300px;}
-.cart-box.popup .popup-container{border: 2px #ebebeb solid; padding: 25px 25px 20px 25px; background: #fff; position: relative;}
+.cart-box.popup .popup-container{border: 2px #ebebeb solid; padding: 25px 0px 20px 25px; background: #fff; position: relative;}
+.cart-box.popup #cart-item-container{height:300px;overflow:scroll;overflow-y:scroll;overflow-x:hidden;}
 .cart-box.popup .image{float: left; width: 70px;}
 .cart-box.popup .image img{display: block; width: 100%; height: auto;}
 .cart-box.popup .cart-entry{padding-bottom: 25px; margin-bottom: 25px; border-bottom: 2px #ebebeb solid; position: relative;}
@@ -465,10 +466,11 @@ body:not(.mobile) .socials-box a:hover .fa{top: -5px;}
 .cart-box.popup .content .title:hover{text-decoration: underline;}
 .cart-box.popup .content .quantity{font-size: 13px; line-height: 24px; color: #808080; margin-bottom: 3px;}
 .cart-box.popup .content .price{font-size: 18px; line-height: 24px; color: #e11414; font-weight: 600;}
-.cart-box.popup .summary{text-align: right; margin-bottom: 25px;}
+.cart-box.popup .summary{text-align: right; margin-bottom: 25px;margin-right: 25px;margin-top: 15px;}
 .cart-box.popup .summary .subtotal{font-size: 14px; line-height: 22px; color: #878787; font-weight: 600;}
 .cart-box.popup .summary .grandtotal{font-size: 18px; line-height: 22px; color: #343434; font-weight: 600;}
 .cart-box.popup .summary .grandtotal span{color: #e11414;}
+.cart-buttons{padding-right: 25px;}
 .cart-buttons .column{width: 50%; padding-left: 5px; float: left;}
 .cart-buttons .column:first-child{padding-left: 0; padding-right: 5px;}
 .cart-buttons .button{display: block; margin-bottom: 5px;}

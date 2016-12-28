@@ -791,11 +791,13 @@ var product_pics, size_name, html_price;
                         '<div class=\"quantity\">Quantity: '+ obj.qty + ' | Size: '+obj.sizenames['name']+'</div>' +
                         '<div class=\"price\">'+ html_price +'</div>' +
                         '</div></div>');
+                    //  TODO implement category and subcategory slug on the CartController
+                    //  TODO popup cart and modal animation
                         /*$('#cart-item-container').append('<div class=\"cart-entry\">');
                             $.each(obj.product_images, function(idx, filenames) {
                                 $('#cart-item-container').append('<a class=\"image\"><img src=\"/img/small/'+filenames.filename+'\" alt=\"\" /></a>');
                             });
-                            // TODO implement category and subcategory slug on the CartController
+
                             $('#cart-item-container').append('<div class=\"content\">');
                                 $('#cart-item-container').append('<a class=\"title\" href=\"#\">'+ obj.product['product_name'] +'</a>');
                                 $('#cart-item-container').append('<div class=\"quantity\">Quantity: '+ obj.qty + ' | Size: ');

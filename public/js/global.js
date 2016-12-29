@@ -774,9 +774,9 @@ var product_pics, size_name, html_price;
                     }
 
                     $('#cart-item-container').append('<div class=\"cart-entry\">' +
-                        '<a class=\"image\"><img src=\"/img/small/'+obj.product_images['filename']+'\" alt=\"\" /></a>' +
+                        '<a class=\"image\" href=\"'+obj.path+'\"><img src=\"/img/small/'+obj.product_images['filename']+'\" alt=\"\" /></a>' +
                         '<div class=\"content\">' +
-                        '<a class=\"title\" href=\"#\">'+ obj.product['product_name'] +'</a>' +
+                        '<a class=\"title\" href=\"'+obj.path+'\">'+ obj.product['product_name'] +'</a>' +
                         '<div class=\"quantity\">Quantity: '+ obj.qty + ' | Size: '+obj.sizenames['name']+'</div>' +
                         '<div class=\"price\">'+ html_price +'</div>' +
                         '</div></div>');

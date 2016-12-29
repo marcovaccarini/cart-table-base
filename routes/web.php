@@ -27,4 +27,4 @@ Route::pattern('categorySlug', '[a-z\-]+');
 Route::pattern('subCategorySlug', '[a-z\-]+');
 Route::pattern('productSlug', '[a-z\-]+');
 
-//Route::get('/{mainCategorySlug}/{categorySlug}/{subCategorySlug}/{productSlug}', 'ProductController@show');
+Route::get('/{mainCategorySlug}/{categorySlug}/{subCategorySlug}/{productSlug}', 'ProductController@show');

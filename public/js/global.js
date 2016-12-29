@@ -723,7 +723,7 @@ $(function() {
     /*===========================*/
 
    urlToCart = "cart";
-var product_pics, size_name, html_price;
+var product_pics, size_name, html_price, cart_qty;
     $("#btn-add-to-cart").click(function (e) {
         $.ajaxSetup({
             headers: {
@@ -762,6 +762,7 @@ var product_pics, size_name, html_price;
             .done(function(data){
                 console.log(data);
                 //$('.cart-entry').remove();
+cart_qty = 0;
                 $("#cart-item-container").html("");
                 $.each(data[0], function(id, obj) {
 
@@ -785,32 +786,12 @@ var product_pics, size_name, html_price;
 
                     //  TODO popup cart and modal animation
                     //  TODO add number of item in the cart
-                        /*$('#cart-item-container').append('<div class=\"cart-entry\">');
-                            $.each(obj.product_images, function(idx, filenames) {
-                                $('#cart-item-container').append('<a class=\"image\"><img src=\"/img/small/'+filenames.filename+'\" alt=\"\" /></a>');
-                            });
-
-                            $('#cart-item-container').append('<div class=\"content\">');
-                                $('#cart-item-container').append('<a class=\"title\" href=\"#\">'+ obj.product['product_name'] +'</a>');
-                                $('#cart-item-container').append('<div class=\"quantity\">Quantity: '+ obj.qty + ' | Size: ');
-                                $.each(obj.sizenames, function(id, sizename) {
-                                    $('#cart-item-container').append(sizename.name);
-                                });
-
-                            $('#cart-item-container').append('</div><div class=\"price\">');
-                            if (obj.product['custom_discount']) {
-                                var current = obj.product['price'] - (obj.product['price']/100)*obj.product['custom_discount']
-                                $('#cart-item-container').append('<div class=\"prev\">$'+ obj.product['price'] +'</div>');
-                                $('#cart-item-container').append('<div class=\"current\">$'+ current +'</div>');
-                            }
-                            else {
-                                $('#cart-item-container').append('<div class=\"current\">$'+ obj.product['price'] +'</div>');
-                            }
-                        $('#cart-item-container').append('</div></div>');*/
+                        cart_qty += obj.qty;
 
                     });
                 $('#cart_total').html('');
                 $('#cart_total').append('<div class=\"grandtotal\">Total <span>$'+ parseFloat(data['total']).toFixed(2)+'</span></div>');
+                $('#cart_qty').html(cart_qty);
 
 
             })

@@ -64,14 +64,14 @@ class CartController extends Controller
 
         }
 
+
         $count = Cart::where('product_id', '=', $product_id)->where('size_id', '=', $size_id)->where('cart_id', '=', $cart_id)->count();
 
         if($count) {
 
-            $item = Cart::where('cart_id', '=', $cart_id)->firstOrFail();
-            //dd($item->qty + $qty);
+            $item = Cart::where('product_id', '=', $product_id)->where('size_id', '=', $size_id)->where('cart_id', '=', $cart_id)->firstOrFail();
+
             $itemNow = $item->increment('qty', $qty);
-            //Cart::update($cart_id, $item->qty + $qty);
 
         }
         else{

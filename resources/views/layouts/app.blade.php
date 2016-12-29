@@ -387,7 +387,7 @@
                                         <li class="fixed-header-visible">
                                             <a class="fixed-header-square-button open-search-popup"><i class="fa fa-search"></i></a>
                                             <a class="fixed-header-square-button"><i class="fa fa-heart-o"></i> (2)</a>
-                                            <a class="fixed-header-square-button open-cart-popup"><i class="fa fa-shopping-cart"></i> <span> (5)</span></a>
+                                            <a class="fixed-header-square-button open-cart-popup"><i class="fa fa-shopping-cart"></i> <span id="cart_qty"> (5)</span></a>
                                         </li>
                                     </ul>
 

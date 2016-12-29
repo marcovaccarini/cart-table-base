@@ -782,7 +782,7 @@ var product_pics, size_name, html_price;
                         '</div></div>');
 
 
-                    //  TODO implement category and subcategory slug on the CartController
+
                     //  TODO popup cart and modal animation
                     //  TODO add number of item in the cart
                         /*$('#cart-item-container').append('<div class=\"cart-entry\">');

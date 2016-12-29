@@ -67,10 +67,14 @@ class CartController extends Controller
         $count = Cart::where('product_id', '=', $product_id)->where('size_id', '=', $size_id)->where('cart_id', '=', $cart_id)->count();
 
         if($count) {
-           // return redirect('products')->with('errors', 'The product is already in your cart!');
-            //return 'The product is already in your cart!';
-            //  TODO update the cart
+
+            $item = Cart::where('cart_id', '=', $cart_id)->firstOrFail();
+            //dd($item->qty + $qty);
+            $itemNow = $item->increment('qty', $qty);
+            //Cart::update($cart_id, $item->qty + $qty);
+
         }
+        else{
 
         // user_id is really necessary here?
         Cart::create([
@@ -79,7 +83,7 @@ class CartController extends Controller
             'size_id' => $size_id,
             'qty' => $qty,
         ]);
-
+        }
         $cart_items = Cart::where('cart_id', '=', $cart_id)
             ->with('product')
             ->with('ProductImages')
@@ -96,12 +100,10 @@ class CartController extends Controller
             $subCategorySlug = $subCategory->slug;
             $subCategoryId = $subCategory->id;
             $subCategoryId_parent = $subCategory->parent_id;
-//            dd($subCategoryId);
 
             $category = Category::where('id', '=', $subCategoryId_parent)->firstOrFail();
             $categorySlug = $category->slug;
             $categoryId = $category->parent_id;
-
 
             $mainCategory = Category::where('id', '=', $categoryId)->firstOrFail();
             $mainCategorySlug = $mainCategory->slug;
@@ -110,16 +112,11 @@ class CartController extends Controller
 
             $cart_items->map(function ($cart_item) use ($path) {
                 $cart_item['path'] = $path;
-
                 return $cart_item;
             });
         }
 
-        //return $cart_items->toJson();
         return [$cart_items, 'total'=>$total];
-
-       // dd($cart);
-        //  TODO make total cart
 
     }
 

@@ -376,6 +376,8 @@ $(function() {
     });
 
     /*cart popup*/
+
+    
     $('.open-cart-popup').on('mouseover', function(e){
         clearTimeout(closecartTimeout);
 
@@ -407,6 +409,7 @@ $(function() {
 
     function closePopups(){
         $('.popup.active').animate({'opacity':'0'}, 300, function(){$(this).removeClass('active'); $('.cart-box').removeClass('cart-left cart-right');});
+
     }
 
     /*main menu mouseover calculations*/
@@ -547,7 +550,7 @@ $(function() {
             swipers['swiper-swiper-unique-id-4'].removeAllSlides();
 
 
-            showPopup($('#product-popup'));
+            showPopup($('#product-popup').animate({'opacity':'100'}));
 
 
 
@@ -784,14 +787,53 @@ cart_qty = 0;
 
 
 
-                    //  TODO popup cart and modal animation
-                    //  TODO add number of item in the cart
+
+
                         cart_qty += obj.qty;
 
                     });
                 $('#cart_total').html('');
                 $('#cart_total').append('<div class=\"grandtotal\">Total <span>$'+ parseFloat(data['total']).toFixed(2)+'</span></div>');
                 $('#cart_qty').html(cart_qty);
+
+                //  close the modal and open cart
+                $('#product-popup.active').animate({'opacity':'0'}, 300, function(){
+                    $(this).removeClass('active');
+                    $('#product-popup').removeClass('visible');
+
+                });
+
+                // open cart popup
+                clearTimeout(closecartTimeout);
+
+                if(!$('.cart-box.popup').hasClass('active')){
+                    e.preventDefault();
+                    closePopups();
+
+                    if($('.open-cart-popup').offset().left>winW*0.5){
+                        $('.cart-box.popup').addClass('active cart-right').css({'left':'auto', 'right':winW - $('.open-cart-popup').offset().left-$('.open-cart-popup').outerWidth()*0.5-47, 'top':$('.open-cart-popup').offset().top-winScr+15, 'opacity':'0'}).stop().animate({'opacity':'1'}, 500);
+
+                    }
+                    else{
+                        $('.cart-box.popup').addClass('active cart-left').css({'right':'auto', 'left':$('.open-cart-popup').offset().left, 'top':$('.open-cart-popup').offset().top-winScr+15, 'opacity':'0'}).stop().animate({'opacity':'1'}, 500);
+
+                    }
+                    closecartTimeout = setTimeout(function(){closePopups();}, 3000);
+
+                }
+
+                //  TODO popup cart and modal animation
+
+
+                //$(".cart-entry:first-child").addClass('animated bounceOutLeft infinite');
+                $('.cart-entry:first-child').css({'opacity':'0'}).stop().animate({'opacity':'1'}, 1000);
+
+
+
+
+
+
+
 
 
             })

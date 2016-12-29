@@ -383,6 +383,9 @@ $(function() {
 
         if(!$('.cart-box.popup').hasClass('active')){
             closePopups();
+            
+            $(".cart-entry:first-child").removeClass('animated');
+
             if($(this).offset().left>winW*0.5){
                 $('.cart-box.popup').addClass('active cart-right').css({'left':'auto', 'right':winW - $(this).offset().left-$(this).outerWidth()*0.5-47, 'top':$(this).offset().top-winScr+15, 'opacity':'0'}).stop().animate({'opacity':'1'}, 300);
             }
@@ -825,8 +828,8 @@ cart_qty = 0;
                 //  TODO popup cart and modal animation
 
 
-                //$(".cart-entry:first-child").addClass('animated bounceOutLeft infinite');
-                $('.cart-entry:first-child').css({'opacity':'0'}).stop().animate({'opacity':'1'}, 1000);
+                $(".cart-entry:first-child").addClass('animated bounceIn');
+                //$('.cart-entry:first-child').css({'opacity':'0'}).stop().animate({'opacity':'1'}, 1000);
 
 
 

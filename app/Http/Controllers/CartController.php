@@ -95,9 +95,10 @@ class CartController extends Controller
             $subCategory = Category::where('id', '=', $item->product->category_id)->firstOrFail();
             $subCategorySlug = $subCategory->slug;
             $subCategoryId = $subCategory->id;
+            $subCategoryId_parent = $subCategory->parent_id;
 //            dd($subCategoryId);
 
-            $category = Category::where('id', '=', $subCategoryId)->firstOrFail();
+            $category = Category::where('id', '=', $subCategoryId_parent)->firstOrFail();
             $categorySlug = $category->slug;
             $categoryId = $category->parent_id;
 

@@ -897,8 +897,12 @@ cart_qty = 0;
 
                     $('#cart_qty').html('('+ total_cart_qty +')');
 
-                    total_item = 0;
-                    //$("#cart-item-container").html("");
+                    var total_cart = parseFloat($('.main').text().replace('$',''), 10);
+
+                    var current = parseFloat($( '#'+id ).parent('div').prev('div').find('.current').text().replace('$',''), 10);
+
+                    total_cart = total_cart + current;
+                    $('.main').html('$'+ total_cart);
                 }
             }
 
@@ -941,13 +945,20 @@ cart_qty = 0;
 
                 if(xhr.status == 200){
                     var total_cart_qty = parseInt($('#cart_qty').text().replace(/\D/g,''), 10);
-
                     --total_cart_qty;
-
                     $('#cart_qty').html('('+ total_cart_qty +')');
 
-                    total_item = 0;
-                  //  $("#cart-item-container").html("");
+                    //  TODO: edit the partial total of a single row
+
+                    var total_cart = parseFloat($('.main').text().replace('$',''), 10);
+
+                    //  TODO: divide current by the quantity
+                    var current = parseFloat($( '#'+id ).parent('div').prev('div').find('.current').text().replace('$',''), 10);
+
+
+                    total_cart = total_cart - current;
+                    $('.main').html('$'+ total_cart);
+
                 }
             }
 

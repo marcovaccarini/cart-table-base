@@ -529,7 +529,13 @@ $(function() {
 
     $('.number-minus').on('click', function(){
         var divUpd = $(this).parent().find('.number'), newVal = parseInt(divUpd.text(), 10)-1;
-        if(newVal>=1) divUpd.text(newVal);
+        if(newVal>=1) {
+            divUpd.text(newVal);
+        }
+        else
+        {
+            e.prevent.default;
+        }
     });
 
     //accordeon
@@ -728,6 +734,8 @@ $(function() {
     /* 09 - submit form via AJAX */
     /*===========================*/
 
+    //  TODO: delete a cart item
+
     //product page - selecting size, quantity, color
     $('.size-selector .entry').on('click', function(){
         $(this).parent().find('.active').removeClass('active');
@@ -783,16 +791,15 @@ cart_qty = 0;
                 total = 0;
                 $("#cart-item-container").html("");
                 $.each(data, function(idc, obj) {
-
+                    var total_item = parseFloat(obj.product['price'] - (obj.product['price']/100)*obj.product['custom_discount']*obj.qty).toFixed(2);
                     if (obj.product['custom_discount']) {
-                        var current = obj.product['price'] - (obj.product['price']/100)*obj.product['custom_discount']
-                        html_price = '<div class=\"prev\">$'+obj.product['price']*obj.qty +'</div> <div class=\"current\">$'+ parseFloat(obj.qty*current).toFixed(2) +'</div>';
+                        html_price = '<div class=\"prev\">$'+obj.product['price']*obj.qty +'</div> <div class=\"current\">$'+ total_item +'</div>';
                     }
                     else {
-                        html_price = '<div class=\"current\">$'+ obj.product['price'] +'</div>';
+                        html_price = '<div class=\"current\">$'+ total_item +'</div>';
                     }
 
-                    $('#cart-item-container').append('<div class=\"cart-entry\">' +
+                    $('#cart-item-container').append('<div class=\"cart-entry\" data-custom_discount=\"'+obj.product['custom_discount']+'\" data-price=\"'+obj.price+'\" data-id=\"'+obj.id+'\" data-total_item=\"'+total_item+'\">' +
                         '<a class=\"image\" href=\"'+obj.product.path+'\"><img src=\"/img/small/'+obj.product_images['filename']+'\" alt=\"\" /></a>' +
                         '<div class=\"content\">' +
                         '<a class=\"title\" href=\"'+obj.product.path+'\">'+ obj.product['product_name'] +'</a>' +
@@ -844,9 +851,72 @@ cart_qty = 0;
 
                 $(".cart-entry:first-child").addClass('animated bounceIn');
 
+            })
+
+            .fail(function(jqXHR){
+                console.log('Text: ' + jqXHR.responseText);
+              //  alert('Json Request Failed...');
+                //  TODO: make better error response
+            });
+
+    });
+
+
+    var Id, increment, decrement, total_item, entry_to_edit, total_cart_qty;
+
+    $(".number-plus").click(function (e) {
+        var id = $(this).attr('id'); // $(this) refers to button that was clicked
+
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        e.preventDefault();
+
+        increment = 1;
+        var formData = {
+
+            id,
+            increment,
+
+        }
+
+        console.log(formData);
+
+        $.ajax({
+            url: '/cart/'+id+'/edit/',
+            type: 'GET',
+            data: formData,
+            dataType: 'json',
+
+        })
+
+            .done(function(data){
+                //console.log(data);
+
+                var total_cart_qty = parseInt($('#cart_qty').text().replace(/\D/g,''), 10);
+
+                ++total_cart_qty;
+
+                $('#cart_qty').html('('+ total_cart_qty +')');
+
+                total_item = 0;
+                $("#cart-item-container").html("");
 
 
 
+
+
+
+
+
+                // qty not needed because only need to add the price of one quantity to the total
+                //  change the total value
+                $('#cart_total').html('');
+
+                $('#cart_total').append('<div class=\"grandtotal\">Total <span>$'+ parseFloat(total).toFixed(2)+'</span></div>');
 
 
 
@@ -857,7 +927,78 @@ cart_qty = 0;
 
             .fail(function(jqXHR){
                 console.log('Text: ' + jqXHR.responseText);
-                alert('Json Request Failed...');
+               // alert('Json Request Failed...');
+                //  TODO: make better error response
+            });
+
+    });
+
+
+
+
+    $(".number-minus").click(function (e) {
+        var id = $(this).attr('id'); // $(this) refers to button that was clicked
+
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        e.preventDefault();
+
+        decrement = 1;
+        var formData = {
+
+            id,
+            decrement,
+
+        }
+
+      //  console.log(formData);
+
+        $.ajax({
+            url: '/cart/'+id+'/edit/',
+            type: 'GET',
+            data: formData,
+            dataType: 'json',
+
+        })
+
+            .done(function(data){
+                console.log(data);
+
+
+                var total_cart_qty = parseInt($('#cart_qty').text().replace(/\D/g,''), 10);
+                --total_cart_qty;
+                $('#cart_qty').html('('+total_cart_qty+')');
+
+                total_item = 0;
+                $("#cart-item-container").html("");
+
+                entry_to_edit = $('.cart-entry').attr("data-id='+Id+'");
+
+
+                // qty not needed because only need to add the price of one quantity to the total
+                //  change the total value
+                $('#cart_total').html('');
+
+                $('#cart_total').append('<div class=\"grandtotal\">Total <span>$'+ parseFloat(total).toFixed(2)+'</span></div>');
+
+                //  close the modal and open cart
+                $('#product-popup.active').animate({'opacity':'0'}, 300, function(){
+                    $(this).removeClass('active');
+                    $('#product-popup').removeClass('visible');
+
+                });
+
+
+
+            })
+
+            .fail(function(jqXHR){
+             //   console.log('Text: ' + jqXHR.responseText);
+              //  alert('Json Request Failed...');
                 //  TODO: make better error response
             });
 

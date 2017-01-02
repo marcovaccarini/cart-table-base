@@ -1,7 +1,7 @@
 <div class="popup-container">
     <div id="cart-item-container">
         @forelse($latest as $cart_item)
-            <div class="cart-entry">
+            <div class="cart-entry" data-custom_discount="{{$cart_item->product->custom_discount}}" data-price="{{$cart_item->product->price}}" data-id="{{$cart_item->id}}" data-total_item="{{number_format(($cart_item->product->price - (($cart_item->product->price/100) * $cart_item->product->custom_discount))*$cart_item->qty, 2)}}">
                 <a href="{{$cart_item->product->path}}" class="image"><img src="/img/small/{{$cart_item->ProductImages->filename}}" alt="" /></a>
                 <div class="content">
                     <a class="title" href="{{$cart_item->product->path}}">{{$cart_item->product->product_name}}</a>

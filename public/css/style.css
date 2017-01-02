@@ -148,7 +148,7 @@ body{font-family: 'Raleway', sans-serif; font-weight: 400; font-size: 14px; line
 .button.style-9{border-color: rgba(255,255,255,0.5);}
 .button.style-1:hover, .button.style-9:hover{background: #fff; border: 2px transparent solid;}
 .button.style-2:hover{background: #fff;}
-.button.style-3{font-size: 20px; line-height: 16px; font-weight: 700; color: #333232; text-transform: uppercase; background: #f0f0f0; display: inline-block; text-align: center; border: 2px #f0f0f0 solid; padding: 6px 10px; min-width: 0;}
+.button.style-3{font-size: 12px; line-height: 16px; font-weight: 700; color: #333232; text-transform: uppercase; background: #f0f0f0; display: inline-block; text-align: center; border: 2px #f0f0f0 solid; padding: 10px 5px; min-width: 0;}
 .button.style-4{font-size: 12px; line-height: 16px; font-weight: 700; color: #fff; text-transform: uppercase; background: #ca1515; display: inline-block; text-align: center; border: 2px #ca1515 solid; padding: 10px 5px; min-width: 0;}
 .button.style-3:hover, .button.style-4:hover{background: transparent!important; color: #333232!important;}
 .button.style-5{border-color: #fff; background: #fff;}

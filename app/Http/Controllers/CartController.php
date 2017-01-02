@@ -137,9 +137,30 @@ class CartController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
-        //
+        //  retrieve the card_id from cookie
+        $cart_id = $request->cookie('cart_id');
+
+        $item = Cart::where('id', '=', $id)->where('cart_id', '=', $cart_id)->firstOrFail();
+
+        if (Input::get('id') && (Input::get('increment')) == 1) {
+
+            $item->qty = $item->qty + 1;
+
+        }
+
+        //decrease the quantity
+        if (Input::get('id') && (Input::get('decrement')) == 1) {
+
+            $item->qty = $item->qty - 1;
+
+        }
+
+        $item->save();
+
+        return $item->toJson();
+
     }
 
     /**
@@ -151,7 +172,9 @@ class CartController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
+
+
     }
 
     /**

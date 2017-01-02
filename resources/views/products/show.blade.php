@@ -106,10 +106,16 @@
                                     <div class="current">${{ $product->price }}</div>
                                 @endif
                             </div>
-                            <div class="size-selector detail-info-entry">
+                            <form novalidate="" method="post">
+                                <input type="hidden" id="product_id" name="product_id" value="{{$product->id}}" />
+                            <div class="size-selector detail-info-entry" id="sizes">
                                 <div class="detail-info-entry-title">Size</div>
+                                <div class="message-box message-danger" id="size-error" style="display:none;">
+                                    {{--<div class="message-icon"><i class="fa fa-times"></i></div>--}}
+                                    <div class="message-text text-center"><b> Please select a size! </b></div>
+                                </div>
                                 @foreach($product->sizes as $size)
-                                    <div class="entry {{--@if ($loop->first)
+                                    <div class="entry" data-sizeid="{{$size->id}}"  {{--@if ($loop->first)
                                             active
                                         @endif--}}">{{$size->name}}</div>
                                 @endforeach
@@ -131,14 +137,15 @@
                             <div class="quantity-selector detail-info-entry">
                                 <div class="detail-info-entry-title">Quantity</div>
                                 <div class="entry number-minus">&nbsp;</div>
-                                <div class="entry number">1</div>
+                                <div id="qty" class="entry number">1</div>
                                 <div class="entry number-plus">&nbsp;</div>
                             </div>
                             <div class="detail-info-entry">
-                                <a class="button style-10">Add to cart</a>
+                                <a class="button style-10" id="btn-add-to-cart">Add to cart</a>
                                 <a class="button style-11"><i class="fa fa-heart"></i> Add to Wishlist</a>
                                 <div class="clear"></div>
                             </div>
+                            </form>
                             <div class="tags-selector detail-info-entry">
                                 <div class="detail-info-entry-title">Tags:</div>
                                 @foreach($product->tags as $tag)

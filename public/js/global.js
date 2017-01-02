@@ -383,7 +383,7 @@ $(function() {
 
         if(!$('.cart-box.popup').hasClass('active')){
             closePopups();
-            
+
             $(".cart-entry:first-child").removeClass('animated');
 
             if($(this).offset().left>winW*0.5){
@@ -728,9 +728,19 @@ $(function() {
     /* 09 - submit form via AJAX */
     /*===========================*/
 
+    //product page - selecting size, quantity, color
+    $('.size-selector .entry').on('click', function(){
+        $(this).parent().find('.active').removeClass('active');
+        $(this).addClass('active');
+        $('#size-error').hide();
+    });
+
    urlToCart = "cart";
-var product_pics, size_name, html_price, cart_qty;
+var product_pics, size_name, html_price, cart_qty, total;
     $("#btn-add-to-cart").click(function (e) {
+
+
+
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -739,6 +749,7 @@ var product_pics, size_name, html_price, cart_qty;
         e.preventDefault();
 
         sizeId = $('#sizes').parent().find('.active').attr("data-sizeid");
+
         if (isNaN(sizeId)) {
             $('#size-error').show();
             return false;
@@ -758,7 +769,7 @@ var product_pics, size_name, html_price, cart_qty;
 
 
         $.ajax({
-            url: 'cart',
+            url: '/cart',
             type: 'POST',
             data: formData,
             dataType: 'json',
@@ -769,8 +780,9 @@ var product_pics, size_name, html_price, cart_qty;
                 console.log(data);
                 //$('.cart-entry').remove();
 cart_qty = 0;
+                total = 0;
                 $("#cart-item-container").html("");
-                $.each(data[0], function(id, obj) {
+                $.each(data, function(idc, obj) {
 
                     if (obj.product['custom_discount']) {
                         var current = obj.product['price'] - (obj.product['price']/100)*obj.product['custom_discount']
@@ -781,23 +793,25 @@ cart_qty = 0;
                     }
 
                     $('#cart-item-container').append('<div class=\"cart-entry\">' +
-                        '<a class=\"image\" href=\"'+obj.path+'\"><img src=\"/img/small/'+obj.product_images['filename']+'\" alt=\"\" /></a>' +
+                        '<a class=\"image\" href=\"'+obj.product.path+'\"><img src=\"/img/small/'+obj.product_images['filename']+'\" alt=\"\" /></a>' +
                         '<div class=\"content\">' +
-                        '<a class=\"title\" href=\"'+obj.path+'\">'+ obj.product['product_name'] +'</a>' +
+                        '<a class=\"title\" href=\"'+obj.product.path+'\">'+ obj.product['product_name'] +'</a>' +
                         '<div class=\"quantity\">Quantity: '+ obj.qty + ' | Size: '+obj.sizenames['name']+'</div>' +
                         '<div class=\"price\">'+ html_price +'</div>' +
-                        '</div></div>');
+                        '</div><div class=\"button-x\"><i class=\"fa fa-trash\"></i></div></div>');
 
 
 
 
-
+                        total += obj.product['price'] - (obj.product['price']/100)*obj.product['custom_discount']*obj.qty;
+                    console.log(total);
                         cart_qty += obj.qty;
 
                     });
                 $('#cart_total').html('');
-                $('#cart_total').append('<div class=\"grandtotal\">Total <span>$'+ parseFloat(data['total']).toFixed(2)+'</span></div>');
-                $('#cart_qty').html(cart_qty);
+
+                $('#cart_total').append('<div class=\"grandtotal\">Total <span>$'+ parseFloat(total).toFixed(2)+'</span></div>');
+                $('#cart_qty').html('('+cart_qty+')');
 
                 //  close the modal and open cart
                 $('#product-popup.active').animate({'opacity':'0'}, 300, function(){
@@ -821,15 +835,15 @@ cart_qty = 0;
                         $('.cart-box.popup').addClass('active cart-left').css({'right':'auto', 'left':$('.open-cart-popup').offset().left, 'top':$('.open-cart-popup').offset().top-winScr+15, 'opacity':'0'}).stop().animate({'opacity':'1'}, 500);
 
                     }
-                    closecartTimeout = setTimeout(function(){closePopups();}, 3000);
+                    closecartTimeout = setTimeout(function(){closePopups();}, 4000);
 
                 }
 
-                //  TODO popup cart and modal animation
+
 
 
                 $(".cart-entry:first-child").addClass('animated bounceIn');
-                //$('.cart-entry:first-child').css({'opacity':'0'}).stop().animate({'opacity':'1'}, 1000);
+
 
 
 
@@ -840,9 +854,11 @@ cart_qty = 0;
 
 
             })
+
             .fail(function(jqXHR){
                 console.log('Text: ' + jqXHR.responseText);
                 alert('Json Request Failed...');
+                //  TODO: make better error response
             });
 
     });

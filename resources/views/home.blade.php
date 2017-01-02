@@ -204,13 +204,14 @@
                                                     @endif
 
                                                     <a class="top-line-a right"><i class="fa fa-heart"></i> wishlist</a>
-                                                    <a class="top-line-a left quick-view">view details <i class="fa fa-search-plus"></i></a>
+                                                    <a href="{{$newarrival->path}}" class="top-line-a left quick-view">view details <i class="fa fa-search-plus"></i></a>
                                                     <div class="bottom-line">
                                                         <a class="bottom-line-a"><i class="fa fa-shopping-cart"></i> Add to cart</a>
                                                     </div>
                                                 </div>
                                                 <a class="tag" href="#">{{$newarrival->category->title}}</a>
-                                                <a class="title" href="#">{{$newarrival->product_name}}</a>
+                                                {{--TODO: add link to category page--}}
+                                                <a class="title"  href="{{$newarrival->path}}">{{$newarrival->product_name}}</a>
                                                 <div class="price">
                                                     @if($newarrival->custom_discount != null)
                                                         <div class="prev">${{$newarrival->price}}</div> |

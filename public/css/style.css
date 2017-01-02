@@ -175,7 +175,7 @@ body{font-family: 'Raleway', sans-serif; font-weight: 400; font-size: 14px; line
 .button.style-18:hover{background: transparent;}
 .button.style-19{background: #ca1515; border-color: #ca1515; color: #fff;}
 .button.style-19:hover{background: transparent;}
-.button-x{font-size: 12px; line-height: 15px; width: 15px; text-align: center; color: #808080;}
+.button-x{font-size: 12px; line-height: 15px; width: 15px; text-align: center; color: #808080;margin-right: 5px}
 .button-x .fa{display: block; line-height: 15px;}
 /*overflow*/
 .overflow{overflow-y: auto; -webkit-overflow-scrolling: touch; -moz-overflow-scrolling: touch; -ms-overflow-scrolling: touch;}

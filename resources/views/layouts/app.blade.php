@@ -54,11 +54,13 @@
 </div>
 <div id="content-block">
     <!-- HEADER -->
+    {{--TODO: change the heigth of the header--}}
     <div class="position-center">
         <div class="header-wrapper style-5">
             <header class="type-2">
                 <div class="navigation-vertical-align">
                     <div class="cell-view logo-container">
+                        {{--TODO: change the logo in white--}}
                         <a id="logo" href="#"><img src="/img/logo.svg" alt="" /></a>
                     </div>
                     <div class="cell-view nav-container">
@@ -387,7 +389,12 @@
                                         <li class="fixed-header-visible">
                                             <a class="fixed-header-square-button open-search-popup"><i class="fa fa-search"></i></a>
                                             <a class="fixed-header-square-button"><i class="fa fa-heart-o"></i> (2)</a>
-                                            <a class="fixed-header-square-button open-cart-popup"><i class="fa fa-shopping-cart"></i> <span id="cart_qty"> (5)</span></a>
+                                            <a class="fixed-header-square-button open-cart-popup"><i class="fa fa-shopping-cart"></i>
+                                                @inject('count_items', 'App\Services\CartService')
+                                                <span id="cart_qty">
+                                                    ({{ $count_items->get_total_qty_cart() }})
+                                                </span>
+                                            </a>
                                         </li>
                                     </ul>
 
@@ -487,46 +494,9 @@
 
 <!-- MODAL FOR CART -->
 <div class="cart-box popup">
-    <div class="popup-container">
-        <div id="cart-item-container">
-            <div class="cart-entry">
-                <a class="image"><img src="//img/product-menu-1.jpg" alt="" /></a>
-                <div class="content">
-                    <a class="title" href="#">Pullover Batwing Sleeve Zigzag</a>
-                    <div class="quantity">Quantity: 4</div>
-                    <div class="price">
-                        <div class="prev">$16.86</div>
-                        <div class="current">$990,00</div>
-                    </div>
-                </div>
-                <div class="button-x"><i class="fa fa-close"></i></div>
-            </div>
-            <div class="cart-entry">
-                <a class="image"><img src="//img/product-menu-1_.jpg" alt="" /></a>
-                <div class="content">
-                    <a class="title" href="#">Pullover Batwing Sleeve Zigzag</a>
-                    <div class="quantity">Quantity: 4</div>
-                    <div class="price">$990,00</div>
-                </div>
-                <div class="button-x"><i class="fa fa-close"></i></div>
-            </div>
-        </div>
-        <div class="summary" id="cart_total">
-            {{--<div class="subtotal">Subtotal: $990,00</div>--}}
-            <div class="grandtotal">Total <span>$1029,79</span></div>
-        </div>
-        <div class="cart-buttons">
-            <div class="column">
-                <a class="button style-3">view cart</a>
-                <div class="clear"></div>
-            </div>
-            <div class="column">
-                <a class="button style-4">checkout</a>
-                <div class="clear"></div>
-            </div>
-            <div class="clear"></div>
-        </div>
-    </div>
+
+    @include ('partials.cart')
+
 </div>
 
 <!-- MODAL FOR PRODUCT -->

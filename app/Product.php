@@ -26,6 +26,14 @@ class Product extends Model
     ];
 
     /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+     protected $appends = ['path'];
+
+
+    /**
      * One product can have one category
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
@@ -102,6 +110,35 @@ class Product extends Model
         return $this->hasManyThrough('App\ProductImage', 'App\Product');
     }
 
+    /**
+     * Get the path for the product page.
+     *
+     * @return string
+     */
+
+
+    //  TODO: refactor this in one query and return a collation use this evrywhere
+    public function getPathAttribute()
+    {
+        //return $this->attributes['admin'] == 'yes';
+
+        $subCategory = Category::where('id', '=', $this->category_id)->firstOrFail();
+        $subCategorySlug = $subCategory->slug;
+        $subCategoryId = $subCategory->id;
+        $subCategoryId_parent = $subCategory->parent_id;
+
+        $category = Category::where('id', '=', $subCategoryId_parent)->firstOrFail();
+        $categorySlug = $category->slug;
+        $categoryId = $category->parent_id;
+
+        $mainCategory = Category::where('id', '=', $categoryId)->firstOrFail();
+        $mainCategorySlug = $mainCategory->slug;
+
+        return '/'.$mainCategorySlug.'/'.$categorySlug.'/'.$subCategorySlug.'/'.$this->slug.'/';
+
+
+
+    }
 
 
 }

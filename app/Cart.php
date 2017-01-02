@@ -18,6 +18,9 @@ class Cart extends Model
         'qty',
     ];
 
+
+
+
     /**
      * A product belong to a cart
      *
@@ -58,6 +61,8 @@ class Cart extends Model
     {
         return $this->belongsTo('App\Size', 'size_id');
     }
+
+
 
 
 }

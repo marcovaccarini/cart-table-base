@@ -91,34 +91,22 @@ class CartController extends Controller
             ->orderBy('updated_at', 'desc')
             ->get();
 
+
+//  TODO try this ->get(array('id', 'desc', 'authorID'));
         $total=0;
 
-        foreach($cart_items as $item){
-            $total+=($item->product->price - ($item->product->price/100)*$item->product->custom_discount)*$item->qty;
+        //dd($cart_items);
 
-            $subCategory = Category::where('id', '=', $item->product->category_id)->firstOrFail();
-            $subCategorySlug = $subCategory->slug;
-            $subCategoryId = $subCategory->id;
-            $subCategoryId_parent = $subCategory->parent_id;
 
-            $category = Category::where('id', '=', $subCategoryId_parent)->firstOrFail();
-            $categorySlug = $category->slug;
-            $categoryId = $category->parent_id;
 
-            $mainCategory = Category::where('id', '=', $categoryId)->firstOrFail();
-            $mainCategorySlug = $mainCategory->slug;
 
-            $path = '/'.$mainCategorySlug.'/'.$categorySlug.'/'.$subCategorySlug.'/'.$item->product->slug.'/';
 
-            $cart_items->map(function ($cart_item) use ($path) {
-                $cart_item['path'] = $path;
-                return $cart_item;
-            });
-        }
 
-        return [$cart_items, 'total'=>$total];
+        return $cart_items;
 
     }
+
+
 
     /**
      * Display the specified resource.

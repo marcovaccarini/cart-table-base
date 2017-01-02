@@ -19,9 +19,21 @@ class CartController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+
+        //  retrieve the card_di from cookie
+        $cart_id = $request->cookie('cart_id');
+        $cart_items = Cart::where('cart_id', '=', $cart_id)
+            ->with('product')
+            ->with('ProductImages')
+            ->with('sizenames')
+            ->orderBy('updated_at', 'desc')
+            ->get();
+
+//dd($cart_items);
+        return view('cart.show', compact('cart_items'));
+
     }
 
     /**

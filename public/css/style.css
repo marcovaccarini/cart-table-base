@@ -148,7 +148,7 @@ body{font-family: 'Raleway', sans-serif; font-weight: 400; font-size: 14px; line
 .button.style-9{border-color: rgba(255,255,255,0.5);}
 .button.style-1:hover, .button.style-9:hover{background: #fff; border: 2px transparent solid;}
 .button.style-2:hover{background: #fff;}
-.button.style-3{font-size: 12px; line-height: 16px; font-weight: 700; color: #333232; text-transform: uppercase; background: #f0f0f0; display: inline-block; text-align: center; border: 2px #f0f0f0 solid; padding: 10px 5px; min-width: 0;}
+.button.style-3{font-size: 20px; line-height: 16px; font-weight: 700; color: #333232; text-transform: uppercase; background: #f0f0f0; display: inline-block; text-align: center; border: 2px #f0f0f0 solid; padding: 6px 10px; min-width: 0;}
 .button.style-4{font-size: 12px; line-height: 16px; font-weight: 700; color: #fff; text-transform: uppercase; background: #ca1515; display: inline-block; text-align: center; border: 2px #ca1515 solid; padding: 10px 5px; min-width: 0;}
 .button.style-3:hover, .button.style-4:hover{background: transparent!important; color: #333232!important;}
 .button.style-5{border-color: #fff; background: #fff;}
@@ -166,8 +166,11 @@ body{font-family: 'Raleway', sans-serif; font-weight: 400; font-size: 14px; line
 .button.style-12{border-color: #ca1515; background: #ca1515;}
 .button.style-14{border-color: #272727; background: #272727; font-size: 12px; color: #fff; font-weight: 600; line-height: 16px; padding: 10px 20px; min-width: 0;}
 .button.style-14:hover{background: transparent; color: #272727;}
-.button.style-15, .button.style-16, .button.style-15, .button.style-17{border: 1px #e0e0e0 solid; font-size: 12px; font-weight: 700; line-height: 17px; padding: 9px 18px; background: #fff; color: #2e2e2e; min-width: 0;}
-.button.style-16, .button.style-15:hover{background: #f0f0f0; border-color: #f0f0f0;}
+.button.style-15, .button.style-16, .button.style-15, .button.style-17, .button.style-20{border: 1px #e0e0e0 solid; font-size: 12px; font-weight: 700; line-height: 17px; padding: 9px 18px; background: #fff; color: #2e2e2e; min-width: 0;}
+.button.style-20{font-size: 21px; font-weight: 700; line-height: 20px; padding: 4px 18px;height: 36px;}
+.button.style-20>.fa{margin: 0;padding: 0;}
+
+.button.style-16, .button.style-15:hover, .button.style-20:hover{background: #f0f0f0; border-color: #f0f0f0;}
 .button.style-16:hover{background: #fff; border-color: #e0e0e0;}
 .button.style-17{border-color: #000; background: #000; color: #fff; width: 100%;}
 .button.style-17:hover{background: transparent; color: #ca1515;}
@@ -2393,7 +2396,7 @@ select{background: #fff!important;}
 .traditional-cart-entry .cell-view{height: 95px;}
 .traditional-cart-entry .tag{font-size: 10px; line-height: 10px; color: #8b8b8b; font-weight: 500; text-transform: uppercase; display: inline-block; margin-bottom: 5px;}
 .traditional-cart-entry .tag:hover{color: #2e2e2e;}
-.traditional-cart-entry .title{font-size: 20px; line-height: 28px; color: #2e2e2e; font-weight: 600; display: block; margin-bottom: 10px;}
+.traditional-cart-entry .title{font-family:'Times New Roman', sans-serif;font-size: 20px; line-height: 28px; color: #2e2e2e; font-weight: 600; display: block; margin-bottom: 10px;}
 .traditional-cart-entry .title:hover{color: #ca1515;}
 .traditional-cart-entry .inline-description{font-size: 13px; line-height: 15px; color: #808080; font-weight: 400; margin-bottom: 5px;}
 .traditional-cart-entry .price{margin-bottom: 20px; padding-top: 15px;}

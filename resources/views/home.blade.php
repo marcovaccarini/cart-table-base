@@ -197,7 +197,7 @@
                                         <div class="paddings-container">
                                             <div class="product-slide-entry">
                                                 <div class="product-image">
-                                                    <img src="img/{{$newarrival->featured_image->filename}}" alt="{{$newarrival->product_name}}" />
+                                                    <img src="/img/{{$newarrival->featured_image->filename}}" alt="{{$newarrival->product_name}}" />
 
                                                     @if($newarrival->custom_discount != null)
                                                         <div class="product-image-label type-2"><span>{{number_format($newarrival->custom_discount), 0}}% OFF</span></div>

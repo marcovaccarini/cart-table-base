@@ -17,8 +17,8 @@
 Route::get('/', 'HomeController@index');
 
 Route::get('/json/product/{id}', 'ProductController@json_show');
-Route::post('cart', 'CartController@store');
-//Route::resource('cart', 'CartController');
+//Route::post('cart', 'CartController@store');
+Route::resource('cart', 'CartController');
 Route::get('products', 'ProductController@index');
 
 

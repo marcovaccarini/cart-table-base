@@ -59,7 +59,7 @@
                                         <div id="{{$cart_item->id}}" class="entry number-minus">&nbsp;</div>
                                         <div class="entry number">{{$cart_item->qty}}</div>
                                         <div id="{{$cart_item->id}}" class="entry number-plus">&nbsp;</div>
-                                        <a class="button style-15">Edit size</a>
+                                        <a class="button style-15">Change size</a>
                                         {{--<a class="button style-17">remove</a> --}}
                                         <div class="button style-20"><i class="fa fa-trash"></i></div>
 

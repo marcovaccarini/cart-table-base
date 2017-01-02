@@ -159,7 +159,7 @@ class CartController extends Controller
 
         $item->save();
 
-        return $item->toJson();
+        //return $item->toJson();
 
     }
 

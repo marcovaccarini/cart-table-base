@@ -883,53 +883,28 @@ cart_qty = 0;
 
         }
 
-        console.log(formData);
-
         $.ajax({
             url: '/cart/'+id+'/edit/',
             type: 'GET',
             data: formData,
             dataType: 'json',
+            complete: function(xhr, textStatus) {
 
-        })
+                if(xhr.status == 200){
+                    var total_cart_qty = parseInt($('#cart_qty').text().replace(/\D/g,''), 10);
 
-            .done(function(data){
-                //console.log(data);
+                    ++total_cart_qty;
 
-                var total_cart_qty = parseInt($('#cart_qty').text().replace(/\D/g,''), 10);
+                    $('#cart_qty').html('('+ total_cart_qty +')');
 
-                ++total_cart_qty;
+                    total_item = 0;
+                    //$("#cart-item-container").html("");
+                }
+            }
 
-                $('#cart_qty').html('('+ total_cart_qty +')');
-
-                total_item = 0;
-                $("#cart-item-container").html("");
-
-
-
+        });
 
 
-
-
-
-                // qty not needed because only need to add the price of one quantity to the total
-                //  change the total value
-                $('#cart_total').html('');
-
-                $('#cart_total').append('<div class=\"grandtotal\">Total <span>$'+ parseFloat(total).toFixed(2)+'</span></div>');
-
-
-
-
-
-
-            })
-
-            .fail(function(jqXHR){
-                console.log('Text: ' + jqXHR.responseText);
-               // alert('Json Request Failed...');
-                //  TODO: make better error response
-            });
 
     });
 
@@ -962,45 +937,25 @@ cart_qty = 0;
             type: 'GET',
             data: formData,
             dataType: 'json',
+            complete: function(xhr, textStatus) {
+
+                if(xhr.status == 200){
+                    var total_cart_qty = parseInt($('#cart_qty').text().replace(/\D/g,''), 10);
+
+                    --total_cart_qty;
+
+                    $('#cart_qty').html('('+ total_cart_qty +')');
+
+                    total_item = 0;
+                  //  $("#cart-item-container").html("");
+                }
+            }
 
         })
 
-            .done(function(data){
-                console.log(data);
-
-
-                var total_cart_qty = parseInt($('#cart_qty').text().replace(/\D/g,''), 10);
-                --total_cart_qty;
-                $('#cart_qty').html('('+total_cart_qty+')');
-
-                total_item = 0;
-                $("#cart-item-container").html("");
-
-                entry_to_edit = $('.cart-entry').attr("data-id='+Id+'");
-
-
-                // qty not needed because only need to add the price of one quantity to the total
-                //  change the total value
-                $('#cart_total').html('');
-
-                $('#cart_total').append('<div class=\"grandtotal\">Total <span>$'+ parseFloat(total).toFixed(2)+'</span></div>');
-
-                //  close the modal and open cart
-                $('#product-popup.active').animate({'opacity':'0'}, 300, function(){
-                    $(this).removeClass('active');
-                    $('#product-popup').removeClass('visible');
-
-                });
 
 
 
-            })
-
-            .fail(function(jqXHR){
-             //   console.log('Text: ' + jqXHR.responseText);
-              //  alert('Json Request Failed...');
-                //  TODO: make better error response
-            });
 
     });
 

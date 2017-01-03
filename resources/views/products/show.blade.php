@@ -36,6 +36,7 @@
                         <div class="product-preview-box">
                             <div class="swiper-container product-preview-swiper" data-autoplay="0" data-loop="1" data-speed="500" data-center="0" data-slides-per-view="1">
                                 <div class="swiper-wrapper">
+
                                     @foreach($product->images as $image)
                                     <div class="swiper-slide">
                                         <div class="product-zoom-image">
@@ -43,21 +44,7 @@
                                         </div>
                                     </div>
                                     @endforeach
-                                    {{--<div class="swiper-slide">
-                                        <div class="product-zoom-image">
-                                            <img src="/img/product-main-2.jpg" alt="" data-zoom="img/product-main-2-zoom.jpg" />
-                                        </div>
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <div class="product-zoom-image">
-                                            <img src="/img/product-main-3.jpg" alt="" data-zoom="img/product-main-3-zoom.jpg" />
-                                        </div>
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <div class="product-zoom-image">
-                                            <img src="/img/product-main-4.jpg" alt="" data-zoom="img/product-main-4-zoom.jpg" />
-                                        </div>
-                                    </div>--}}
+
                                 </div>
                                 <div class="pagination"></div>
                                 <div class="product-zoom-container">

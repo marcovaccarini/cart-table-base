@@ -22,7 +22,7 @@ class CartController extends Controller
     public function index(Request $request)
     {
 
-        //  retrieve the card_di from cookie
+        //  retrieve the card_id from cookie
         $cart_id = $request->cookie('cart_id');
         $cart_items = Cart::where('cart_id', '=', $cart_id)
             ->with('product')
@@ -183,8 +183,17 @@ class CartController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        //
+        $cart_id = $request->cookie('cart_id');
+        $item = Cart::where('id', '=', $id)->where('cart_id', '=', $cart_id)->firstOrFail();
+
+        $item->delete();
+
+        // redirect
+        //Session::flash('message', 'Successfully deleted the nerd!');
+
+
+        return redirect()->action('CartController@index');
     }
 }

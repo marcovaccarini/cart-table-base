@@ -197,6 +197,7 @@
                                         <div class="paddings-container">
                                             <div class="product-slide-entry">
                                                 <div class="product-image">
+
                                                     <img src="/img/{{$newarrival->featured_image->filename}}" alt="{{$newarrival->product_name}}" />
 
                                                     @if($newarrival->custom_discount != null)

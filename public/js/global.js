@@ -791,7 +791,7 @@ cart_qty = 0;
                 total = 0;
                 $("#cart-item-container").html("");
                 $.each(data, function(idc, obj) {
-                    var total_item = parseFloat(obj.product['price'] - (obj.product['price']/100)*obj.product['custom_discount']*obj.qty).toFixed(2);
+                    var total_item = parseFloat((obj.product['price'] - (obj.product['price']/100)*obj.product['custom_discount'])*obj.qty).toFixed(2);
                     if (obj.product['custom_discount']) {
                         html_price = '<div class=\"prev\">$'+obj.product['price']*obj.qty +'</div> <div class=\"current\">$'+ total_item +'</div>';
                     }
@@ -810,7 +810,7 @@ cart_qty = 0;
 
 
 
-                        total += obj.product['price'] - (obj.product['price']/100)*obj.product['custom_discount']*obj.qty;
+                        total += (obj.product['price'] - (obj.product['price']/100)*obj.product['custom_discount'])*obj.qty;
                     console.log(total);
                         cart_qty += obj.qty;
 

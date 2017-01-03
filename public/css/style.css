@@ -693,7 +693,7 @@ footer{position: relative;}
 .products-swiper{margin: 0 -21.25px; position: relative;}
 .products-swiper:before, .products-swiper:after{position: absolute; left: 0; top: 0; width: 21.25px; height: 100%; background: #fff; content: ""; z-index: 2;}
 .products-swiper:after{right: -3px; left: auto;}
-.products-swiper .paddings-container{padding: 0 21.25px;}
+.products-swiper .paddings-container{padding: 5px 21.25px;}
 .product-slide-entry{max-width: 210px; margin: 0 auto; margin-bottom: 50px;}
 .product-image-label{border-radius: 50%; -webkit-border-radius: 50%; position: absolute; z-index: 1;}
 .product-image-label span{position: absolute; width: 100%; left: 0; top: 50%; transform: translateY(-50%); -moz-transform: translateY(-50%); -webkit-transform: translateY(-50%); -ms-transform: translateY(-50%); font-size: 11px; line-height: 12px; color: #fff; font-weight: 700; text-transform: uppercase; text-align: center;}
@@ -2274,7 +2274,7 @@ select{background: #fff!important;}
 .list-view .product-slide-entry{max-width: 100%; margin-left: 230px; padding-bottom: 45px; margin-bottom: 44px; text-align: left!important;}
 .list-view .product-slide-entry:after{content: ""; display: block; clear: both; height: 1px; background: #ebebeb; margin-left: -230px; top: 45px; position: relative;}
 .list-view .product-slide-entry .product-image{max-width: 200px; margin-left: -230px; float: left; margin-bottom: 0;}
-.product-slide-entry .price{margin-bottom: 20px;}
+.product-slide-entry .price{margin-bottom: 10px;}
 .product-slide-entry .article-container{display: none; margin-bottom: 15px;}
 .product-slide-entry .list-buttons{display: none; margin-bottom: 15px;}
 .product-slide-entry .reviews-number{display: none;}
@@ -3321,4 +3321,4 @@ _:-ms-input-placeholder, :root .simple-drop-down select{padding-right: 10px;}
     animation-name: bounceIn;
 }
 
-
+.cart-form {display: inline-block; cursor: pointer; position: relative;top:3px}

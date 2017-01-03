@@ -61,15 +61,18 @@
                                         <div class="entry number-plus">&nbsp;</div>
                                         <a class="button style-15">Edit size</a>
                                         {{--<a class="button style-17">remove</a> --}}
-                                        <form action=""></form>
-                                        <div class="button style-20"><i class="fa fa-trash"></i></div>
-
+                                        <form class="cart-form" method="POST" action="/cart/{{$cart_item->id}}" accept-charset="UTF-8">
+                                            <input name="_method" type="hidden" value="DELETE">
+                                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                            <button class="button style-20"><i class="fa fa-trash"></i></button>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     @empty
                         <h3 class="cart-column-title size-1">You have no items in your shopping cart.</h3>
+                        <a class="button style-10">Continue shopping</a>
                     @endforelse
 
 

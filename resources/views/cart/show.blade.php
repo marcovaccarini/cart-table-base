@@ -54,11 +54,11 @@
                                         @endif
 
                                     </div>
-                                    <div class="quantity-selector detail-info-entry">
+                                    <div id="{{$cart_item->id}}" data-sale_price="{{$cart_item->product->price}}" data-current_price="{{number_format($cart_item->product->price - (($cart_item->product->price/100) * $cart_item->product->custom_discount), 2)}}" class="quantity-selector detail-info-entry">
                                         <div class="detail-info-entry-title">Quantity</div>
-                                        <div id="{{$cart_item->id}}" class="entry number-minus">&nbsp;</div>
+                                        <div class="entry number-minus">&nbsp;</div>
                                         <div class="entry number">{{$cart_item->qty}}</div>
-                                        <div id="{{$cart_item->id}}" class="entry number-plus">&nbsp;</div>
+                                        <div class="entry number-plus">&nbsp;</div>
                                         <a class="button style-15">Edit size</a>
                                         {{--<a class="button style-17">remove</a> --}}
                                         <div class="button style-20"><i class="fa fa-trash"></i></div>

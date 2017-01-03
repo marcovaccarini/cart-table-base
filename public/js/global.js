@@ -865,8 +865,7 @@ cart_qty = 0;
     var Id, increment, decrement, total_item, entry_to_edit, total_cart_qty;
 
     $(".number-plus").click(function (e) {
-        var id = $(this).attr('id'); // $(this) refers to button that was clicked
-
+        var id = $(this).parent('div').attr('id'); // $(this) refers to button that was clicked
 
         $.ajaxSetup({
             headers: {
@@ -916,7 +915,8 @@ cart_qty = 0;
 
 
     $(".number-minus").click(function (e) {
-        var id = $(this).attr('id'); // $(this) refers to button that was clicked
+        var id = $(this).parent('div').attr('id'); // $(this) refers to button that was clicked
+
 
 
         $.ajaxSetup({
@@ -950,14 +950,27 @@ cart_qty = 0;
 
                     //  TODO: edit the partial total of a single row
 
+                    var sale_price = parseFloat($( '#'+id ).parent('div').find('.prev').text().replace('$',''), 10);
+                    var new_sale_price = sale_price - $( '#'+id ).attr('data-sale_price');
+                    //alert(new_sale_price);
+                    $( '#'+id ).parent('div').find('.prev').html('$' + new_sale_price);
+
+                    var current_price = parseFloat($( '#'+id ).parent('div').find('.current').text().replace('$',''), 10);
+                    var new_current_price = current_price - $( '#'+id ).attr('data-current_price');
+                    alert(new_current_price);
+                    $( '#'+id ).parent('div').find('.current').html('$' + new_current_price);
+
+
+                    //$( '#'+id ).parent('div').find('.prev').css("background-color", "yellow");
                     var total_cart = parseFloat($('.main').text().replace('$',''), 10);
 
                     //  TODO: divide current by the quantity
-                    var current = parseFloat($( '#'+id ).parent('div').prev('div').find('.current').text().replace('$',''), 10);
+                    var current = $( '#'+id ).attr('data-current_price');
 
-
-                    total_cart = total_cart - current;
+                    total_cart = (total_cart - current).toFixed(2);
                     $('.main').html('$'+ total_cart);
+
+
 
                 }
             }

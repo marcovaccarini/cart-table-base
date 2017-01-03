@@ -891,16 +891,18 @@ cart_qty = 0;
 
                 if(xhr.status == 200){
                     var total_cart_qty = parseInt($('#cart_qty').text().replace(/\D/g,''), 10);
-
-                    ++total_cart_qty;
-
+                    --total_cart_qty;
                     $('#cart_qty').html('('+ total_cart_qty +')');
 
-                    var total_cart = parseFloat($('.main').text().replace('$',''), 10);
+                    var sale_price = parseFloat($( '#'+id ).parent('div').find('.prev').text().replace('$',''));
+                    var new_sale_price = (sale_price + parseFloat($( '#'+id ).attr('data-sale_price'))).toFixed(2);
+                    $( '#'+id ).parent('div').find('.prev').html('$' + new_sale_price);
 
-                    var current = parseFloat($( '#'+id ).parent('div').prev('div').find('.current').text().replace('$',''), 10);
-
-                    total_cart = total_cart + current;
+                    var current = parseFloat($( '#'+id ).parent('div').find('.current').text().replace('$',''));
+                    current = (current + parseFloat($( '#'+id ).attr('data-current_price'))).toFixed(2);
+                    $( '#'+id ).parent('div').find('.current').html('$' + current);
+                    
+                    var total_cart = (parseFloat($('.main').text().replace('$','')) + parseFloat($( '#'+id ).attr('data-current_price'))).toFixed(2);
                     $('.main').html('$'+ total_cart);
                 }
             }
@@ -916,8 +918,6 @@ cart_qty = 0;
 
     $(".number-minus").click(function (e) {
         var id = $(this).parent('div').attr('id'); // $(this) refers to button that was clicked
-
-
 
         $.ajaxSetup({
             headers: {
@@ -948,26 +948,15 @@ cart_qty = 0;
                     --total_cart_qty;
                     $('#cart_qty').html('('+ total_cart_qty +')');
 
-                    //  TODO: edit the partial total of a single row
-
-                    var sale_price = parseFloat($( '#'+id ).parent('div').find('.prev').text().replace('$',''), 10);
-                    var new_sale_price = sale_price - $( '#'+id ).attr('data-sale_price');
-                    //alert(new_sale_price);
+                    var sale_price = parseFloat($( '#'+id ).parent('div').find('.prev').text().replace('$',''));
+                    var new_sale_price = (sale_price - parseFloat($( '#'+id ).attr('data-sale_price'))).toFixed(2);
                     $( '#'+id ).parent('div').find('.prev').html('$' + new_sale_price);
 
-                    var current_price = parseFloat($( '#'+id ).parent('div').find('.current').text().replace('$',''), 10);
-                    var new_current_price = current_price - $( '#'+id ).attr('data-current_price');
-                    alert(new_current_price);
-                    $( '#'+id ).parent('div').find('.current').html('$' + new_current_price);
+                    var current = parseFloat($( '#'+id ).parent('div').find('.current').text().replace('$',''));
+                    current = (current - parseFloat($( '#'+id ).attr('data-current_price'))).toFixed(2);
+                    $( '#'+id ).parent('div').find('.current').html('$' + current);
 
-
-                    //$( '#'+id ).parent('div').find('.prev').css("background-color", "yellow");
-                    var total_cart = parseFloat($('.main').text().replace('$',''), 10);
-
-                    //  TODO: divide current by the quantity
-                    var current = $( '#'+id ).attr('data-current_price');
-
-                    total_cart = (total_cart - current).toFixed(2);
+                    var total_cart = (parseFloat($('.main').text().replace('$','')) - parseFloat($( '#'+id ).attr('data-current_price'))).toFixed(2);
                     $('.main').html('$'+ total_cart);
 
 

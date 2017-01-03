@@ -50,7 +50,7 @@
                                             <span class="sale-price" style="color: #d50f02;margin:0 10px;"> -{{number_format($cart_item->product->custom_discount, 0)}}%</span>
                                             <div class="current">${{ number_format(($cart_item->product->price - (($cart_item->product->price/100) * $cart_item->product->custom_discount))*$cart_item->qty, 2) }}</div>
                                         @else
-                                            <div class="current">${{$cart_item->product->price}}</div>
+                                            <div class="current">${{ number_format($cart_item->product->price*$cart_item->qty, 2)}}</div>
                                         @endif
 
                                     </div>
@@ -61,6 +61,7 @@
                                         <div class="entry number-plus">&nbsp;</div>
                                         <a class="button style-15">Edit size</a>
                                         {{--<a class="button style-17">remove</a> --}}
+                                        <form action=""></form>
                                         <div class="button style-20"><i class="fa fa-trash"></i></div>
 
                                     </div>

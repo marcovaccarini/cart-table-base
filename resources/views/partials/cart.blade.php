@@ -1,17 +1,17 @@
 <div class="popup-container">
     <div id="cart-item-container">
         @forelse($latest as $cart_item)
-            <div class="cart-entry" data-custom_discount="{{$cart_item->product->custom_discount}}" data-price="{{$cart_item->product->price}}" data-id="{{$cart_item->id}}" data-total_item="{{number_format(($cart_item->product->price - (($cart_item->product->price/100) * $cart_item->product->custom_discount))*$cart_item->qty, 2)}}">
+            <div class="cart-entry" id="entry-{{$cart_item->id}}">
                 <a href="{{$cart_item->product->path}}" class="image"><img src="/img/small/{{$cart_item->ProductImages->filename}}" alt="" /></a>
                 <div class="content">
                     <a class="title" href="{{$cart_item->product->path}}">{{$cart_item->product->product_name}}</a>
-                    <div class="quantity">Quantity: {{$cart_item->qty}} | Size: {{$cart_item->sizenames->name}} </div>
+                    <div class="quantity">Quantity: <span>{{$cart_item->qty}}</span> | Size: {{$cart_item->sizenames->name}} </div>
                     <div class="price">
                         @if($cart_item->product->custom_discount != null)
                             <div class="prev">${{$cart_item->product->price*$cart_item->qty}}</div> |
                             <div class="current">${{ number_format(($cart_item->product->price - (($cart_item->product->price/100) * $cart_item->product->custom_discount))*$cart_item->qty, 2) }}</div>
                         @else
-                            <div class="current">${{$cart_item->product->price}}</div>
+                            <div class="current">${{$cart_item->product->price*$cart_item->qty}}</div>
                         @endif
                     </div>
                 </div>

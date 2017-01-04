@@ -864,8 +864,9 @@ cart_qty = 0;
 
     var Id, increment, decrement, total_item, entry_to_edit, total_cart_qty;
 
-    $(".number-plus").click(function (e) {
+    $(".number-plus, .number-minus").click(function (e) {
         var id = $(this).parent('div').attr('id'); // $(this) refers to button that was clicked
+        var className = $(this).attr('class');
 
         $.ajaxSetup({
             headers: {
@@ -874,12 +875,19 @@ cart_qty = 0;
         });
         e.preventDefault();
 
-        increment = 1;
-        var formData = {
-
-            id,
-            increment,
-
+        if(className.indexOf('plus') !== -1){
+            increment = 1;
+            var formData = {
+                id,
+                increment,
+            }
+        }
+        if(className.indexOf('minus') !== -1){
+            decrement = 1;
+            var formData = {
+                id,
+                decrement,
+            }
         }
 
         $.ajax({
@@ -890,26 +898,38 @@ cart_qty = 0;
             complete: function(xhr, textStatus) {
 
                 if(xhr.status == 200){
+
                     var total_cart_qty = parseInt($('#cart_qty').text().replace(/\D/g,''), 10);
-                    ++total_cart_qty;
+                    var current = parseFloat($( '#'+id ).parent('div').find('.current').text().replace('$',''));
+                    var current_price = parseFloat($( '#'+id ).attr('data-current_price'));
+                    var total_cart = parseFloat($('.main').text().replace('$','').replace(',',''));
+
+                    if(className.indexOf('plus') !== -1){
+                        ++total_cart_qty;
+                        current = (current + current_price).toFixed(2);
+                        total_cart = (total_cart + current_price).toFixed(2);
+                    }
+                    if(className.indexOf('minus') !== -1){
+                        --total_cart_qty;
+                        current = (current - current_price).toFixed(2);
+                        total_cart = (total_cart - current_price).toFixed(2);
+                    }
+
                     $('#cart_qty').html('('+ total_cart_qty +')');
 
                     var entry_qty = parseInt($( '#'+id ).parent().find('.number').text(), 10);
+
                     $( '#entry-'+id ).first('div').find('span').html(entry_qty);
 
                     var sale_price = parseFloat($( '#'+id ).parent('div').find('.prev').text().replace('$',''));
                     sale_price = (sale_price + parseFloat($( '#'+id ).attr('data-sale_price'))).toFixed(2);
+
                     $( '#'+id ).parent('div').find('.prev').html('$' + sale_price);
                     $( '#entry-'+id ).first('div').find('.prev').html('$' + sale_price);
 
-
-                    var current = parseFloat($( '#'+id ).parent('div').find('.current').text().replace('$',''));
-                    current = (current + parseFloat($( '#'+id ).attr('data-current_price'))).toFixed(2);
                     $( '#'+id ).parent('div').find('.current').html('$' + current);
                     $( '#entry-'+id ).first('div').find('.current').html('$' + current);
 
-
-                    var total_cart = parseFloat($('.main').text().replace('$','').replace(',','')) + parseFloat($( '#'+id ).attr('data-current_price'));
                     total_cart = total_cart.toLocaleString('en-US', {minimumFractionDigits: 2});
 
                     $('.main').html('$'+ total_cart);
@@ -920,76 +940,6 @@ cart_qty = 0;
             }
 
         });
-
-
-
-    });
-
-
-
-
-    $(".number-minus").click(function (e) {
-        var id = $(this).parent('div').attr('id'); // $(this) refers to button that was clicked
-
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-        e.preventDefault();
-
-        decrement = 1;
-        var formData = {
-
-            id,
-            decrement,
-
-        }
-
-      //  console.log(formData);
-
-        $.ajax({
-            url: '/cart/'+id+'/edit/',
-            type: 'GET',
-            data: formData,
-            dataType: 'json',
-            complete: function(xhr, textStatus) {
-
-                if(xhr.status == 200){
-                    var total_cart_qty = parseInt($('#cart_qty').text().replace(/\D/g,''), 10);
-                    --total_cart_qty;
-                    $('#cart_qty').html('('+ total_cart_qty +')');
-
-                    var entry_qty = parseInt($( '#'+id ).parent().find('.number').text(), 10);
-                    $( '#entry-'+id ).first('div').find('span').html(entry_qty);
-
-                    var sale_price = parseFloat($( '#'+id ).parent('div').find('.prev').text().replace('$',''));
-                    var new_sale_price = (sale_price - parseFloat($( '#'+id ).attr('data-sale_price'))).toFixed(2);
-                    $( '#'+id ).parent('div').find('.prev').html('$' + new_sale_price);
-
-                    var current = parseFloat($( '#'+id ).parent('div').find('.current').text().replace('$',''));
-                    current = (current - parseFloat($( '#'+id ).attr('data-current_price'))).toFixed(2);
-                    $( '#'+id ).parent('div').find('.current').html('$' + current);
-                    $( '#entry-'+id ).first('div').find('.current').html('$' + current);
-
-                    var total_cart = parseFloat($('.main').text().replace('$','').replace(',','')) - parseFloat($( '#'+id ).attr('data-current_price'));
-                    total_cart = total_cart.toLocaleString('en-US', {minimumFractionDigits: 2});
-                    $('.main').html('$'+ total_cart);
-
-                    $('.grandtotal').first().find('span').html('$'+ total_cart);
-
-
-
-
-
-                }
-            }
-
-        })
-
-
-
-
 
     });
 

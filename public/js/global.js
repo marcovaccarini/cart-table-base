@@ -596,7 +596,7 @@ $(function() {
                             $('#price').html('<div class=\"prev\">$'+obj.price+'</div><span class=\"sale-price\"> -'+Math.round(obj.custom_discount)+'%</span><div class=\"current\">$'+current.toFixed(2)+'</div>');
                         }
                         else {
-                            $('#price').html('<div class=\"current\">'+obj.price+'</div>')
+                            $('#price').html('<div class=\"current\">$'+obj.price+'</div>')
                         }
                         $('#sizes').html('<div class=\"detail-info-entry-title\">Size</div>');
                         $.each(obj.sizes, function(idx, size) {
@@ -734,7 +734,7 @@ $(function() {
     /* 09 - submit form via AJAX */
     /*===========================*/
 
-    //  TODO: delete a cart item
+
 
     //product page - selecting size, quantity, color
     $('.size-selector .entry').on('click', function(){
@@ -742,6 +742,8 @@ $(function() {
         $(this).addClass('active');
         $('#size-error').hide();
     });
+
+
 
    urlToCart = "cart";
 var product_pics, size_name, html_price, cart_qty, total;
@@ -940,6 +942,174 @@ cart_qty = 0;
             }
 
         });
+
+    });
+
+
+    /*=======================================*/
+    /* 09.4 - delete cart item form via AJAX */
+    /*=======================================*/
+
+
+    var product_pics, size_name, html_price, cart_qty, total;
+    $(".btn-delete-cart-item").click(function (e) {
+
+        var entry_id = $(this).parent('div').attr('id'); // $(this) refers to button that was clicked
+
+        var id = entry_id.replace('entry-', '');
+        var _method = 'DELETE';
+        var token = $('meta[name="csrf-token"]').attr('content');
+
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        e.preventDefault();
+
+        var formData = {
+            id,
+            _method,
+        }
+
+        console.log(formData);
+
+
+        $.ajax({
+            url: '/json/cart/'+id,
+
+            method: 'POST',
+            data: formData,
+            dataType: 'json',
+            complete: function(xhr, textStatus) {
+
+                if(xhr.status == 200){
+
+                    /*TODO: remove cart item from the modal and update quantity and total cart*/
+                    // find total quantity on header
+                    var total_cart_qty = parseInt($('#cart_qty').text().replace(/\D/g,''), 10);
+                    // find quantity of the cart entry
+                    var entry_cart_qty = parseInt($('#entry-'+id).first('div').find('span').text().replace(/\D/g,''), 10);
+                    total_cart_qty = total_cart_qty - entry_cart_qty;
+                    $('#cart_qty').html('('+ total_cart_qty +')');
+
+                    // update total in modal cart
+                    var current_price = $( '#entry-'+id ).first('div').find('.current').text().replace('$','').replace(',','');
+                    var total_cart = parseFloat($('.grandtotal').first().find('span').text().replace('$','').replace(',',''));
+
+                    var new_total_cart = (total_cart - current_price).toFixed(2);
+
+
+                    new_total_cart = new_total_cart.toLocaleString('en-US', {minimumFractionDigits: 2});
+                    $('.grandtotal').first().find('span').html('$'+ new_total_cart);
+
+
+                    // if shopping cart page edit also subtotal and remove also the page entry
+                    if ($('#shopping-bag').length) {
+                        // edit total
+                        $('.main').html('$'+ new_total_cart);
+
+                        // remove the entry from shopping bag page
+                        $('#'+id).parents('.traditional-cart-entry').fadeOut( "slow", function() {
+                            // Animation complete.
+                            $(this).remove();
+                            //alert($('.traditional-cart-entry').length);
+                            if ($('.traditional-cart-entry').length == 0) {
+                                $('#shopping-bag').after('<h3 class=\"cart-column-title size-1\">You have no items in your shopping bag.</h3>');
+                            }
+                        });
+
+                    }
+
+                    // remove the entry from cart modal
+                    $('#entry-'+id).fadeOut( "slow", function() {
+                        // Animation complete.
+                        $(this).remove();
+                        if ($('.cart-entry').length == 0) {
+                            $('#cart-item-container').html('<h3 class=\"cart-column-title size-1\">You have no items in your shopping bag.</h3>');
+
+                        }
+
+                    });
+                }
+            }
+        })
+
+           /* .done(function(data){
+                console.log(data);
+                //$('.cart-entry').remove();
+                cart_qty = 0;
+                total = 0;
+                $("#cart-item-container").html("");
+                $.each(data, function(idc, obj) {
+                    var total_item = parseFloat((obj.product['price'] - (obj.product['price']/100)*obj.product['custom_discount'])*obj.qty).toFixed(2);
+                    if (obj.product['custom_discount']) {
+                        html_price = '<div class=\"prev\">$'+obj.product['price']*obj.qty +'</div> <div class=\"current\">$'+ total_item +'</div>';
+                    }
+                    else {
+                        html_price = '<div class=\"current\">$'+ total_item +'</div>';
+                    }
+
+                    $('#cart-item-container').append('<div class=\"cart-entry\" data-custom_discount=\"'+obj.product['custom_discount']+'\" data-price=\"'+obj.price+'\" data-id=\"'+obj.id+'\" data-total_item=\"'+total_item+'\">' +
+                        '<a class=\"image\" href=\"'+obj.product.path+'\"><img src=\"/img/small/'+obj.product_images['filename']+'\" alt=\"\" /></a>' +
+                        '<div class=\"content\">' +
+                        '<a class=\"title\" href=\"'+obj.product.path+'\">'+ obj.product['product_name'] +'</a>' +
+                        '<div class=\"quantity\">Quantity: '+ obj.qty + ' | Size: '+obj.sizenames['name']+'</div>' +
+                        '<div class=\"price\">'+ html_price +'</div>' +
+                        '</div><div class=\"button-x\"><i class=\"fa fa-trash\"></i></div></div>');
+
+
+
+
+                    total += (obj.product['price'] - (obj.product['price']/100)*obj.product['custom_discount'])*obj.qty;
+                    console.log(total);
+                    cart_qty += obj.qty;
+
+                });
+                $('#cart_total').html('');
+
+                $('#cart_total').append('<div class=\"grandtotal\">Total <span>$'+ parseFloat(total).toFixed(2)+'</span></div>');
+                $('#cart_qty').html('('+cart_qty+')');
+
+                //  close the modal and open cart
+                $('#product-popup.active').animate({'opacity':'0'}, 300, function(){
+                    $(this).removeClass('active');
+                    $('#product-popup').removeClass('visible');
+
+                });
+
+                // open cart popup
+                clearTimeout(closecartTimeout);
+
+                if(!$('.cart-box.popup').hasClass('active')){
+                    e.preventDefault();
+                    closePopups();
+
+                    if($('.open-cart-popup').offset().left>winW*0.5){
+                        $('.cart-box.popup').addClass('active cart-right').css({'left':'auto', 'right':winW - $('.open-cart-popup').offset().left-$('.open-cart-popup').outerWidth()*0.5-47, 'top':$('.open-cart-popup').offset().top-winScr+15, 'opacity':'0'}).stop().animate({'opacity':'1'}, 500);
+
+                    }
+                    else{
+                        $('.cart-box.popup').addClass('active cart-left').css({'right':'auto', 'left':$('.open-cart-popup').offset().left, 'top':$('.open-cart-popup').offset().top-winScr+15, 'opacity':'0'}).stop().animate({'opacity':'1'}, 500);
+
+                    }
+                    closecartTimeout = setTimeout(function(){closePopups();}, 4000);
+
+                }
+
+
+
+
+                $(".cart-entry:first-child").addClass('animated bounceIn');
+
+            })*/
+
+            .fail(function(jqXHR){
+                console.log('Text: ' + jqXHR.responseText);
+                //  alert('Json Request Failed...');
+                //  TODO: make better error response
+            });
 
     });
 

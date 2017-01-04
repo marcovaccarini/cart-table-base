@@ -622,7 +622,7 @@
                                         {{--<select name="qty" style="width: 100%;">--}}
                                     </div>
                                     <div class="detail-info-entry">
-                                        <a class="button style-10" id="btn-add-to-cart">Add to cart</a>
+                                        <a class="button style-10" id="btn-add-to-cart"><i class="fa fa-sho"></i> Add to bag</a>
                                         <a class="button style-11"><i class="fa fa-heart"></i> Add to Wishlist</a>
                                         <div class="clear"></div>
                                     </div>

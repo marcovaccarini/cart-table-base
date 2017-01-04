@@ -115,6 +115,7 @@ class CartController extends Controller
 
 
         return $cart_items;
+        /*TODO: not return all the cart but only success and add new cart item via jquery*/
 
     }
 
@@ -191,9 +192,30 @@ class CartController extends Controller
         $item->delete();
 
         // redirect
-        //Session::flash('message', 'Successfully deleted the nerd!');
+        //Session::flash('message', 'Successfully deleted the cart item!');
 
 
         return redirect()->action('CartController@index');
+    }
+
+
+    /**
+     * Remove the specified resource from storage via ajax request.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function json_destroy(Request $request, $id)
+    {
+        $cart_id = $request->cookie('cart_id');
+        $item = Cart::where('id', '=', $id)->where('cart_id', '=', $cart_id)->firstOrFail();
+
+        $item->delete();
+
+        // redirect
+        //Session::flash('message', 'Successfully deleted the cart item!');
+
+
+       // return redirect()->action('CartController@index');
     }
 }

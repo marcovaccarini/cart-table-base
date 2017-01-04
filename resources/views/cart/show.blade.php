@@ -33,7 +33,7 @@
             <div class="information-blocks">
                 <div class="row">
                 <div class="col-sm-9 information-entry">
-                    <h3 class="cart-column-title size-1">Shopping Cart</h3>
+                    <h3 class="cart-column-title size-1" id="shopping-bag">Shopping Bag</h3>
                     @forelse($cart_items as $cart_item)
                         <div class="traditional-cart-entry style-1">
                             <a class="image" href="{{$cart_item->product->path}}"><img alt="" src="/img/{{$cart_item->ProductImages->filename}}"></a>

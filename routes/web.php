@@ -17,6 +17,8 @@
 Route::get('/', 'HomeController@index');
 
 Route::get('/json/product/{id}', 'ProductController@json_show');
+
+Route::delete('/json/cart/{id}/', 'CartController@json_destroy');
 //Route::post('cart', 'CartController@store');
 Route::resource('cart', 'CartController');
 

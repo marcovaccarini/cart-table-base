@@ -64,7 +64,7 @@
                                         <form class="cart-form" method="POST" action="/cart/{{$cart_item->id}}" accept-charset="UTF-8">
                                             <input name="_method" type="hidden" value="DELETE">
                                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                            <button class="button style-20"><i class="fa fa-trash"></i></button>
+                                            <button class="button style-20 delete-page-cart-item"><i class="fa fa-trash"></i></button>
                                         </form>
                                     </div>
                                 </div>

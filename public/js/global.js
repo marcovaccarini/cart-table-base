@@ -749,6 +749,11 @@ $(function() {
 
     var product_pics, size_name, html_price, cart_qty, total;
 
+
+    /*==================================*/
+    /* 09.1 - add item to cart via AJAX */
+    /*==================================*/
+
     $("#btn-add-to-cart").click(function (e) {
 
         $.ajaxSetup({
@@ -847,6 +852,10 @@ $(function() {
 
     var Id, increment, decrement, total_item, entry_to_edit, total_cart_qty;
 
+    /*===========================================*/
+    /* 09.2 - add or decrement quantity via AJAX */
+    /*===========================================*/
+
     $(".number-plus, .number-minus").click(function (e) {
         var id = $(this).parent('div').attr('id'); // $(this) refers to button that was clicked
 
@@ -886,34 +895,43 @@ $(function() {
                     var total_cart_qty = parseInt($('#cart_qty').text().replace(/\D/g,''), 10);
 
                     var current = parseFloat($( '#'+id ).parent('div').find('.current').text().replace('$',''));
+
                     var current_price = parseFloat($( '#'+id ).attr('data-current_price'));
                     var total_cart = parseFloat($('.main').text().replace('$','').replace(',',''));
-                    alert(total_cart+' = '+total_cart);
+
+                    var sale_price = parseFloat($( '#'+id ).parent('div').find('.prev').text().replace('$',''));
+                    var unit_sale_price = parseFloat($( '#'+id ).attr('data-sale_price'));
+
                     if(className.indexOf('plus') !== -1){
                         ++total_cart_qty;
                         current = (current + current_price).toFixed(2);
                         total_cart = (total_cart + current_price).toFixed(2);
+                        sale_price = (sale_price + unit_sale_price).toFixed(2);
                     }
                     if(className.indexOf('minus') !== -1){
                         --total_cart_qty;
                         current = (current - current_price).toFixed(2);
                         total_cart = (total_cart - current_price).toFixed(2);
+                        sale_price = (sale_price - unit_sale_price).toFixed(2);
                     }
 
                     $('#cart_qty').html('('+ total_cart_qty +')');
 
+                    //  get quantity from input
                     var entry_qty = parseInt($( '#'+id ).parent().find('.number').text(), 10);
+                    //  set the quantity on modal cart
+                    $('[data-id="'+id+'"]').first('div').find('span').html(entry_qty);
 
-                    $( '#entry-'+id ).first('div').find('span').html(entry_qty);
 
-                    var sale_price = parseFloat($( '#'+id ).parent('div').find('.prev').text().replace('$',''));
-                    sale_price = (sale_price + parseFloat($( '#'+id ).attr('data-sale_price'))).toFixed(2);
-
+                    //  set the previous sale price on modal cart
+                    $('[data-id="'+id+'"]').first('div').find('.prev').html('$' + sale_price);
+                    //  set the current price on modal cart
+                    $('[data-id="'+id+'"]').first('div').find('.current').html('$' + current);
+                    //  set previous price on page cart
                     $( '#'+id ).parent('div').find('.prev').html('$' + sale_price);
-                    $( '#entry-'+id ).first('div').find('.prev').html('$' + sale_price);
-
+                    //  set the current price on page cart
                     $( '#'+id ).parent('div').find('.current').html('$' + current);
-                    $( '#entry-'+id ).first('div').find('.current').html('$' + current);
+
 
                     total_cart = total_cart.toLocaleString('en-US', {minimumFractionDigits: 2});
 
@@ -930,19 +948,16 @@ $(function() {
 
 
     /*=======================================*/
-    /* 09.4 - delete cart item form via AJAX */
+    /* 09.3 - delete cart item form via AJAX */
     /*=======================================*/
 
 
     var product_pics, size_name, html_price, cart_qty, total;
     $("#cart-item-container").on("click", ".btn-delete-cart-item", function (e) {
-    //$(".btn-delete-cart-item").click(function (e) {
-        //$(this).parent('.cart-entry').css('background-color', 'red');
+
         var id = $(this).parent('.cart-entry').data('id'); // $(this) refers to button that was clicked
-//alert(entry_id);
-        //var id = entry_id.replace('entry-', '');
         var _method = 'DELETE';
-        var token = $('meta[name="csrf-token"]').attr('content');
+
 
 
         $.ajaxSetup({
@@ -957,9 +972,6 @@ $(function() {
             _method,
         }
 
-        console.log(formData);
-
-
         $.ajax({
             url: '/json/cart/'+id,
 
@@ -970,13 +982,7 @@ $(function() {
 
                 if(xhr.status == 200){
 
-                    /*TODO: remove cart item from the modal and update quantity and total cart*/
-                    // find total quantity on header
                     var total_cart_qty = parseInt($('#cart_qty').text().replace(/\D/g,''), 10);
-                    // find quantity of the cart entry
-
-
-                    //$('[data-id="'+entry_id+'"]').first('div').find('span').css("background-color", "yellow");
 
                     var entry_cart_qty = parseInt($('[data-id="'+id+'"]').first('div').find('span').text().replace(/\D/g,''), 10);
                     total_cart_qty = total_cart_qty - entry_cart_qty;
@@ -987,7 +993,6 @@ $(function() {
                     var total_cart = parseFloat($('.grandtotal').first().find('span').text().replace('$','').replace(',',''));
 
                     var new_total_cart = (total_cart - current_price).toFixed(2);
-                    alert(total_cart+' - '+current_price);
 
                     new_total_cart = new_total_cart.toLocaleString('en-US', {minimumFractionDigits: 2});
                     $('.grandtotal').first().find('span').html('$'+ new_total_cart);
@@ -1025,74 +1030,7 @@ $(function() {
             }
         })
 
-           /* .done(function(data){
-                console.log(data);
-                //$('.cart-entry').remove();
-                cart_qty = 0;
-                total = 0;
-                $("#cart-item-container").html("");
-                $.each(data, function(idc, obj) {
-                    var total_item = parseFloat((obj.product['price'] - (obj.product['price']/100)*obj.product['custom_discount'])*obj.qty).toFixed(2);
-                    if (obj.product['custom_discount']) {
-                        html_price = '<div class=\"prev\">$'+obj.product['price']*obj.qty +'</div> <div class=\"current\">$'+ total_item +'</div>';
-                    }
-                    else {
-                        html_price = '<div class=\"current\">$'+ total_item +'</div>';
-                    }
 
-                    $('#cart-item-container').append('<div class=\"cart-entry\" data-custom_discount=\"'+obj.product['custom_discount']+'\" data-price=\"'+obj.price+'\" data-id=\"'+obj.id+'\" data-total_item=\"'+total_item+'\">' +
-                        '<a class=\"image\" href=\"'+obj.product.path+'\"><img src=\"/img/small/'+obj.product_images['filename']+'\" alt=\"\" /></a>' +
-                        '<div class=\"content\">' +
-                        '<a class=\"title\" href=\"'+obj.product.path+'\">'+ obj.product['product_name'] +'</a>' +
-                        '<div class=\"quantity\">Quantity: '+ obj.qty + ' | Size: '+obj.sizenames['name']+'</div>' +
-                        '<div class=\"price\">'+ html_price +'</div>' +
-                        '</div><div class=\"button-x\"><i class=\"fa fa-trash\"></i></div></div>');
-
-
-
-
-                    total += (obj.product['price'] - (obj.product['price']/100)*obj.product['custom_discount'])*obj.qty;
-                    console.log(total);
-                    cart_qty += obj.qty;
-
-                });
-                $('#cart_total').html('');
-
-                $('#cart_total').append('<div class=\"grandtotal\">Total <span>$'+ parseFloat(total).toFixed(2)+'</span></div>');
-                $('#cart_qty').html('('+cart_qty+')');
-
-                //  close the modal and open cart
-                $('#product-popup.active').animate({'opacity':'0'}, 300, function(){
-                    $(this).removeClass('active');
-                    $('#product-popup').removeClass('visible');
-
-                });
-
-                // open cart popup
-                clearTimeout(closecartTimeout);
-
-                if(!$('.cart-box.popup').hasClass('active')){
-                    e.preventDefault();
-                    closePopups();
-
-                    if($('.open-cart-popup').offset().left>winW*0.5){
-                        $('.cart-box.popup').addClass('active cart-right').css({'left':'auto', 'right':winW - $('.open-cart-popup').offset().left-$('.open-cart-popup').outerWidth()*0.5-47, 'top':$('.open-cart-popup').offset().top-winScr+15, 'opacity':'0'}).stop().animate({'opacity':'1'}, 500);
-
-                    }
-                    else{
-                        $('.cart-box.popup').addClass('active cart-left').css({'right':'auto', 'left':$('.open-cart-popup').offset().left, 'top':$('.open-cart-popup').offset().top-winScr+15, 'opacity':'0'}).stop().animate({'opacity':'1'}, 500);
-
-                    }
-                    closecartTimeout = setTimeout(function(){closePopups();}, 4000);
-
-                }
-
-
-
-
-                $(".cart-entry:first-child").addClass('animated bounceIn');
-
-            })*/
 
             .fail(function(jqXHR){
                 console.log('Text: ' + jqXHR.responseText);

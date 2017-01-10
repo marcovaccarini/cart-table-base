@@ -1021,7 +1021,6 @@ $(function() {
     /*======================================*/
     /* 09.4 - add item to wishlist via AJAX */
     /*======================================*/
-
     $(".add-to-wishlist").click(function (e) {
 
         $.ajaxSetup({
@@ -1030,11 +1029,10 @@ $(function() {
             }
         });
         e.preventDefault();
-
-
+        var product_id = $(this).data('product_id'); // $(this) refers to button that was clicked
 
         var formData = {
-            product_id: $('#product_id').val(),
+            product_id: product_id,
         }
         $.ajax({
             url: '/wishlist',
@@ -1042,11 +1040,16 @@ $(function() {
             data: formData,
             dataType: 'json',
             complete: function(xhr, textStatus) {
-
+                //  TODO: make better flash message
                 if(xhr.status == 201){
                     //  article added to wishlist
                     //  update the number in header
-                    alert('OK! article added');
+                    var jsonResponse = JSON.parse(xhr.responseText);
+                    var total_wishes = jsonResponse['total_wishes'];
+                    $('#wishlist').html('('+ total_wishes +')');
+                    $('#wishlist').parent('a').addClass('animated bounceIn');
+
+                    alert('OK! Article added');
 
                 }
 

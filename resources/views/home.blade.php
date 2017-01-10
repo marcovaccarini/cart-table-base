@@ -99,8 +99,8 @@
                                                         <div class="product-image-label type-2"><span>{{number_format($featured->custom_discount), 0}}% OFF</span></div>
                                                     @endif
                                                     <form novalidate="" method="post">
-                                                        <input type="hidden" id="product_id" name="product_id" value="{{$featured->id}}" />
-                                                        <a class="top-line-a right add-to-wishlist"><i class="fa fa-heart"></i> </a>
+                                                        <input type="hidden" class="product_id" name="product_id" value="{{$featured->id}}" />
+                                                        <a class="top-line-a right add-to-wishlist" data-product_id="{{$featured->id}}"><i class="fa fa-heart"></i> </a>
                                                     </form>
                                                     <a href="{{$featured->path}}" class="top-line-a left quick-view">Details <i class="fa fa-search-plus"></i></a>
                                                     <div class="bottom-line">
@@ -119,7 +119,7 @@
                                                     @endif
                                                 </div>
                                                 <div class="information-blocks">
-                                                    <a class="button style-17 open-product" id="getUser" data-id="{{$featured->id}}"><i class="fa fa-shopping-bag"></i>Add to bag</a>
+                                                    <a class="button style-17 open-product" id="getUser" data-id="{{$featured->id}}"><i class="fa fa-shopping-bag"></i>Add * to bag</a>
                                                 </div>
                                             </div>
                                         </div>

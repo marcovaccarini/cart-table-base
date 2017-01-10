@@ -54,12 +54,18 @@
                                         </div>
                                     </div>
                                     <div class="column-2">
-                                        <a class="button style-17 open-product" id="getUser" data-id="{{$wish->id}}"><i class="fa fa-shopping-bag"></i>Add to bag</a>
-                                        <form class="cart-form" method="POST" action="/wishlist/{{$cart_item->id}}" accept-charset="UTF-8">
-                                            <input name="_method" type="hidden" value="DELETE">
-                                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                            <button class="button style-20 delete-page-cart-item"><i class="fa fa-trash"></i></button>
-                                        </form>
+                                        <div class="row">
+                                            <div class="col-sm-8">
+                                                <a class="button style-17 open-product" id="getUser" data-id="{{$wish->product->id}}"><i class="fa fa-shopping-bag"></i>Add to bag</a>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <form class="cart-form" method="POST" action="/wishlist/{{$wish->product->id}}" accept-charset="UTF-8">
+                                                    <input name="_method" type="hidden" value="DELETE">
+                                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                                    <button class="button style-20 delete-page-cart-item"><i class="fa fa-trash"></i></button>
+                                                </form>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             @empty

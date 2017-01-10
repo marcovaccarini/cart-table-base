@@ -6,6 +6,8 @@ use App\Wish;
 use Illuminate\Http\Request;
 use App\Product;
 use App\ProductImage;
+use Illuminate\Support\Facades\Input;
+use Cookie;
 
 class WishesController extends Controller
 {
@@ -22,7 +24,7 @@ class WishesController extends Controller
             ->with('ProductImages')
             ->orderBy('updated_at', 'desc')
             ->get();
-
+//dd($wishes);
         return view('wishlist.show', compact('wishes'));
     }
 
@@ -44,7 +46,38 @@ class WishesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'product_id' => 'required|numeric|exists:products,id',
+        ]);
+
+        $product_id = Input::get('product_id');
+
+        //  retrieve the card_id from cookie
+        $cart_id = $request->cookie('cart_id');
+
+        if($cart_id == null){
+            $cart_id = uniqid('',TRUE);
+            Cookie::queue(Cookie::make('cart_id', $cart_id, 'forever'));
+        }
+
+
+        $count = Wish::where('product_id', '=', $product_id)->where('cart_id', '=', $cart_id)->count();
+
+        if($count) {
+            // article already in wishlist
+            return response()->json(['success' => true], 200);
+        }
+        else{
+
+            Wish::create([
+                'cart_id' => $cart_id,
+                'product_id' => $product_id,
+            ]);
+
+            //  TODO: return also the total number of wish
+            $total_wishes = Wish::where('cart_id', '=', $cart_id)->count();
+            return response()->json(['success' => true, 'total_wishes' => $total_wishes], 201);
+        }
     }
 
     /**

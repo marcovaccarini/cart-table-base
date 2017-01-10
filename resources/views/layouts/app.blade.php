@@ -388,7 +388,7 @@
                                         </li>
                                         <li class="fixed-header-visible">
                                             <a class="fixed-header-square-button open-search-popup"><i class="fa fa-search"></i></a>
-                                            <a class="fixed-header-square-button"><i class="fa fa-heart-o"></i> (2)</a>
+                                            <a class="fixed-header-square-button"><i class="fa fa-heart-o"></i><span id="wishlist"> (2) </span></a>
                                             <a class="fixed-header-square-button open-cart-popup"><i class="fa fa-shopping-cart"></i>
                                                 @inject('count_items', 'App\Services\CartService')
                                                 <span id="cart_qty">

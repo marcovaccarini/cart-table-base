@@ -68,7 +68,7 @@ class CartController extends Controller
         $product = Product::find($product_id);
         $total = $qty*$product->price;
 
-        //  retrieve the card_di from cookie
+        //  retrieve the card_id from cookie
         $cart_id = $request->cookie('cart_id');
 
         if($cart_id == null){
@@ -107,7 +107,7 @@ class CartController extends Controller
                 'updated_at' => Carbon::now(),
             ]);
             //dd($last_cart_item);
-            //return 'vaffanculo!';
+
             //return response()->json($last_cart_item,  201);
             return response()->json(['success' => true, 'last_cart_item' => $last_cart_item], 201);
             //return Response::json(array('success' => true,'last_id'=>$last_cart_item), 200);

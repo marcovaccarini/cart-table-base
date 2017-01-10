@@ -98,8 +98,10 @@
                                                     @if($featured->custom_discount != null)
                                                         <div class="product-image-label type-2"><span>{{number_format($featured->custom_discount), 0}}% OFF</span></div>
                                                     @endif
-
-                                                    <a class="top-line-a right"><i class="fa fa-heart"></i> </a>
+                                                    <form novalidate="" method="post">
+                                                        <input type="hidden" id="product_id" name="product_id" value="{{$featured->id}}" />
+                                                        <a class="top-line-a right add-to-wishlist"><i class="fa fa-heart"></i> </a>
+                                                    </form>
                                                     <a href="{{$featured->path}}" class="top-line-a left quick-view">Details <i class="fa fa-search-plus"></i></a>
                                                     <div class="bottom-line">
                                                         <a class="bottom-line-a open-product" data-id="{{$featured->id}}"><i class="fa fa-shopping-cart"></i> Add to bag</a>

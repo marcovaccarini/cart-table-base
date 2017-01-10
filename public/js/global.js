@@ -1012,4 +1012,69 @@ $(function() {
                 //  TODO: make better error response
             });
     });
+
+
+
+
+
+
+    /*======================================*/
+    /* 09.4 - add item to wishlist via AJAX */
+    /*======================================*/
+
+    $(".add-to-wishlist").click(function (e) {
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        e.preventDefault();
+
+
+
+        var formData = {
+            product_id: $('#product_id').val(),
+        }
+        $.ajax({
+            url: '/wishlist',
+            type: 'POST',
+            data: formData,
+            dataType: 'json',
+            complete: function(xhr, textStatus) {
+
+                if(xhr.status == 201){
+                    //  article added to wishlist
+                    //  update the number in header
+                    alert('OK! article added');
+
+                }
+
+                if(xhr.status == 200){
+                    // item already in wishlist
+                    // show message
+                    alert('item already in wishlist!');
+                }
+
+            }
+
+        })
+
+            .done(function(data){
+
+            })
+
+            .fail(function(jqXHR){
+                //   console.log('Text: ' + jqXHR.responseText);
+                //  alert('Json Request Failed...');
+                //  TODO: make better error response
+            });
+
+    });
+
+
+
+
+
+
 });

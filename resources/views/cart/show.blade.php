@@ -36,42 +36,48 @@
                     <h3 class="cart-column-title size-1" id="shopping-bag">Shopping Bag</h3>
                     @forelse($cart_items as $cart_item)
                         <div class="traditional-cart-entry style-1">
-                            <a class="image" href="{{$cart_item->product->path}}"><img alt="" src="/img/{{$cart_item->ProductImages->filename}}"></a>
-                            <div class="content">
-                                <div class="cell-view">
-                                    <a class="tag" href="#">woman clothing</a>
-                                    {{--TODO: add link to category--}}
-                                    <a class="title" href="{{$cart_item->product->path}}">{{$cart_item->product->product_name}}</a>
-                                    <div class="inline-description">Product code: {{ $cart_item->product->specification }} </div>
-                                    <div class="inline-description">Size {{$cart_item->sizenames->name}} </div>
-                                    <div class="price">
-                                        @if($cart_item->product->custom_discount != null)
-                                            <div class="prev">${{$cart_item->product->price*$cart_item->qty}}</div> |
-                                            <span class="sale-price" style="color: #d50f02;margin:0 10px;"> -{{number_format($cart_item->product->custom_discount, 0)}}%</span>
-                                            <div class="current">${{ number_format(($cart_item->product->price - (($cart_item->product->price/100) * $cart_item->product->custom_discount))*$cart_item->qty, 2) }}</div>
-                                        @else
-                                            <div class="current">${{ number_format($cart_item->product->price*$cart_item->qty, 2)}}</div>
-                                        @endif
-
-                                    </div>
-                                    <div id="{{$cart_item->id}}" data-sale_price="{{$cart_item->product->price}}" data-current_price="{{number_format($cart_item->product->price - (($cart_item->product->price/100) * $cart_item->product->custom_discount), 2)}}" class="quantity-selector detail-info-entry">
-                                        <div class="detail-info-entry-title">Quantity</div>
-                                        <div class="entry number-minus">&nbsp;</div>
-                                        <div class="entry number">{{$cart_item->qty}}</div>
-                                        <div class="entry number-plus">&nbsp;</div>
-                                        <a class="button style-15">Edit size</a>
-                                        {{--<a class="button style-17">remove</a> --}}
-                                        <form class="cart-form" method="POST" action="/cart/{{$cart_item->id}}" accept-charset="UTF-8">
-                                            <input name="_method" type="hidden" value="DELETE">
-                                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                            <button class="button style-20 delete-page-cart-item"><i class="fa fa-trash"></i></button>
-                                        </form>
+                            <div class="product-detail-box cart-entry"
+                                 data-id="{{ $cart_item->id }}"
+                                 data-price="{{ $cart_item->product->price }}"
+                                 data-custom_discount="{{ $cart_item->product->custom_discount }}"
+                                 data-qty="{{ $cart_item->qty }}"
+                                 data-sizeid="{{ $cart_item->sizenames->id }}">
+                                <a class="image" href="{{$cart_item->product->path}}"><img alt="" src="/img/{{$cart_item->ProductImages->filename}}"></a>
+                                <div class="content">
+                                    <div class="cell-view">
+                                        <a class="tag" href="#">woman clothing</a>
+                                        {{--TODO: add link to category--}}
+                                        <a class="title" href="{{$cart_item->product->path}}">{{$cart_item->product->product_name}}</a>
+                                        <div class="inline-description">Product code: {{ $cart_item->product->specification }} </div>
+                                        <div class="inline-description">Size {{$cart_item->sizenames->name}} </div>
+                                        <div class="price">
+                                            @if($cart_item->product->custom_discount != null)
+                                                <div class="prev">${{$cart_item->product->price*$cart_item->qty}}</div> |
+                                                <span class="sale-price" style="color: #d50f02;margin:0 10px;"> -{{number_format($cart_item->product->custom_discount, 0)}}%</span>
+                                                <div class="current">${{ number_format(($cart_item->product->price - (($cart_item->product->price/100) * $cart_item->product->custom_discount))*$cart_item->qty, 2) }}</div>
+                                            @else
+                                                <div class="current">${{ number_format($cart_item->product->price*$cart_item->qty, 2)}}</div>
+                                            @endif
+                                        </div>
+                                        <div id="{{$cart_item->id}}" class="quantity-selector detail-info-entry">
+                                            <div class="detail-info-entry-title">Quantity</div>
+                                            <div class="entry number-minus cart-minus">&nbsp;</div>
+                                            <div class="entry number">{{$cart_item->qty}}</div>
+                                            <div class="entry number-add cart-add">&nbsp;</div>
+                                            <a class="button style-15">Edit size</a>
+                                            {{--<a class="button style-17">remove</a> --}}
+                                            <form class="cart-form" method="POST" action="/cart/{{$cart_item->id}}" accept-charset="UTF-8">
+                                                <input name="_method" type="hidden" value="DELETE">
+                                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                                <button class="button style-20 delete-page-cart-item"><i class="fa fa-trash"></i></button>
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     @empty
-                        <h3 class="cart-column-title size-1">You have no items in your shopping cart.</h3>
+                        <h3 class="cart-column-title size-1 no-item">You have no items in your shopping cart.</h3>
                         <a class="button style-10">Continue shopping</a>
                     @endforelse
 

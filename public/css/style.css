@@ -93,7 +93,7 @@
 /* 01 - FONTS USAGE */
 /*-------------------------------------------------------------------------------------------------------------------------------*/
 body{font-family: 'Raleway', sans-serif;}
-
+a {color:#000;}
 
 /*-------------------------------------------------------------------------------------------------------------------------------*/
 /* 02 - RESET STYLES */
@@ -731,7 +731,7 @@ footer{position: relative;}
 .product-image:hover .top-line-a.right{right: 10px;}
 .product-slide-entry .tag{font-size: 10px; line-height: 14px; color: #8b8b8b; text-transform: uppercase; display: block; font-weight: 500; margin-bottom: 7px;}
 .product-slide-entry .tag:hover{color: #2e2e2e;}
-.product-slide-entry .title{display: block; font-size: 15px; line-height: 18px; color: #2e2e2e; font-weight: 600; margin-bottom: 10px;}
+.product-slide-entry .title{font-family: 'Times New Roman', sans-serif; display: block; font-size: 15px; line-height: 18px; color: #2e2e2e; font-weight: 600; margin-bottom: 10px;}
 .product-slide-entry .title b{font-weight: 700;}
 .product-slide-entry .title:hover{color: #03b4ea;}
 .rating-box{color: #f5c10c; font-size: 14px; line-height: 14px; margin-bottom: 10px;}
@@ -1802,15 +1802,15 @@ body.style-10 .product-slide-entry .subtitle:hover{color: #ca1515;}
 .quantity-selector{font-size: 0;}
 .quantity-selector .button{margin-right: 20px;}
 .quantity-selector .entry{border: 1px #d1d1d1 solid; height: 37px; line-height: 35px; width: 37px; margin-left: -1px; display: inline-block; cursor: pointer; position: relative; font-size: 12px; color: #4c4c4c; text-align: center; user-select: none; -webkit-user-select: none; -moz-user-select: none;}
-.quantity-selector .entry.number-minus:before, .quantity-selector .entry.number-plus:before{content: ""; width: 11px; height: 1px; background: #4d4d4d; left: 50%; margin-left: -5.5px; top: 50%; margin-top: -0.5px; position: absolute;}
-.quantity-selector .entry.number-plus:after{content: ""; height: 11px; width: 1px; background: #4d4d4d; left: 50%; margin-left: -0.5px; top: 50%; margin-top: -5.5px; position: absolute;}
+.quantity-selector .entry.number-minus:before, .quantity-selector .entry.number-add:before{content: ""; width: 11px; height: 1px; background: #4d4d4d; left: 50%; margin-left: -5.5px; top: 50%; margin-top: -0.5px; position: absolute;}
+.quantity-selector .entry.number-add:after{content: ""; height: 11px; width: 1px; background: #4d4d4d; left: 50%; margin-left: -0.5px; top: 50%; margin-top: -5.5px; position: absolute;}
 .quantity-selector .entry.number{cursor: default; width: 44px; padding: 0 5px; width: auto; min-width: 44px;}
-.quantity-selector .entry.number-minus:hover, .quantity-selector .entry.number-plus:hover{background: #ca1515;}
+.quantity-selector .entry.number-minus:hover, .quantity-selector .entry.number-add:hover{background: #ca1515;}
 .quantity-selector .entry.number-minus{
     margin-left: 0;
 }
 .quantity-selector .entry:hover:before, .quantity-selector .entry:hover:after{background: #fff!important;}
-.quantity-selector .entry.number-minus:active, .quantity-selector .entry.number-plus:active{background: #f71414;}
+.quantity-selector .entry.number-minus:active, .quantity-selector .entry.number-add:active{background: #f71414;}
 .tags-selector{font-size: 13px; line-height: 18px; color: #808080; font-weight: 300;}
 .tags-selector .detail-info-entry-title{display: inline-block; text-transform: uppercase; position: relative; top: 1px;}
 .tags-selector a{color: #808080;}
@@ -2401,7 +2401,7 @@ select{background: #fff!important;}
 .traditional-cart-entry .inline-description{font-size: 13px; line-height: 15px; color: #808080; font-weight: 400; margin-bottom: 5px;}
 .traditional-cart-entry .price{margin-bottom: 20px; padding-top: 15px;}
 .traditional-cart-entry .quantity-selector .entry{margin-bottom: 20px;}
-.traditional-cart-entry .quantity-selector .entry.number-plus{margin-right: 20px;}
+.traditional-cart-entry .quantity-selector .entry.number-add{margin-right: 20px;}
 .remove-button{display: inline-block; border: 1px #e6e6e6 solid; width: 34px; line-height: 32px; text-align: center; font-size: 12px;  background: transparent; color: #2e2e2e;}
 .remove-button:hover{background: #ca1515; color: #fff; border: 1px #ca1515 solid;}
 .wishlist-entry .column-2 .remove-button{margin-left: 50px;}
@@ -2430,7 +2430,7 @@ select{background: #fff!important;}
     .traditional-cart-entry.style-1 .detail-info-entry-title{
         display: none;
     }
-    .traditional-cart-entry.style-1 .quantity-selector .entry.number-plus{
+    .traditional-cart-entry.style-1 .quantity-selector .entry.number-add{
         margin-right: 15px;
     }
     .quantity-selector .entry.number-minus{
@@ -3247,7 +3247,7 @@ body.teaser-3 .teaser-title{font-size: 72px; line-height: 62px; border-top: 4px 
 /*-------------------------------------------------------------------------------------------------------------------------------*/
 /* 00 - CSS ANIMATIONS */
 /*-------------------------------------------------------------------------------------------------------------------------------*/
-.sidebar-navigation .entry:before, .sidebar-navigation .entry, .button, .socials-box a, .socials-box a .fa, .search-drop-down .category-entry, .search-button, .header-functionality-entry, footer a, .product-slide-entry .title, .product-slide-entry .tag, .inline-product-entry .title, .inline-product-entry .image, .list-type-1 a, .hover-class-1:after, .hover-label, .menu-slider-arrows a .fa, .bottom-line-a, .top-line-a, .fixed-header-square-button .fa, .read-more, .product-mix-info, .simple-search-form .simple-submit, .departmets-drop-down .list a, .copyright a, .styled-form .submit-wrapper, .socials-box a .fa, .sidebar-logos-row a img, a.sale-entry:before, a.sale-entry .sale-price, a.sale-entry .sale-price span, a.sale-entry .sale-description, .breadcrumb-box a, .icon-entry .image, .quantity-selector .entry.number-minus, .quantity-selector .entry.number-plus, .tabs-container.style-1 .tab-switcher, .size-selector .entry:after, .color-selector .entry:after, .color-selector .entry:before, .blog-entry .title, .blog-entry .subtitle a, .blog-entry .subtitle a b, .blog-entry .readmore, .square-button, .tags-box a, .categories-list ul li a, .container-404 .text a, .portfolio-navigation a, .portfolio-entry .title, .action-button, .hover-layer, .continue-link, .accordeon-title, .traditional-cart-entry .tag, .traditional-cart-entry .title, .remove-button, .cart-summary-box .simple-link, .checkout-progress-widget a.step-entry, .simple-field, .column-article-entry .title, .product-slide-entry .subtitle, .parallax-view, .simple-form .submit, .latest-entries-heading .latest-more, .demo-categories-entry .title, .demo-categories-entry .list a, .sale-entry-border, .sale-entry-border:before, .color-text-widget, .color-text-widget .cell-view, .color-text-widget .title, .color-text-widget .description, .sale-entry, .simple-search-form, .special-item-entry>img{-moz-transition:all 0.15s ease-out; -o-transition:all 0.15s ease-out; -webkit-transition:all 0.15s ease-out; transition:all 0.15s ease-out; -ms-transition:all 0.15s ease-out;}
+.sidebar-navigation .entry:before, .sidebar-navigation .entry, .button, .socials-box a, .socials-box a .fa, .search-drop-down .category-entry, .search-button, .header-functionality-entry, footer a, .product-slide-entry .title, .product-slide-entry .tag, .inline-product-entry .title, .inline-product-entry .image, .list-type-1 a, .hover-class-1:after, .hover-label, .menu-slider-arrows a .fa, .bottom-line-a, .top-line-a, .fixed-header-square-button .fa, .read-more, .product-mix-info, .simple-search-form .simple-submit, .departmets-drop-down .list a, .copyright a, .styled-form .submit-wrapper, .socials-box a .fa, .sidebar-logos-row a img, a.sale-entry:before, a.sale-entry .sale-price, a.sale-entry .sale-price span, a.sale-entry .sale-description, .breadcrumb-box a, .icon-entry .image, .quantity-selector .entry.number-minus, .quantity-selector .entry.number-add, .tabs-container.style-1 .tab-switcher, .size-selector .entry:after, .color-selector .entry:after, .color-selector .entry:before, .blog-entry .title, .blog-entry .subtitle a, .blog-entry .subtitle a b, .blog-entry .readmore, .square-button, .tags-box a, .categories-list ul li a, .container-404 .text a, .portfolio-navigation a, .portfolio-entry .title, .action-button, .hover-layer, .continue-link, .accordeon-title, .traditional-cart-entry .tag, .traditional-cart-entry .title, .remove-button, .cart-summary-box .simple-link, .checkout-progress-widget a.step-entry, .simple-field, .column-article-entry .title, .product-slide-entry .subtitle, .parallax-view, .simple-form .submit, .latest-entries-heading .latest-more, .demo-categories-entry .title, .demo-categories-entry .list a, .sale-entry-border, .sale-entry-border:before, .color-text-widget, .color-text-widget .cell-view, .color-text-widget .title, .color-text-widget .description, .sale-entry, .simple-search-form, .special-item-entry>img{-moz-transition:all 0.15s ease-out; -o-transition:all 0.15s ease-out; -webkit-transition:all 0.15s ease-out; transition:all 0.15s ease-out; -ms-transition:all 0.15s ease-out;}
 .product-slide-entry .product-image:after, .sidebar-navigation .title .fa, .navigation-banner-content, .from-the-blog-entry .image:after, .toggle-list-button:after, .product-image .bottom-line, .product-image .top-line-a, .navigation-banner-content .subtitle, .navigation-banner-content .title, .navigation-banner-content .description, .navigation-banner-content .info, .swiper-slide .parallax-article .subtitle, .swiper-slide .parallax-article .description, .swiper-slide .parallax-article .info, a.mozaic-banner-entry .subtitle, a.mozaic-banner-entry .title, a.mozaic-banner-entry .description, a.mozaic-banner-entry:before, .creative-square-box .background-box, .creative-square-box:before, .promo-banner-box:before, .promo-banner-box .promo-text, .promo-banner-box .promo-text .description, .product-image img, .product-thumbnails-swiper .paddings-container, .blog-entry .image img, .comment-image:after, .hover-layer .info, .title-info, .actions, a.mozaic-banner-entry .view{-moz-transition:all 300ms ease-out; -o-transition:all 300ms ease-out; -webkit-transition:all 300ms ease-out; transition:all 300ms ease-out; -ms-transition:all 300ms ease-out;}
 .swiper-slide .parallax-article .title, .portfolio-entry .image img, .portfolio-entry:hover .portfolio-drop-down, .overlay-popup .close-layer, .overlay-popup .popup-container{-moz-transition:all 500ms ease-out; -o-transition:all 500ms ease-out; -webkit-transition:all 500ms ease-out; transition:all 500ms ease-out; -ms-transition:all 500ms ease-out;}
 .creative-square-box:hover .background-box, .blog-entry .image:hover img, .portfolio-entry:hover .image img{-moz-transition:all 15000ms linear!important; -o-transition:all 15000ms linear!important; -webkit-transition:all 15000ms linear!important; transition:all 15000ms linear!important; -ms-transition:all 15000ms linear!important;}

@@ -523,12 +523,12 @@ $(function() {
         $(this).addClass('active');
     });
 
-    $('.number-plus').on('click', function(){
+    $('.number-add-cart, .number-add').on('click', function(){
         var divUpd = $(this).parent().find('.number'), newVal = parseInt(divUpd.text(), 10)+1;
         divUpd.text(newVal);
     });
 
-    $('.number-minus').on('click', function(){
+    $('.number-minus-cart, .number-minus').on('click', function(){
         var divUpd = $(this).parent().find('.number'), newVal = parseInt(divUpd.text(), 10)-1;
         if(newVal>=1) {
             divUpd.text(newVal);
@@ -559,18 +559,12 @@ $(function() {
             swipers['swiper-swiper-unique-id-3'].removeAllSlides();
             swipers['swiper-swiper-unique-id-4'].removeAllSlides();
 
-
             showPopup($('#product-popup').animate({'opacity':'100'}));
-
-
-
 
            // e.preventDefault();
 
             var uid = $(this).attr('data-id');
             var data = [];
-
-            //$('#dynamic-content').hide();
 
             $.ajax({
                 url: 'json/product/'+uid,
@@ -582,57 +576,41 @@ $(function() {
                 .done(function(data){
                     console.log(data);
 
-                  //  $('#dynamic-content').hide();
                     var imgHTML = "";
 
                     $.each(data, function(idx, obj) {
-                        //alert(obj.description);
 
-                        //  alert(data);
-                        $('#product_name').html(obj.product_name);
+                        $('.product-detail-box').attr('data-price', obj.price).attr('data-custom_discount', Number(obj.custom_discount));
+                        $('#product_name').html('<a href=\"'+ obj.path +'\">'+ obj.product_name +'</a>');
                         $('#specification').html('Product code: '+obj.specification);
                         $('#description').html(obj.description);
                         if (obj.custom_discount) {
-                           var current = obj.price - (obj.price/100)*obj.custom_discount
-                            $('#price').html('<div class=\"prev\">$'+obj.price+'</div><span class=\"sale-price\"> -'+Math.round(obj.custom_discount)+'%</span><div class=\"current\">$'+current.toFixed(2)+'</div>');
+                            var current = obj.price - (obj.price/100)*obj.custom_discount;
+                            $('#price').html('<div class=\"prev\">$'+obj.price+'</div>' +
+                                '<span class=\"sale-price\"> -'+Math.round(obj.custom_discount)+'%</span>' +
+                                '<div class=\"current\">$'+current.toFixed(2)+'</div>');
                         }
                         else {
-                            $('#price').html('<div class=\"current\">$'+obj.price+'</div>')
+                            $('#price').html('<div class=\"current\" id=\"unit_price\" data-price=\"'+obj.price+'\">$'+obj.price+'</div>')
                         }
                         $('#sizes').html('<div class=\"detail-info-entry-title\">Size</div>');
                         $.each(obj.sizes, function(idx, size) {
-
                             $('#sizes').append('<div class=\"entry\" data-sizeid="'+size.id+'">'+size.name+'</div>');
-
                         });
                         $('#tags').html('<div class=\"detail-info-entry-title\">Tags:</div> ');
                         $.each(obj.tags, function(id1, tag) {
-
                             $('#tags').append('<a href=\"special/'+tag.slug+'\">'+tag.title+'</a> / ');
                         });
                         $('#qty').html(1);
                         $('#product_id').val(obj.id);
-
-
-
-
-
                         $('#main-swiper').html();
-
                         $.each(obj.images, function(id, image) {
                             $('#main-swiper').append('<div class=\"swiper-slide\"><div class=\"product-zoom-image\"><img src=\"/img/main/'+image.filename+'\" alt=\"\" data-zoom=\"/img/zoom/zoom-'+image.filename+'\" /></div></div>');
                         });
-
                         $.each(obj.images, function(id, thumbnail) {
                             $('#thumbnail-swiper').append('<div class=\"swiper-slide swiper-slide-visible\"><div class=\"paddings-container\"><img src=\"/img/main/'+thumbnail.filename+'\"  alt=\"\" /></div></div>');
                         });
-
-
-
-
-
                     });
-
 
                     initSwiper()
                     swipers['swiper-swiper-unique-id-3'].resizeFix(true);
@@ -645,21 +623,12 @@ $(function() {
                         $('#size-error').hide();
                     });
 
-
-
-
-
                 })
                 .fail(function(){
                     alert('Json Request Failed...');
                 });
 
-
             return false;
-
-
-
-
     });
 
 
@@ -735,8 +704,6 @@ $(function() {
     /* 09 - submit form via AJAX */
     /*===========================*/
 
-
-
     //product page - selecting size, quantity, color
     $('.size-selector .entry').on('click', function(){
         $(this).parent().find('.active').removeClass('active');
@@ -744,18 +711,74 @@ $(function() {
         $('#size-error').hide();
     });
 
-
-
-
     var product_pics, size_name, html_price, cart_qty, total;
 
+    function changeModalCart(id, operator, new_qty) {
+
+        // this is the total quantity in cart on the menu header
+        var grandtotal, old_cart_qty, price, $grandtotal, old_grandtotal, $cart_entry, old_qty, old_prev, custom_discount, discounted_price, old_current, new_current, qty, prev, current;
+        old_cart_qty = parseInt($('#cart_qty').text().replace(/\D/g, ''), 10);
+
+        // total inside cart modal
+        $grandtotal = $('.grandtotal').find('span');
+
+        old_grandtotal = Number($grandtotal.text().replace('$', '').replace(',', ''));
+
+        // select the div where are the data
+        $cart_entry = $("div.cart-entry[data-id$=" + id + "]");
+
+        old_qty = Number($cart_entry.attr("data-qty"));
+
+        price = parseFloat($cart_entry.attr("data-price"));
+
+        old_prev = price * old_qty;
+
+        custom_discount = Number($cart_entry.attr("data-custom_discount"));
+
+        discounted_price = Number(price - (price / 100 * custom_discount));
+
+        old_current = discounted_price * old_qty;
+
+        new_current = discounted_price * new_qty;
+
+        if (operator == 'add') {
+            cart_qty = old_cart_qty + new_qty;
+            qty = parseInt(old_qty) + new_qty;
+            prev = (old_prev + price * new_qty).toFixed(2);
+            current = (old_current + new_current).toFixed(2);
+            grandtotal = (old_grandtotal + new_current).toFixed(2);
+        }
+        if (operator == 'sub') {
+            cart_qty = old_cart_qty - new_qty;
+            qty = parseInt(old_qty) - new_qty;
+            prev = (old_prev - price * new_qty).toFixed(2);
+            current = (old_current - new_current).toFixed(2);
+            grandtotal = (old_grandtotal - new_current).toFixed(2);
+        }
+
+        //  assign the new value
+        $('#cart_qty').html('('+ cart_qty +')');
+
+        $grandtotal.html('$' + grandtotal);
+
+        $('.main').html('$' + grandtotal);
+
+        //  add the values to html
+        $cart_entry.find('.quantity').find('span').html(qty);
+        $cart_entry.find('.price').find('.prev').html('$'+ prev);
+        $cart_entry.find('.price').find('.current').html('$'+ current);
+
+        // edit the data-attribute on the div cart_entry
+        $cart_entry.attr('data-qty', qty);
+
+    }
 
     /*==================================*/
     /* 09.1 - add item to cart via AJAX */
     /*==================================*/
 
-    $("#btn-add-to-cart").click(function (e) {
-
+    $(".btn-add-to-cart").click(function (e) {
+        var qty, size;
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -764,6 +787,8 @@ $(function() {
         e.preventDefault();
 
         sizeId = $('#sizes').parent().find('.active').attr("data-sizeid");
+        size = $('#sizes').parent().find('.active').text();
+        qty = parseInt($('#qty').text());
 
         if (isNaN(sizeId)) {
             $('#size-error').show();
@@ -773,49 +798,57 @@ $(function() {
         var formData = {
             sizeId,
             product_id: $('#product_id').val(),
-            qty: parseInt($('#qty').text()),
+            qty: qty,
         }
-
         $.ajax({
             url: '/cart',
             type: 'POST',
             data: formData,
             dataType: 'json',
+            complete: function(xhr, textStatus) {
+                var custom_discount, price, img, product_name, path, id, jsonResponse;
+                if(xhr.status == 201){
+                    jsonResponse = JSON.parse(xhr.responseText);
+                    id = jsonResponse['last_cart_item'];
 
-        })
+                    path = $('h1#product_name').children('a').attr('href');
+                    product_name = $('h1#product_name').children('a').text();
 
-            .done(function(data){
-                cart_qty = 0;
-                total = 0;
-                $("#cart-item-container").empty();
+                    img = $('#thumbnail-swiper div > img:first-child').attr('src').replace('main', 'small');
 
-                $.each(data, function(idc, obj) {
-                    var total_item = parseFloat((obj.product['price'] - (obj.product['price']/100)*obj.product['custom_discount'])*obj.qty).toFixed(2);
-                    if (obj.product['custom_discount']) {
-                        html_price = '<div class=\"prev\">$'+obj.product['price']*obj.qty +'</div> <div class=\"current\">$'+ total_item +'</div>';
+                    //  value from data attribute
+                    price = parseFloat($('.product-detail-box').attr("data-price"));
+                    custom_discount = $('.product-detail-box').attr("data-custom_discount");
+
+                    $( ".no-item" ).remove();
+
+                    // building and append cart entry on modal cart
+                    if (custom_discount != 0) {
+                        html_price = '<div class=\"prev\">$ </div> <div class=\"current\">$ </div>';
                     }
                     else {
-                        html_price = '<div class=\"current\">$'+ total_item +'</div>';
+                        html_price = '<div class=\"current\">$ </div>';
                     }
-                    $('#cart-item-container').append('<div class=\"cart-entry\" data-custom_discount=\"'+obj.product['custom_discount']+'\" ' +
-                        'data-price=\"'+obj.product['price']+'\" data-id=\"'+obj.id+'\" data-total_item=\"'+total_item+'\">' +
-                        '<a class=\"image\" href=\"'+obj.product.path+'\"><img src=\"/img/small/'+obj.product_images['filename']+'\" alt=\"\" /></a>' +
+                    $('#cart-item-container:first').prepend('<div class=\"cart-entry\" data-custom_discount=\"'+custom_discount+'\" ' +
+                        'data-price=\"'+ price +'\" data-id=\"'+ id +'\" data-qty="0" data-sizeid=\"'+ sizeId +'\">' +
+                        '<a class=\"image\" href=\"'+ path +'\"><img src=\"'+ img +'\" alt=\"\" /></a>' +
                         '<div class=\"content\">' +
-                        '<a class=\"title\" href=\"'+obj.product.path+'\">'+ obj.product['product_name'] +'</a>' +
-                        '<div class=\"quantity\">Quantity: <span>'+ obj.qty + '</span> | Size: '+obj.sizenames['name']+'</div>' +
+                        '<a class=\"title\" href=\"'+ path +'\">'+ product_name +'</a>' +
+                        '<div class=\"quantity\">Quantity: <span> </span> | Size: '+ size +'</div>' +
                         '<div class=\"price\">'+ html_price +'</div>' +
                         '</div><div class=\"button-x btn-delete-cart-item\"><i class=\"fa fa-trash\"></i></div></div>');
+                }
 
-                        total += (obj.product['price'] - (obj.product['price']/100)*obj.product['custom_discount'])*obj.qty;
-                        cart_qty += obj.qty;
-                });
+                if(xhr.status == 200){
+                    // item already in cart only need to update quantity and total
+                    jsonResponse = JSON.parse(xhr.responseText);
+                    id = jsonResponse['update_cart_item'];
+                }
 
-                $('#cart_total').html('');
+                changeModalCart(id, 'add', qty);
 
-                $('#cart_total').append('<div class=\"grandtotal\">Total <span>$'+ parseFloat(total).toFixed(2)+'</span></div>');
-                $('#cart_qty').html('('+cart_qty+')');
-
-                //  close the modal and open cart
+                // animation add cart item
+                //  close the modal
                 $('#product-popup.active').animate({'opacity':'0'}, 300, function(){
                     $(this).removeClass('active');
                     $('#product-popup').removeClass('visible');
@@ -823,11 +856,9 @@ $(function() {
 
                 // open cart popup
                 clearTimeout(closecartTimeout);
-
                 if(!$('.cart-box.popup').hasClass('active')){
                     e.preventDefault();
                     closePopups();
-
                     if($('.open-cart-popup').offset().left>winW*0.5){
                         $('.cart-box.popup').addClass('active cart-right').css({'left':'auto', 'right':winW - $('.open-cart-popup').offset().left-$('.open-cart-popup').outerWidth()*0.5-47, 'top':$('.open-cart-popup').offset().top-winScr+15, 'opacity':'0'}).stop().animate({'opacity':'1'}, 500);
                     }
@@ -836,18 +867,26 @@ $(function() {
                     }
                     closecartTimeout = setTimeout(function(){closePopups();}, 4000);
                 }
+                var $cart_entry = $( "div.cart-entry[data-id$="+id+"]" );
+                $cart_entry.addClass('animated bounceIn');
 
-                $(".cart-entry:first-child").addClass('animated bounceIn');
+            }
 
-            })
+        })
 
-            .fail(function(jqXHR){
-                console.log('Text: ' + jqXHR.responseText);
-              //  alert('Json Request Failed...');
+        .done(function(data){
+
+        })
+
+        .fail(function(jqXHR){
+                //   console.log('Text: ' + jqXHR.responseText);
+                //  alert('Json Request Failed...');
                 //  TODO: make better error response
-            });
+        });
 
     });
+
+
 
 
     var Id, increment, decrement, total_item, entry_to_edit, total_cart_qty;
@@ -856,10 +895,14 @@ $(function() {
     /* 09.2 - add or decrement quantity via AJAX */
     /*===========================================*/
 
-    $(".number-plus, .number-minus").click(function (e) {
-        var id = $(this).parent('div').attr('id'); // $(this) refers to button that was clicked
+    $(".cart-add, .cart-minus").click(function (e) {
 
-        var className = $(this).attr('class');
+        var formData, $operator, className, qty, id;
+
+        id = $(this).parent('div').attr('id'); // $(this) refers to button that was clicked
+        qty = 1;
+
+        className = $(this).attr('class');
 
         $.ajaxSetup({
             headers: {
@@ -868,19 +911,22 @@ $(function() {
         });
         e.preventDefault();
 
-        if(className.indexOf('plus') !== -1){
+        if(className.indexOf('add') !== -1){
             increment = 1;
-            var formData = {
+            formData = {
                 id,
                 increment,
-            }
+            };
+            $operator = 'add';
+
         }
         if(className.indexOf('minus') !== -1){
             decrement = 1;
-            var formData = {
+            formData = {
                 id,
                 decrement,
-            }
+            };
+            $operator = 'sub';
         }
 
         $.ajax({
@@ -889,61 +935,12 @@ $(function() {
             data: formData,
             dataType: 'json',
             complete: function(xhr, textStatus) {
-
                 if(xhr.status == 200){
-
-                    var total_cart_qty = parseInt($('#cart_qty').text().replace(/\D/g,''), 10);
-
-                    var current = parseFloat($( '#'+id ).parent('div').find('.current').text().replace('$',''));
-
-                    var current_price = parseFloat($( '#'+id ).attr('data-current_price'));
-                    var total_cart = parseFloat($('.main').text().replace('$','').replace(',',''));
-
-                    var sale_price = parseFloat($( '#'+id ).parent('div').find('.prev').text().replace('$',''));
-                    var unit_sale_price = parseFloat($( '#'+id ).attr('data-sale_price'));
-
-                    if(className.indexOf('plus') !== -1){
-                        ++total_cart_qty;
-                        current = (current + current_price).toFixed(2);
-                        total_cart = (total_cart + current_price).toFixed(2);
-                        sale_price = (sale_price + unit_sale_price).toFixed(2);
-                    }
-                    if(className.indexOf('minus') !== -1){
-                        --total_cart_qty;
-                        current = (current - current_price).toFixed(2);
-                        total_cart = (total_cart - current_price).toFixed(2);
-                        sale_price = (sale_price - unit_sale_price).toFixed(2);
-                    }
-
-                    $('#cart_qty').html('('+ total_cart_qty +')');
-
-                    //  get quantity from input
-                    var entry_qty = parseInt($( '#'+id ).parent().find('.number').text(), 10);
-                    //  set the quantity on modal cart
-                    $('[data-id="'+id+'"]').first('div').find('span').html(entry_qty);
-
-
-                    //  set the previous sale price on modal cart
-                    $('[data-id="'+id+'"]').first('div').find('.prev').html('$' + sale_price);
-                    //  set the current price on modal cart
-                    $('[data-id="'+id+'"]').first('div').find('.current').html('$' + current);
-                    //  set previous price on page cart
-                    $( '#'+id ).parent('div').find('.prev').html('$' + sale_price);
-                    //  set the current price on page cart
-                    $( '#'+id ).parent('div').find('.current').html('$' + current);
-
-
-                    total_cart = total_cart.toLocaleString('en-US', {minimumFractionDigits: 2});
-
-                    $('.main').html('$'+ total_cart);
-
-                    $('.grandtotal').first().find('span').html('$'+ total_cart);
-
+                    //update_page_on_change_qty(id, className);
+                    changeModalCart(id, $operator, qty);
                 }
             }
-
         });
-
     });
 
 
@@ -951,15 +948,32 @@ $(function() {
     /* 09.3 - delete cart item form via AJAX */
     /*=======================================*/
 
-
     var product_pics, size_name, html_price, cart_qty, total;
+
+    function removeEntryFromCartPage(id) {
+
+        // only for shopping cart page
+        if ($('#shopping-bag').length) {
+
+            // remove the entry from shopping bag page
+            $('#' + id).parents('.traditional-cart-entry').fadeOut("slow", function () {
+                // Animation complete.
+                $(this).remove();
+
+                if ($('.traditional-cart-entry').length == 0) {
+                    $('#shopping-bag').after('<h3 class=\"cart-column-title size-1 no-item\">You have no items in your shopping bag.</h3>');
+                }
+            });
+        }
+    }
+
     $("#cart-item-container").on("click", ".btn-delete-cart-item", function (e) {
 
-        var id = $(this).parent('.cart-entry').data('id'); // $(this) refers to button that was clicked
+        var formData, qty, id;
+        id = $(this).parent('.cart-entry').data('id'); // $(this) refers to button that was clicked
+        qty = $(this).parent('.cart-entry').data('qty');
+
         var _method = 'DELETE';
-
-
-
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -967,78 +981,35 @@ $(function() {
         });
         e.preventDefault();
 
-        var formData = {
+        formData = {
             id,
             _method,
-        }
+        };
 
         $.ajax({
             url: '/json/cart/'+id,
-
             method: 'POST',
             data: formData,
             dataType: 'json',
             complete: function(xhr, textStatus) {
-
+                //  TODO: fix the animation on dynamics cart entry
                 if(xhr.status == 200){
-
-                    var total_cart_qty = parseInt($('#cart_qty').text().replace(/\D/g,''), 10);
-
-                    var entry_cart_qty = parseInt($('[data-id="'+id+'"]').first('div').find('span').text().replace(/\D/g,''), 10);
-                    total_cart_qty = total_cart_qty - entry_cart_qty;
-                    $('#cart_qty').html('('+ total_cart_qty +')');
-
-                    // update total in modal cart
-                    var current_price = $('[data-id="'+id+'"]').attr("data-total_item");
-                    var total_cart = parseFloat($('.grandtotal').first().find('span').text().replace('$','').replace(',',''));
-
-                    var new_total_cart = (total_cart - current_price).toFixed(2);
-
-                    new_total_cart = new_total_cart.toLocaleString('en-US', {minimumFractionDigits: 2});
-                    $('.grandtotal').first().find('span').html('$'+ new_total_cart);
-
-
-                    // if shopping cart page edit also subtotal and remove also the page entry
-                    if ($('#shopping-bag').length) {
-
-                        // edit total
-                        $('.main').html('$'+ new_total_cart);
-
-                        // remove the entry from shopping bag page
-                        $('#'+id).parents('.traditional-cart-entry').fadeOut( "slow", function() {
-                            // Animation complete.
-                            $(this).remove();
-                            //alert($('.traditional-cart-entry').length);
-                            if ($('.traditional-cart-entry').length == 0) {
-                                $('#shopping-bag').after('<h3 class=\"cart-column-title size-1\">You have no items in your shopping bag.</h3>');
-                            }
-                        });
-
-                    }
-
-                    // remove the entry from cart modal
-                    $('[data-id="'+id+'"]').fadeOut( "slow", function() {
+                    $('[data-id="' + id + '"]').fadeOut("slow", function () {
                         // Animation complete.
+                        changeModalCart(id, 'sub', qty);
                         $(this).remove();
                         if ($('.cart-entry').length == 0) {
-                            $('#cart-item-container').html('<h3 class=\"cart-column-title size-1\">You have no items in your shopping bag.</h3>');
-
+                            $('#cart-item-container').html('<h3 class=\"cart-column-title no-item size-1\">You have no items in your shopping bag.</h3>');
                         }
-
                     });
+                    removeEntryFromCartPage(id);
                 }
             }
         })
-
-
-
             .fail(function(jqXHR){
-                console.log('Text: ' + jqXHR.responseText);
+              //  console.log('Text: ' + jqXHR.responseText);
                 //  alert('Json Request Failed...');
                 //  TODO: make better error response
             });
-
     });
-
-
 });

@@ -57,7 +57,7 @@
                             </div>
                             <div class="swiper-hidden-edges">
                                 <div class="swiper-container product-thumbnails-swiper" data-autoplay="0" data-loop="0" data-speed="500" data-center="0" data-slides-per-view="responsive" data-xs-slides="3" data-int-slides="3" data-sm-slides="3" data-md-slides="4" data-lg-slides="4" data-add-slides="4">
-                                    <div class="swiper-wrapper">
+                                    <div id="thumbnail-swiper" class="swiper-wrapper">
                                         @foreach($product->images as $image)
                                         <div class="swiper-slide @if ($loop->first)
                                                 selected
@@ -75,8 +75,8 @@
                         </div>
                     </div>
                     <div class="col-sm-6 information-entry">
-                        <div class="product-detail-box">
-                            <h1 class="product-title">{{ $product->product_name }}</h1>
+                        <div class="product-detail-box" id="info-entry" data-price="{{ $product->price }}" data-custom_discount="{{ $product->custom_discount }}">
+                            <h1 id="product_name" class="product-title"><a href="{{ $product->path }}">{{ $product->product_name }}</a></h1>
                             <h3 class="product-subtitle">Product code: {{ $product->specification }}</h3>
 
                             <div class="product-description detail-info-entry">{{ $product->description }}</div>
@@ -125,10 +125,10 @@
                                 <div class="detail-info-entry-title">Quantity</div>
                                 <div class="entry number-minus">&nbsp;</div>
                                 <div id="qty" class="entry number">1</div>
-                                <div class="entry number-plus">&nbsp;</div>
+                                <div class="entry number-add">&nbsp;</div>
                             </div>
                             <div class="detail-info-entry">
-                                <a class="button style-10" id="btn-add-to-cart">Add to cart</a>
+                                <a class="button style-10 btn-add-to-cart">Add to cart</a>
                                 <a class="button style-11"><i class="fa fa-heart"></i> Add to Wishlist</a>
                                 <div class="clear"></div>
                             </div>

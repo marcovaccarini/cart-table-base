@@ -2,9 +2,10 @@
     <div id="cart-item-container">
         @forelse($latest as $cart_item)
             <div class="cart-entry" data-id="{{$cart_item->id}}"
+                 data-qty="{{$cart_item->qty}}"
+                 data-sizeid="{{$cart_item->sizenames->id}}"
                  data-custom_discount="{{$cart_item->product->custom_discount}}"
-                 data-price="{{$cart_item->product->price}}"
-                 data-total_item="{{($cart_item->product->price - $cart_item->product->price/100 * $cart_item->product->custom_discount)*$cart_item->qty}}">
+                 data-price="{{$cart_item->product->price}}">
                 <a href="{{$cart_item->product->path}}" class="image"><img src="/img/small/{{$cart_item->ProductImages->filename}}" alt="" /></a>
                 <div class="content">
                     <a class="title" href="{{$cart_item->product->path}}">{{$cart_item->product->product_name}}</a>
@@ -24,7 +25,7 @@
 
             </div>
         @empty
-            <div class="summary"><div class="grandtotal text-left">You have no items in your shopping cart. </div></div>
+            <div class="summary"><div class="grandtotal text-left"><h3 class="no-item">You have no items in your shopping cart.</h3></div></div>
         @endforelse
     </div>
     <div class="summary" id="cart_total">

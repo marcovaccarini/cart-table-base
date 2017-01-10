@@ -51,11 +51,13 @@ class ProductController extends Controller
     public function json_show($id)
     {
         $product = Product::where('id', '=', $id)
-            ->with('images')
+            ->with('images')->orderBy('featured', 'desc')
             ->with('sizes')
             ->with('tags')
             ->get();
+
         return $product->toJson();
+
     }
     /**
      * Display the specified resource.

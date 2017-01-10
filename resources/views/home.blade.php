@@ -204,10 +204,10 @@
                                                         <div class="product-image-label type-2"><span>{{number_format($newarrival->custom_discount), 0}}% OFF</span></div>
                                                     @endif
 
-                                                    <a class="top-line-a right"><i class="fa fa-heart"></i> wishlist</a>
-                                                    <a href="{{$newarrival->path}}" class="top-line-a left quick-view">view details <i class="fa fa-search-plus"></i></a>
+                                                    <a class="top-line-a right"><i class="fa fa-heart"></i> </a>
+                                                    <a href="{{$newarrival->path}}" class="top-line-a left quick-view">Details <i class="fa fa-search-plus"></i></a>
                                                     <div class="bottom-line">
-                                                        <a class="bottom-line-a"><i class="fa fa-shopping-cart"></i> Add to cart</a>
+                                                        <a class="bottom-line-a open-product" data-id="{{$newarrival->id}}"><i class="fa fa-shopping-cart"></i> Add to bag</a>
                                                     </div>
                                                 </div>
                                                 <a class="tag" href="#">{{$newarrival->category->title}}</a>
@@ -222,7 +222,7 @@
                                                     @endif
                                                 </div>
                                                 <div class="information-blocks">
-                                                    <a class="button style-17 open-product" id="getUser" data-id="{{$newarrival->id}}"><i class="fa fa-shopping-bag"></i>Add * to bag</a>
+                                                    <a class="button style-17 open-product" id="getUser" data-id="{{$newarrival->id}}"><i class="fa fa-shopping-bag"></i>Add to bag</a>
                                                 </div>
                                             </div>
                                         </div>

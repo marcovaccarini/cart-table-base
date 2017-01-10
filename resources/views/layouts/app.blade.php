@@ -617,12 +617,12 @@
                                         <div class="detail-info-entry-title">Quantity</div>
                                         <div class="entry number-minus">&nbsp;</div>
                                         <div class="entry number" id="qty">1</div>
-                                        <div class="entry number-plus">&nbsp;</div>
+                                        <div class="entry number-add">&nbsp;</div>
 
                                         {{--<select name="qty" style="width: 100%;">--}}
                                     </div>
                                     <div class="detail-info-entry">
-                                        <a class="button style-10" id="btn-add-to-cart"><i class="fa fa-sho"></i> Add to bag</a>
+                                        <a class="button style-10 btn-add-to-cart"><i class="fa fa-sho"></i> Add to bag</a>
                                         <a class="button style-11"><i class="fa fa-heart"></i> Add to Wishlist</a>
                                         <div class="clear"></div>
                                     </div>

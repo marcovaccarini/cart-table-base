@@ -10,6 +10,7 @@ use App\ProductImage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Cookie;
+use Carbon\Carbon;
 
 
 class CartController extends Controller
@@ -85,18 +86,33 @@ class CartController extends Controller
 
             $itemNow = $item->increment('qty', $qty);
 
+            return response()->json(['success' => true, 'update_cart_item' => $item->id], 200);
+
         }
         else{
 
-        // user_id is really necessary here?
-        Cart::create([
+        // TODO: user_id is really necessary here?
+        /*Cart::create([
             'cart_id' => $cart_id,
             'product_id' => $product_id,
             'size_id' => $size_id,
             'qty' => $qty,
-        ]);
+        ]);*/
+            $last_cart_item = Cart::insertGetId([
+                'cart_id' => $cart_id,
+                'product_id' => $product_id,
+                'size_id' => $size_id,
+                'qty' => $qty,
+                'created_at' =>  Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ]);
+            //dd($last_cart_item);
+            //return 'vaffanculo!';
+            //return response()->json($last_cart_item,  201);
+            return response()->json(['success' => true, 'last_cart_item' => $last_cart_item], 201);
+            //return Response::json(array('success' => true,'last_id'=>$last_cart_item), 200);
         }
-        $cart_items = Cart::where('cart_id', '=', $cart_id)
+        /*$cart_items = Cart::where('cart_id', '=', $cart_id)
             ->with('product')
             ->with('ProductImages')
             ->with('sizenames')
@@ -104,18 +120,9 @@ class CartController extends Controller
             ->get();
 
 
-//  TODO try this ->get(array('id', 'desc', 'authorID'));
-        $total=0;
 
-        //dd($cart_items);
+        return $cart_items;*/
 
-
-
-
-
-
-        return $cart_items;
-        /*TODO: not return all the cart but only success and add new cart item via jquery*/
 
     }
 

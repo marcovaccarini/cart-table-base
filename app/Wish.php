@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Whish extends Model
+class Wish extends Model
 {
     protected $table = 'wishes';
 
@@ -15,7 +15,7 @@ class Whish extends Model
     ];
 
     /**
-     * A product belong to a whish
+     * A product belong to a wish
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      *
@@ -26,13 +26,13 @@ class Whish extends Model
     }
 
     /**
-     * A picture belong to a whish
+     * A picture belong to a wish
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function ProductImages()
     {
-        return $this->belongsTo('App\ProductImage', 'product_id')
+        return $this->belongsTo('App\ProductImage', 'product_id');
     }
 
 }

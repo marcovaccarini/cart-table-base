@@ -22,6 +22,8 @@ Route::delete('/json/cart/{id}/', 'CartController@json_destroy');
 //Route::post('cart', 'CartController@store');
 Route::resource('cart', 'CartController');
 
+Route::resource('wishlist', 'WishesController');
+
 Route::get('products', 'ProductController@index');
 
 

@@ -12,6 +12,7 @@ return array(
     'CreateSizesTable' => $baseDir . '/database/migrations/2016_12_19_104946_create_sizes_table.php',
     'CreateTagsTable' => $baseDir . '/database/migrations/2016_12_19_145401_create_tags_table.php',
     'CreateUsersTable' => $baseDir . '/database/migrations/2014_10_12_000000_create_users_table.php',
+    'CreateWishesTable' => $baseDir . '/database/migrations/2017_01_10_084420_create_wishes_table.php',
     'DatabaseSeeder' => $baseDir . '/database/seeds/DatabaseSeeder.php',
     'File_Iterator' => $vendorDir . '/phpunit/php-file-iterator/src/Iterator.php',
     'File_Iterator_Facade' => $vendorDir . '/phpunit/php-file-iterator/src/Facade.php',

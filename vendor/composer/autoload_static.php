@@ -284,6 +284,7 @@ class ComposerStaticInitd80a27d0fba8daec8c8586dc9727f0f2
         'CreateSizesTable' => __DIR__ . '/../..' . '/database/migrations/2016_12_19_104946_create_sizes_table.php',
         'CreateTagsTable' => __DIR__ . '/../..' . '/database/migrations/2016_12_19_145401_create_tags_table.php',
         'CreateUsersTable' => __DIR__ . '/../..' . '/database/migrations/2014_10_12_000000_create_users_table.php',
+        'CreateWishesTable' => __DIR__ . '/../..' . '/database/migrations/2017_01_10_084420_create_wishes_table.php',
         'DatabaseSeeder' => __DIR__ . '/../..' . '/database/seeds/DatabaseSeeder.php',
         'File_Iterator' => __DIR__ . '/..' . '/phpunit/php-file-iterator/src/Iterator.php',
         'File_Iterator_Facade' => __DIR__ . '/..' . '/phpunit/php-file-iterator/src/Facade.php',

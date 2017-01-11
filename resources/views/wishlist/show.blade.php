@@ -33,6 +33,7 @@
             <div class="information-blocks">
                 <div class="row">
                     <div class="col-sm-9 col-sm-push-3">
+                        <div class="block-title size-3">Wishlist</div>
                         <div class="wishlist-header hidden-xs">
                             <div class="title-1">Product Name</div>
                             <div class="title-2">Purchase Product</div>

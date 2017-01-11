@@ -388,6 +388,7 @@
                                         </li>
                                         <li class="fixed-header-visible">
                                             <a class="fixed-header-square-button open-search-popup"><i class="fa fa-search"></i></a>
+                                            {{--TODO: add inject for total wishlist--}}
                                             <a class="fixed-header-square-button"><i class="fa fa-heart-o"></i><span id="wishlist"> (2) </span></a>
                                             <a class="fixed-header-square-button open-cart-popup"><i class="fa fa-shopping-cart"></i>
                                                 @inject('count_items', 'App\Services\CartService')
@@ -623,6 +624,7 @@
                                     </div>
                                     <div class="detail-info-entry">
                                         <a class="button style-10 btn-add-to-cart"><i class="fa fa-sho"></i> Add to bag</a>
+                                        {{--TODO: add class to call js add to wishlist to this button--}}
                                         <a class="button style-11"><i class="fa fa-heart"></i> Add to Wishlist</a>
                                         <div class="clear"></div>
                                     </div>

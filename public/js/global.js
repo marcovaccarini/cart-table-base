@@ -556,8 +556,14 @@ $(function() {
         var $modal = $('#product-popup');
 
         $('.open-product').on('click', function(){
-            swipers['swiper-swiper-unique-id-3'].removeAllSlides();
-            swipers['swiper-swiper-unique-id-4'].removeAllSlides();
+            //  TODO: check if swiper is initialized
+            if (!typeof swipers['swiper-swiper-unique-id-3'] === "undefined") {
+                swipers['swiper-swiper-unique-id-3'].removeAllSlides();
+            }
+            if (!typeof swipers['swiper-swiper-unique-id-4'] === "undefined") {
+                swipers['swiper-swiper-unique-id-4'].removeAllSlides();
+            }
+            //swipers['swiper-swiper-unique-id-4'].removeAllSlides();
 
             showPopup($('#product-popup').animate({'opacity':'100'}));
 

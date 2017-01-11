@@ -120,8 +120,17 @@ class WishesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        //
+        $cart_id = $request->cookie('cart_id');
+        $item = Wish::where('id', '=', $id)->where('cart_id', '=', $cart_id)->firstOrFail();
+
+        $item->delete();
+
+        // redirect
+        //Session::flash('message', 'Successfully deleted the cart item!');
+
+
+        return redirect()->action('WishesController@index');
     }
 }

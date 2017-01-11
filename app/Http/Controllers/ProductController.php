@@ -68,7 +68,6 @@ class ProductController extends Controller
     public function show($mainCategorySlug,$categorySlug,$subCategorySlug,$productSlug, Request $request)
     {
 
-        //  http://localhost:8888/men/tops/polos/quis
         //  man
         $mainCategory = Category::where(function($q) use ($mainCategorySlug) {
             $q->whereSlug($mainCategorySlug);
@@ -77,14 +76,15 @@ class ProductController extends Controller
 
         $mainCategoryId = $mainCategory->id;
 
+
         //  tops
         $category = Category::where(function($q) use ($categorySlug, $mainCategoryId) {
             $q->whereSlug($categorySlug);
             $q->where('parent_id', '=', $mainCategoryId);
         })->firstOrFail();
-        /*})->get();*/
 
         $categoryId = $category->id;
+
 
         //  polos
         $subCategory = Category::where(function($q) use ($subCategorySlug, $categoryId) {
@@ -95,14 +95,14 @@ class ProductController extends Controller
         $subCategoryId = $subCategory->id;
 
 
-        // dd($subCategoryId);
         //  AND FINALLY THE PRODUCT
         $product = Product::where(function($q) use ($productSlug, $subCategoryId) {
             $q->whereSlug($productSlug);
             $q->where('category_id', '=', $subCategoryId);
         })->with('images')->with('sizes')->with('tags')->firstOrFail();
-        //dd($product);
+
         $url = $request->url();
+
 
         return view('products.show',compact('mainCategory', 'category', 'subCategory', 'product', 'url'));
 

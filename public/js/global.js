@@ -1025,7 +1025,7 @@ $(function() {
 
 
     /*======================================*/
-    /* 09.4 - add item to wishlist via AJAX */
+    /* 09.4 - add to wishlist via AJAX */
     /*======================================*/
     $(".add-to-wishlist").click(function (e) {
 

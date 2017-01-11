@@ -27,9 +27,12 @@ Route::resource('wishlist', 'WishesController');
 Route::get('products', 'ProductController@index');
 
 
-Route::pattern('mainCategorySlug', '[a-z\-]+');
-Route::pattern('categorySlug', '[a-z\-]+');
-Route::pattern('subCategorySlug', '[a-z\-]+');
-Route::pattern('productSlug', '[a-z\-]+');
+Route::pattern('mainCategorySlug', '[a-z0-9_\-]+');
+Route::pattern('categorySlug', '[a-z0-9_\-]+');
+Route::pattern('subCategorySlug', '[a-z0-9_\-]+');
+//Route::pattern('productSlug', '[a-z\-]+');
+Route::pattern('productSlug', '[a-z0-9_\-]+');
+//'[A-Za-z0-9_\-]+'
+
 
 Route::get('/{mainCategorySlug}/{categorySlug}/{subCategorySlug}/{productSlug}', 'ProductController@show');

@@ -740,6 +740,7 @@ footer{position: relative;}
 .price .prev{color: #989898; text-decoration: line-through; display: inline-block;}
 .price .current{color: #da75cb; display: inline-block; font-size: 18px; font-weight: 600;}
 .sale-price{color:#d50f02;margin:0 10px;}
+#wishlist{color: #ffffff;}
 @media (min-width: 768px){
     .swiper-tabs .list, .links-drop-down .list{display: block!important;}
 }

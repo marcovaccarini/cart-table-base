@@ -556,7 +556,7 @@ $(function() {
         var $modal = $('#product-popup');
 
         $('.open-product').on('click', function(){
-            //  TODO: check if swiper is initialized
+
             if (!typeof swipers['swiper-swiper-unique-id-3'] === "undefined") {
                 swipers['swiper-swiper-unique-id-3'].removeAllSlides();
             }
@@ -564,6 +564,7 @@ $(function() {
                 swipers['swiper-swiper-unique-id-4'].removeAllSlides();
             }
             //swipers['swiper-swiper-unique-id-4'].removeAllSlides();
+
 
             showPopup($('#product-popup').animate({'opacity':'100'}));
 
@@ -585,6 +586,9 @@ $(function() {
                     var imgHTML = "";
 
                     $.each(data, function(idx, obj) {
+
+                        $('.add-to-wishlist').attr('data-product_id', obj.id);
+                        $('.product_id').val(obj.id);
 
                         $('.product-detail-box').attr('data-price', obj.price).attr('data-custom_discount', Number(obj.custom_discount));
                         $('#product_name').html('<a href=\"'+ obj.path +'\">'+ obj.product_name +'</a>');

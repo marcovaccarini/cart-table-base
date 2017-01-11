@@ -505,10 +505,6 @@
 </div>
 
 <!-- MODAL FOR PRODUCT -->
-
-
-
-
 <div id="product-popup" class="overlay-popup">
 
     <div class="overflow" id="ResponseDiv">
@@ -628,11 +624,17 @@
                                     </div>
                                     <div class="detail-info-entry">
                                         <a class="button style-10 btn-add-to-cart"><i class="fa fa-sho"></i> Add to bag</a>
+                                </form>
                                         {{--TODO: add class to call js add to wishlist to this button--}}
-                                        <a class="button style-11"><i class="fa fa-heart"></i> Add to Wishlist</a>
+
+                                        {{--<a class="button style-11"><i class="fa fa-heart"></i> Add to Wishlist</a>--}}
+                                        <form novalidate="" method="post">
+                                            <input type="hidden" class="product_id" name="product_id" value="" />
+                                            <a class="button style-11 add-to-wishlist"><i class="fa fa-heart"></i> Add to Wishlist</a>
+                                        </form>
                                         <div class="clear"></div>
                                     </div>
-                                </form>
+
                                 <div class="tags-selector detail-info-entry" id="tags">
                                     <div class="detail-info-entry-title">Tags:</div>
                                     {{--<a href="#">bootstrap</a> /--}}

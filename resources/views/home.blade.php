@@ -205,7 +205,10 @@
                                                         <div class="product-image-label type-2"><span>{{number_format($newarrival->custom_discount), 0}}% OFF</span></div>
                                                     @endif
 
-                                                    <a class="top-line-a right"><i class="fa fa-heart"></i> </a>
+                                                    <form novalidate="" method="post">
+                                                        <input type="hidden" class="product_id" name="product_id" value="{{$newarrival->id}}" />
+                                                        <a class="top-line-a right add-to-wishlist" data-product_id="{{$newarrival->id}}"><i class="fa fa-heart"></i> </a>
+                                                    </form>
                                                     <a href="{{$newarrival->path}}" class="top-line-a left quick-view">Details <i class="fa fa-search-plus"></i></a>
                                                     <div class="bottom-line">
                                                         <a class="bottom-line-a open-product" data-id="{{$newarrival->id}}"><i class="fa fa-shopping-cart"></i> Add to bag</a>
@@ -358,7 +361,10 @@
                                                         <div class="product-image-label type-2"><span>{{number_format($promotion->custom_discount), 0}}% OFF</span></div>
                                                     @endif
 
-                                                    <a class="top-line-a right"><i class="fa fa-heart"></i> </a>
+                                                    <form novalidate="" method="post">
+                                                        <input type="hidden" class="product_id" name="product_id" value="{{$promotion->id}}" />
+                                                        <a class="top-line-a right add-to-wishlist" data-product_id="{{$promotion->id}}"><i class="fa fa-heart"></i> </a>
+                                                    </form>
                                                     <a href="{{$promotion->path}}" class="top-line-a left quick-view">Details <i class="fa fa-search-plus"></i></a>
                                                     <div class="bottom-line">
                                                         <a class="bottom-line-a open-product" data-id="{{$promotion->id}}"><i class="fa fa-shopping-cart"></i> Add to bag</a>

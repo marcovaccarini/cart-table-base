@@ -1029,6 +1029,8 @@ $(function() {
     /*======================================*/
     $(".add-to-wishlist").click(function (e) {
 
+        $('#wishlist').parent('a').removeClass('animated bounceIn');
+
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

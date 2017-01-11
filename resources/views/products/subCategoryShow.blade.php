@@ -19,8 +19,8 @@
             <div class="position-center">
                 <div class="parallax-vertical-align">
                     <div class="parallax-article">
-                        <h2 class="subtitle">Check out this weekend</h2>
-                        <h1 class="title">BEST SELLING PRODUCTS</h1>
+                        {{--<h2 class="subtitle">Check out this weekend</h2>--}}
+                        <h1 class="title">{{$subCategory->title}}</h1>
                         {{--<div class="description">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore.</div>
                         <div class="info">
                             <a class="button style-6" href="#">shop now</a>

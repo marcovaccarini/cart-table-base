@@ -1303,7 +1303,7 @@ body.style-5 .button.style-4{background: #f17e0e; border-color: #f17e0e;}
 }
 .parallax-article .subtitle{color: #fff; font-size: 24px; line-height: 24px; text-transform: uppercase; font-family: 'Montserrat', sans-serif; font-weight: 700; margin-bottom: 10px;}
 .parallax-article.dark-text .subtitle{color: #d62020;}
-.parallax-article .title{color: #fff; font-size: 80px; line-height: 72px; text-transform: uppercase; font-family: 'Times New Roman', serif; font-weight: 700; margin-bottom: 5px;}
+.parallax-article .title{margin-top:40px;color: #fff; font-size: 80px; line-height: 72px; text-transform: uppercase; font-family: 'Times New Roman', serif; font-weight: 700; margin-bottom: 5px;}
 .parallax-article.dark-text .title{color: #303030; border-color: #303030!important;}
 .parallax-article .description{font-size: 15px; line-height: 22px; color: #fff; max-width: 470px; margin: 0 auto 25px auto;}
 .parallax-article.dark-text .description{color: #808080;}

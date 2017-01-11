@@ -387,8 +387,8 @@
                                             </div>
                                         </li>
                                         <li class="fixed-header-visible">
+                                            {{--TODO: implement search --}}
                                             <a class="fixed-header-square-button open-search-popup"><i class="fa fa-search"></i></a>
-                                            {{--TODO: add inject for total wishlist--}}
                                             <a class="fixed-header-square-button"><i class="fa fa-heart-o"></i>
                                                 @inject('count_wish', 'App\Services\WishService')
                                                 <span id="wishlist">
@@ -625,9 +625,7 @@
                                     <div class="detail-info-entry">
                                         <a class="button style-10 btn-add-to-cart"><i class="fa fa-sho"></i> Add to bag</a>
                                 </form>
-                                        {{--TODO: add class to call js add to wishlist to this button--}}
 
-                                        {{--<a class="button style-11"><i class="fa fa-heart"></i> Add to Wishlist</a>--}}
                                         <form novalidate="" method="post">
                                             <input type="hidden" class="product_id" name="product_id" value="" />
                                             <a class="button style-11 add-to-wishlist"><i class="fa fa-heart"></i> Add to Wishlist</a>

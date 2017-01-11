@@ -144,6 +144,7 @@
                                     <a href="/special/{{$tag->slug}}">{{$tag->title}}</a> /
                                 @endforeach
                             </div>
+                         {{--TODO: add social media--}}
                             <div class="share-box detail-info-entry">
                                 <div class="title">Share in social media</div>
                                 <div class="socials-box">

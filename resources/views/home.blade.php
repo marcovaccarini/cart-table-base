@@ -98,6 +98,9 @@
                                                     @if($featured->custom_discount != null)
                                                         <div class="product-image-label type-2"><span>{{number_format($featured->custom_discount), 0}}% OFF</span></div>
                                                     @endif
+                                                    @if($featured->new != null)
+                                                        <div class="product-image-label type-1"><span>NEW</span></div>
+                                                    @endif
                                                     <form novalidate="" method="post">
                                                         <input type="hidden" class="product_id" name="product_id" value="{{$featured->id}}" />
                                                         <a class="top-line-a right add-to-wishlist" data-product_id="{{$featured->id}}"><i class="fa fa-heart"></i> </a>
@@ -354,13 +357,10 @@
                                         <div class="paddings-container">
                                             <div class="product-slide-entry">
                                                 <div class="product-image">
-
                                                     <img src="/img/{{$promotion->featured_image->filename}}" alt="{{$promotion->product_name}}" />
-
-                                                    @if($promotion->custom_discount != null)
-                                                        <div class="product-image-label type-2"><span>{{number_format($promotion->custom_discount), 0}}% OFF</span></div>
+                                                    @if($promotion->new != null)
+                                                        <div class="product-image-label type-1"><span>NEW</span></div>
                                                     @endif
-
                                                     <form novalidate="" method="post">
                                                         <input type="hidden" class="product_id" name="product_id" value="{{$promotion->id}}" />
                                                         <a class="top-line-a right add-to-wishlist" data-product_id="{{$promotion->id}}"><i class="fa fa-heart"></i> </a>

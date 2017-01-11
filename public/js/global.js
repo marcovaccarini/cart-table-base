@@ -36,6 +36,7 @@ $(function() {
 
         $('.fixed-header-margin').css({'padding-top':$('header').outerHeight(true)});
         $('.parallax-slide').css({'height':winH});
+        $('.parallax-slide-subcategory').css({'height':winH/2});
     }
 
     /*=================================*/
@@ -574,7 +575,7 @@ $(function() {
             var data = [];
 
             $.ajax({
-                url: 'json/product/'+uid,
+                url: '/json/product/'+uid,
                 type: 'GET',
                 data: '',
                 dataType: 'json'
@@ -624,8 +625,9 @@ $(function() {
 
                     initSwiper()
                     swipers['swiper-swiper-unique-id-3'].resizeFix(true);
-                    swipers['swiper-swiper-unique-id-4'].resizeFix(true);
-
+                    if (!typeof swipers['swiper-swiper-unique-id-4'] === "undefined") {
+                        swipers['swiper-swiper-unique-id-4'].resizeFix(true);
+                    }
                     //product page - selecting size, quantity, color
                     $('.size-selector .entry').on('click', function(){
                         $(this).parent().find('.active').removeClass('active');
@@ -1002,7 +1004,7 @@ $(function() {
             data: formData,
             dataType: 'json',
             complete: function(xhr, textStatus) {
-                //  TODO: fix the animation on dynamics cart entry
+                //  TODO: fix the animation on dynamics cart entry on delete
                 if(xhr.status == 200){
                     $('[data-id="' + id + '"]').fadeOut("slow", function () {
                         // Animation complete.

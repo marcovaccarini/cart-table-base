@@ -74,7 +74,6 @@ class WishesController extends Controller
                 'product_id' => $product_id,
             ]);
 
-            //  TODO: return also the total number of wish
             $total_wishes = Wish::where('cart_id', '=', $cart_id)->count();
             return response()->json(['success' => true, 'total_wishes' => $total_wishes], 201);
         }

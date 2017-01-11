@@ -129,10 +129,15 @@
                             </div>
                             <div class="detail-info-entry">
                                 <a class="button style-10 btn-add-to-cart">Add to cart</a>
-                                <a class="button style-11"><i class="fa fa-heart"></i> Add to Wishlist</a>
+                                </form>
+
+                                <form novalidate="" method="post">
+                                    <input type="hidden" class="product_id" name="product_id" value="{{$product->id}}" />
+                                    <a class="button style-11 add-to-wishlist" data-product_id="{{$product->id}}"><i class="fa fa-heart"></i> Add to Wishlist</a>
+                                </form>
                                 <div class="clear"></div>
                             </div>
-                            </form>
+
                             <div class="tags-selector detail-info-entry">
                                 <div class="detail-info-entry-title">Tags:</div>
                                 @foreach($product->tags as $tag)

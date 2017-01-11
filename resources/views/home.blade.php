@@ -93,7 +93,7 @@
                                             <div class="product-slide-entry">
                                                 <div class="product-image">
 
-                                                    <img src="/img/{{$featured->featured_image->filename}}" alt="{{$featured->product_name}}" />
+                                                    <img src="/img/{{$featured->filename}}" alt="{{$featured->product_name}}" />
 
                                                     @if($featured->custom_discount != null)
                                                         <div class="product-image-label type-2"><span>{{number_format($featured->custom_discount), 0}}% OFF</span></div>
@@ -110,8 +110,11 @@
                                                         <a class="bottom-line-a open-product" data-id="{{$featured->id}}"><i class="fa fa-shopping-cart"></i> Add to bag</a>
                                                     </div>
                                                 </div>
-                                                <a class="tag" href="#">{{$featured->category->title}}</a>
-                                                {{--TODO: add link to category page--}}
+                                                <?php
+                                                $subcategory_path = dirname($featured->path);
+                                                ?>
+                                                <a class="tag" href="{{$subcategory_path}}">{{$featured->title}}</a>
+                                                
                                                 <a class="title"  href="{{$featured->path}}">{{$featured->product_name}}</a>
                                                 <div class="price">
                                                     @if($featured->custom_discount != null)
@@ -217,8 +220,11 @@
                                                         <a class="bottom-line-a open-product" data-id="{{$newarrival->id}}"><i class="fa fa-shopping-cart"></i> Add to bag</a>
                                                     </div>
                                                 </div>
-                                                <a class="tag" href="#">{{$newarrival->category->title}}</a>
-                                                {{--TODO: add link to category page--}}
+                                                <?php
+                                                $subcategory_path = dirname($newarrival->path);
+                                                ?>
+                                                <a class="tag" href="{{$subcategory_path}}">{{$newarrival->title}}</a>
+
                                                 <a class="title"  href="{{$newarrival->path}}">{{$newarrival->product_name}}</a>
                                                 <div class="price">
                                                     @if($newarrival->custom_discount != null)
@@ -370,8 +376,11 @@
                                                         <a class="bottom-line-a open-product" data-id="{{$promotion->id}}"><i class="fa fa-shopping-cart"></i> Add to bag</a>
                                                     </div>
                                                 </div>
-                                                <a class="tag" href="#">{{$promotion->category->title}}</a>
-                                                {{--TODO: add link to category page--}}
+                                                <?php
+                                                $subcategory_path = dirname($promotion->path);
+                                                ?>
+                                                <a class="tag" href="{{$subcategory_path}}">{{$promotion->title}}</a>
+
                                                 <a class="title"  href="{{$promotion->path}}">{{$promotion->product_name}}</a>
                                                 <div class="price">
                                                     @if($promotion->custom_discount != null)

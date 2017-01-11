@@ -120,7 +120,7 @@ class Product extends Model
     //  TODO: refactor this in one query and return a collation use this evrywhere
     public function getPathAttribute()
     {
-        //return $this->attributes['admin'] == 'yes';
+
 
         $subCategory = Category::where('id', '=', $this->category_id)->firstOrFail();
         $subCategorySlug = $subCategory->slug;

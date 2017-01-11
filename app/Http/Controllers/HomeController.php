@@ -7,6 +7,7 @@ use App\Category;
 use App\ProductImage;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -19,28 +20,53 @@ class HomeController extends Controller
     public function index()
     {
 
-        $featureds = Product::where('featured', '=', 1)
+        $featureds = Product::where('products.featured', '=', 1)
+            ->join('categories', function ($join) {
+                $join->on('products.category_id', '=', 'categories.id');
+            })
+            ->join('product_images', function ($join) {
+                $join->on('products.id', '=', 'product_images.id');
+            })->where('product_images.featured', '=', 1)
+            ->select('products.id', 'product_name', 'new', 'products.slug', 'price', 'category_id', 'tax', 'custom_discount', 'title', 'filename')
             ->inRandomOrder()
             ->take(5)
-            ->with('images')
-            ->with('category')
             ->get();
-//dd($featureds);
-        //$discounted_price = $featureds->price - (($featureds->price / 100) * $featureds->custom_discount);
+
 
         $newarrivals = Product::where('new', '=', 1)
+            ->join('categories', function ($join) {
+                $join->on('products.category_id', '=', 'categories.id');
+            })
+            ->join('product_images', function ($join) {
+                $join->on('products.id', '=', 'product_images.id');
+            })->where('product_images.featured', '=', 1)
+            ->select('products.id', 'product_name', 'new', 'products.slug', 'price', 'category_id', 'tax', 'custom_discount', 'title', 'filename')
             ->inRandomOrder()
             ->take(5)
-            ->with('images')
-            ->with('category')
             ->get();
-        //dd($newarrivals);
+
+
         $promotions = Product::where('custom_discount', '!=', null)
+            ->join('categories', function ($join) {
+                $join->on('products.category_id', '=', 'categories.id');
+            })
+            ->join('product_images', function ($join) {
+                $join->on('products.id', '=', 'product_images.id');
+            })->where('product_images.featured', '=', 1)
+            ->select('products.id', 'product_name', 'new', 'products.slug', 'price', 'category_id', 'tax', 'custom_discount', 'title', 'filename')
+            ->inRandomOrder()
+            ->take(5)
+            ->get();
+
+
+
+
+      /*  $promotions = Product::where('custom_discount', '!=', null)
             ->inRandomOrder()
             ->take(5)
             ->with('images')
             ->with('category')
-            ->get();
+            ->get();*/
 //dd($promotions);
         return view('home', compact('newarrivals', 'featureds', 'promotions'));
 

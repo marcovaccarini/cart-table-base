@@ -14,7 +14,8 @@
     <link href="/css/ie9.css" rel="stylesheet" type="text/css" />
     <![endif]-->
     {{--TODO change the favicon--}}
-    <link rel="shortcut icon" href="//img/favicon-4.ico" />
+    <link rel="shortcut icon" href="/img/fav-icon.png" />
+    {{--<link rel="shortcut icon" href="/img/favicon-4.ico" />--}}
 
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
@@ -389,7 +390,7 @@
                                         <li class="fixed-header-visible">
                                             {{--TODO: implement search --}}
                                             <a class="fixed-header-square-button open-search-popup"><i class="fa fa-search"></i></a>
-                                            <a class="fixed-header-square-button"><i class="fa fa-heart-o"></i>
+                                            <a href="/wishlist" class="fixed-header-square-button"><i class="fa fa-heart-o"></i>
                                                 @inject('count_wish', 'App\Services\WishService')
                                                 <span id="wishlist">
                                                     ({{ $count_wish->get_total_wish() }})

@@ -114,7 +114,7 @@
                                                 $subcategory_path = dirname($featured->path);
                                                 ?>
                                                 <a class="tag" href="{{$subcategory_path}}">{{$featured->title}}</a>
-                                                
+
                                                 <a class="title"  href="{{$featured->path}}">{{$featured->product_name}}</a>
                                                 <div class="price">
                                                     @if($featured->custom_discount != null)
@@ -125,7 +125,7 @@
                                                     @endif
                                                 </div>
                                                 <div class="information-blocks">
-                                                    <a class="button style-17 open-product" id="getUser" data-id="{{$featured->id}}"><i class="fa fa-shopping-bag"></i>Add * to bag</a>
+                                                    <a class="button style-17 open-product" id="getUser" data-id="{{$featured->id}}"><i class="fa fa-shopping-bag"></i>Add to bag</a>
                                                 </div>
                                             </div>
                                         </div>

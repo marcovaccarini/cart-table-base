@@ -83,6 +83,13 @@ class CategoryController extends Controller
         /*TODO: not return all the collection but only what needed*/
         /*TODO: add pagination*/
 
+        //  moved to a specific service
+        /*$categories = Category::where('parent_id', '=', $mainCategoryId)->get();
+        */
+        $allCategories = Category::pluck('title','slug','id')->all();
+
+        //dd($categories);
+
         return view('products.categoryShow',compact('mainCategory', 'category', 'products', 'url'));
     }
 

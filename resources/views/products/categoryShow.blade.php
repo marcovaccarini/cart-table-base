@@ -6,7 +6,7 @@
 
 @section('og_title', $category->title)
 
-@section('og_description', $category->title)
+@section('og_description', $category->description)
 
 @section('og_url', $url)
 
@@ -21,8 +21,8 @@
                     <div class="parallax-article">
                         {{--<h2 class="subtitle">Check out this weekend</h2>--}}
                         <h1 class="title">{{$category->title}}</h1>
-                        {{--<div class="description">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore.</div>
-                        <div class="info">
+                        <div class="description">{{ $category->description }}</div>
+                        {{--<div class="info">
                             <a class="button style-6" href="#">shop now</a>
                             <a class="button style-7" href="#">features</a>
                         </div>--}}
@@ -39,8 +39,8 @@
 
             <div class="breadcrumb-box">
                 <a href="/">Home</a>
-                <a href="/{{ $mainCategory->slug }}/" class="text-uppercase">{{ $mainCategory->title }}</a>
-                <a href="/{{ $mainCategory->slug }}/{{ $category->slug }}/">{{ $category->title }}</a>
+                <a href="/{{ $mainCategory->slug }}" class="text-uppercase">{{ $mainCategory->title }}</a>
+                <a href="/{{ $mainCategory->slug }}/{{ $category->slug }}">{{ $category->title }}</a>
                 {{--<a href="/{{ $mainCategory->slug }}/{{ $category->slug }}/{{ $subCategory->slug }}/">{{ $subCategory->title }}</a>--}}
             </div>
 
@@ -112,8 +112,7 @@
                             @include('partials._categories')
                         </div>{{--end accordeon categories--}}
 
-
-                </div>
+                    </div>
             </div>
 
         </div>

@@ -39,9 +39,9 @@
 
             <div class="breadcrumb-box">
                 <a href="/">Home</a>
-                <a href="/{{ $mainCategory->slug }}/" class="text-uppercase">{{ $mainCategory->title }}</a>
-                <a href="/{{ $mainCategory->slug }}/{{ $category->slug }}/">{{ $category->title }}</a>
-                <a href="/{{ $mainCategory->slug }}/{{ $category->slug }}/{{ $subCategory->slug }}/">{{ $subCategory->title }}</a>
+                <a href="/{{ $mainCategory->slug }}" class="text-uppercase">{{ $mainCategory->title }}</a>
+                <a href="/{{ $mainCategory->slug }}/{{ $category->slug }}">{{ $category->title }}</a>
+                <a href="/{{ $mainCategory->slug }}/{{ $category->slug }}/{{ $subCategory->slug }}">{{ $subCategory->title }}</a>
             </div>
 
             <div class="information-blocks">

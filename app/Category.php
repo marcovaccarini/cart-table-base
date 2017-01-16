@@ -8,6 +8,7 @@ class Category extends Model
 {
     public $fillable = [
         'title',
+        'description',
         'parent_id',
         'slug',
         'path',

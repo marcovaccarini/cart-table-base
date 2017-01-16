@@ -21,10 +21,10 @@
         <div class="content-push">
             <div class="breadcrumb-box" style="margin: 36px 0;">
                 <a href="/">Home</a>
-                <a href="/{{ $mainCategory->slug }}/" class="text-uppercase">{{ $mainCategory->title }}</a>
-                <a href="/{{ $mainCategory->slug }}/{{ $category->slug }}/">{{ $category->title }}</a>
-                <a href="/{{ $mainCategory->slug }}/{{ $category->slug }}/{{ $subCategory->slug }}/">{{ $subCategory->title }}</a>
-                <a href="#">{{ $product->product_name }}</a>
+                <a href="/{{ $mainCategory->slug }}" class="text-uppercase">{{ $mainCategory->title }}</a>
+                <a href="/{{ $mainCategory->slug }}/{{ $category->slug }}">{{ $category->title }}</a>
+                <a href="/{{ $mainCategory->slug }}/{{ $category->slug }}/{{ $subCategory->slug }}">{{ $subCategory->title }}</a>
+                <a href="/{{ $mainCategory->slug }}/{{ $category->slug }}/{{ $subCategory->slug }}/{{ $product->slug }}">{{ $product->product_name }}</a>
             </div>
         </div>
     </div>

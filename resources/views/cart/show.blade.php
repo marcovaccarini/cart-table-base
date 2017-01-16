@@ -45,8 +45,8 @@
                                 <a class="image" href="{{$cart_item->product->path}}"><img alt="" src="/img/{{$cart_item->ProductImages->filename}}"></a>
                                 <div class="content">
                                     <div class="cell-view">
+                                        {{--TODO: add categories here--}}
                                         <a class="tag" href="#">woman clothing</a>
-                                        {{--TODO: add link to category--}}
                                         <a class="title" href="{{$cart_item->product->path}}">{{$cart_item->product->product_name}}</a>
                                         <div class="inline-description">Product code: {{ $cart_item->product->specification }} </div>
                                         <div class="inline-description">Size {{$cart_item->sizenames->name}} </div>

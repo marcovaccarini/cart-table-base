@@ -73,6 +73,7 @@
                             <div class="nav-overflow">
                                 <nav>
                                     <ul>
+                                        <li><a href="/">Home</a></li>
 
                                         @inject('categoriesMenu', 'App\Services\CategoriesMenuService')
                                         @foreach($categoriesMenu->get_categories_menu() as $categoryMenu)
@@ -169,22 +170,7 @@
                                                 </div>
                                             </div>
                                         </li>
-                                        <li class="simple-list">
-                                            <a>More</a><i class="fa fa-chevron-down"></i>
-                                            <div class="submenu">
-                                                <ul class="simple-menu-list-column">
-                                                    <li><a href="login.html"><i class="fa fa-angle-right"></i>Login</a></li>
-                                                    <li><a href="error.html"><i class="fa fa-angle-right"></i>Error</a></li>
-                                                    <li><a href="faq.html"><i class="fa fa-angle-right"></i>Faq</a></li>
-                                                    <li><a href="compare.html"><i class="fa fa-angle-right"></i>Compare</a></li>
-                                                    <li><a href="wishlist.html"><i class="fa fa-angle-right"></i>Wishlist</a></li>
-                                                    <li><a href="shortcodes.html"><i class="fa fa-angle-right"></i>Shortcodes</a></li>
-                                                    <li><a href="elements-headers.html"><i class="fa fa-angle-right"></i>Elements - Headers</a></li>
-                                                    <li><a href="elements-footers.html"><i class="fa fa-angle-right"></i>Elements - Footers</a></li>
-                                                    <li><a href="elements-breadcrumbs.html"><i class="fa fa-angle-right"></i>Elements - Breadcrumbs</a></li>
-                                                </ul>
-                                            </div>
-                                        </li>
+
                                         <li class="fixed-header-visible">
                                             {{--TODO: implement search --}}
                                             <a class="fixed-header-square-button open-search-popup"><i class="fa fa-search"></i></a>

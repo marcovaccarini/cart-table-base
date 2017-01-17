@@ -40,14 +40,30 @@ class MainCategoryController extends Controller
             ->get();
 
         //  AND FINALLY THE PRODUCT
-        $products = Product::where(function($q) use ($subCategories) {
+        /*$featureds = Product::where(function($q) use ($subCategories) {
             foreach ($subCategories as $key => $value) {
                 $q->orWhere('category_id', '=', $value->id);
             }
-        })->with('images')->with('sizes')->with('tags')
+        })
+            ->where('products.featured', '=', 1)
+            ->with('images')->with('sizes')->with('tags')
             ->inRandomOrder()
+            ->get();*/
+
+        $featureds = Product::where('products.featured', '=', 1)
+            ->join('categories', function ($join) {
+                $join->on('products.category_id', '=', 'categories.id');
+            })
+            ->join('product_images', function ($join) {
+                $join->on('products.id', '=', 'product_images.id');
+            })->where('product_images.featured', '=', 1)
+            ->select('products.id', 'product_name', 'new', 'products.slug', 'price', 'category_id', 'tax', 'custom_discount', 'categories.title', 'filename')
+            ->inRandomOrder()
+            ->take(5)
             ->get();
-//dd($products);
+
+        /*->toSql();*/
+//dd($featureds);
         $url = $request->url();
         /*TODO: not return all the collection but only what needed*/
         /*TODO: add pagination*/
@@ -59,6 +75,6 @@ class MainCategoryController extends Controller
 
         //dd($categories);
 
-        return view('products.mainCategoryShow',compact('mainCategory', 'category', 'products', 'url'));
+        return view('products.mainCategoryShow',compact('mainCategory', 'category', 'featureds', 'url'));
     }
 }

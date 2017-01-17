@@ -134,7 +134,7 @@ class Product extends Model
         $mainCategory = Category::where('id', '=', $categoryId)->firstOrFail();
         $mainCategorySlug = $mainCategory->slug;
 
-        return '/'.$mainCategorySlug.'/'.$categorySlug.'/'.$subCategorySlug.'/'.$this->slug.'/';
+        return '/'.$mainCategorySlug.'/'.$categorySlug.'/'.$subCategorySlug.'/'.$this->slug;
 
 
 

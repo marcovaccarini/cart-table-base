@@ -30,7 +30,8 @@ class Product extends Model
      *
      * @var array
      */
-     protected $appends = ['path'];
+     protected $appends = ['path', 'featured_image'];
+
 
 
     /**
@@ -62,15 +63,7 @@ class Product extends Model
         //return $this->belongsToMany(ProductImage::class);
     }
 
-    /**
-     * Return a product can have one featured image where "featured" column = true or 1
-     *
-     * @return mixed
-     */
-    public function getFeaturedImageAttribute()
-    {
-        return $this->images->where('featured', true)->first();
-    }
+
 
     /**
      * A product can have many tags
@@ -111,16 +104,24 @@ class Product extends Model
     }
 
     /**
+     * Return a product can have one featured image where "featured" column = true or 1
+     *
+     * @return mixed
+     */
+    public function getFeaturedImageAttribute()
+    {
+        return $this->images->where('featured', true)->first();
+    }
+
+
+    /**
      * Get the path for the product page.
      *
      * @return string
      */
-
-
     //  TODO: refactor this in one query and return a collation use this evrywhere
     public function getPathAttribute()
     {
-
 
         $subCategory = Category::where('id', '=', $this->category_id)->firstOrFail();
         $subCategorySlug = $subCategory->slug;
@@ -135,8 +136,6 @@ class Product extends Model
         $mainCategorySlug = $mainCategory->slug;
 
         return '/'.$mainCategorySlug.'/'.$categorySlug.'/'.$subCategorySlug.'/'.$this->slug;
-
-
 
     }
 

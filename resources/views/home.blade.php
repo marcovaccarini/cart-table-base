@@ -170,15 +170,19 @@
                 <div class="hidden-sm hidden-xs" style="height: 30px;"></div>
                 <div class="mozaic-banners-wrapper type-2">
                     <div class="row">
-                        <div class="banner-column col-sm-6">
-                            <a style="background-image: url(img/mini-3.jpg); background-size: cover; background-position: right top;" class="mozaic-banner-entry type-3">
+                        @inject('categoriesMenu', 'App\Services\CategoriesMenuService')
+                        @foreach($categoriesMenu->get_categories_menu() as $categoryMenu)
+                            <div class="banner-column col-sm-6">
+                                <a href="/{{ $categoryMenu->slug }}" style="background-image: url(img/{{ $categoryMenu->home_image }}); background-size: cover; background-position: right top;" class="mozaic-banner-entry type-3">
                                 <span class="mozaic-banner-content">
                                     <span class="subtitle">New Collection</span>
-                                    <span class="title">For Him</span>
+                                    <span class="title">For {{ $categoryMenu->title }}</span>
                                     <span class="view">read more</span>
                                 </span>
-                            </a>
-                        </div>
+                                </a>
+                            </div>
+                        @endforeach
+                        {{--
                         <div class="banner-column col-sm-6">
                             <a style="background-image: url(img/mini-4.jpg); background-size: cover; background-position: right top;" class="mozaic-banner-entry type-3">
                                 <span class="mozaic-banner-content">
@@ -187,7 +191,7 @@
                                     <span class="view">read more</span>
                                 </span>
                             </a>
-                        </div>
+                        </div>--}}
                         <div class="clear"></div>
                     </div>
                 </div>

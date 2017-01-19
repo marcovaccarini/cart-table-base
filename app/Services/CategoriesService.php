@@ -9,6 +9,11 @@ use Illuminate\Http\Request;
 
 class CategoriesService extends Model
 {
+    /**
+     * Use for accordeon menu on the left of category page
+     * @param $mainCategorySlug
+     * @return mixed
+     */
     public function get_categories($mainCategorySlug)
     {
         //  man -> 1

@@ -578,7 +578,8 @@ $(function() {
                 url: '/json/product/'+uid,
                 type: 'GET',
                 data: '',
-                dataType: 'json'
+                dataType: 'json',
+                delay: 250,
             })
 
                 .done(function(data){

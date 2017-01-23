@@ -86,7 +86,7 @@
 
                                     <span class="sale-price" style="color: #d50f02;margin:0 10px;"> -{{number_format($product->custom_discount), 0}}%</span>
                                     <div class="current">
-                                        ${{ number_format($product->price - (($product->price/100) * $product->custom_discount), 2) }}
+                                        ${{ $product->discounted_price }}
                                     </div>
 
                                 @else

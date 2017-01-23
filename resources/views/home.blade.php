@@ -52,32 +52,6 @@
             </div>
             @endforeach
 
-            {{--<div class="col-sm-4 nopadding creative-square-box">
-                <div class="background-box" style="background-image: url(img/wide-5.jpg);"></div>
-                <div class="cell-view">
-                    <div class="parallax-article">
-                        <h2 class="subtitle">Best quality products</h2>
-                        <h1 class="title">handmade</h1>
-                        <div class="description">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore.</div>
-                        <div class="info">
-                            <a href="#" class="button style-8">shop now</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-4 nopadding creative-square-box">
-                <div class="background-box" style="background-image: url(img/wide-6.jpg);"></div>
-                <div class="cell-view">
-                    <div class="parallax-article">
-                        <h2 class="subtitle">product category</h2>
-                        <h1 class="title">for her</h1>
-                        <div class="description">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore.</div>
-                        <div class="info">
-                            <a href="#" class="button style-8">shop now</a>
-                        </div>
-                    </div>
-                </div>
-            </div>--}}
         </div>
 
         <div class="wide-center">
@@ -96,7 +70,7 @@
                                             <div class="product-slide-entry">
                                                 <div class="product-image">
 
-                                                    <img src="/img/{{$featured->filename}}" alt="{{$featured->product_name}}" />
+                                                    <img src="/img/{{$featured->featured_image->filename}}" alt="{{$featured->product_name}}" />
 
                                                     @if($featured->custom_discount != null)
                                                         <div class="product-image-label type-2"><span>{{number_format($featured->custom_discount), 0}}% OFF</span></div>
@@ -116,13 +90,13 @@
                                                 <?php
                                                 $subcategory_path = dirname($featured->path);
                                                 ?>
-                                                <a class="tag" href="{{$subcategory_path}}">{{$featured->title}}</a>
+                                                <a class="tag" href="{{$subcategory_path}}">{{$featured->category_name}}</a>
 
                                                 <a class="title"  href="{{$featured->path}}">{{$featured->product_name}}</a>
                                                 <div class="price">
                                                     @if($featured->custom_discount != null)
                                                         <div class="prev">${{$featured->price}}</div> |
-                                                        <div class="current">${{ number_format($featured->price - (($featured->price/100) * $featured->custom_discount), 2) }}</div>
+                                                        <div class="current">${{ $featured->discounted_price }}</div>
                                                     @else
                                                         <div class="current">${{$featured->price}}</div>
                                                     @endif
@@ -185,16 +159,7 @@
                                 </a>
                             </div>
                         @endforeach
-                        {{--
-                        <div class="banner-column col-sm-6">
-                            <a style="background-image: url(img/mini-4.jpg); background-size: cover; background-position: right top;" class="mozaic-banner-entry type-3">
-                                <span class="mozaic-banner-content">
-                                    <span class="subtitle">New Collection</span>
-                                    <span class="title">For Her</span>
-                                    <span class="view">read more</span>
-                                </span>
-                            </a>
-                        </div>--}}
+
                         <div class="clear"></div>
                     </div>
                 </div>
@@ -236,7 +201,7 @@
                                                 <div class="price">
                                                     @if($newarrival->custom_discount != null)
                                                         <div class="prev">${{$newarrival->price}}</div> |
-                                                        <div class="current">${{ number_format($newarrival->price - (($newarrival->price/100) * $newarrival->custom_discount), 2) }}</div>
+                                                        <div class="current">${{ $newarrival->discounted_price }}</div>
                                                     @else
                                                         <div class="current">${{$newarrival->price}}</div>
                                                     @endif
@@ -309,42 +274,6 @@
 
                         <div class="clear"></div>
                     </div>
-{{--                    <div class="row">
-                        <div class="banner-column col-sm-4">
-                            <a style="background-image: url(img/mini-3.jpg); background-size: cover; background-position: right top;" class="mozaic-banner-entry type-3">
-                                    <span class="mozaic-banner-content">
-                                        <span class="subtitle">Category</span>
-                                        <span class="title">Leather</span>
-                                        <span class="view">view category</span>
-                                    </span>
-                            </a>
-                        </div>
-                        <div class="banner-column col-sm-4">
-                            <a style="background-image: url(img/mini-4.jpg); background-size: cover; background-position: right top;" class="mozaic-banner-entry type-3">
-                                <span class="mozaic-banner-content">
-                                    <span class="subtitle">New Collection</span>
-                                    <span class="title">For Her</span>
-                                    <span class="view">read more</span>
-                                </span>
-                            </a>
-                        </div>
-                        <div class="banner-column col-sm-4">
-                            <a style="background-image: url(img/mini-3.jpg); background-size: cover; background-position: right top;" class="mozaic-banner-entry type-3">
-                                <span class="mozaic-banner-content">
-                                    <span class="subtitle">New Collection</span>
-                                    <span class="title">For Him</span>
-                                    <span class="view">read more</span>
-                                </span>
-                            </a>
-                        </div>
-
-
-                        <div class="clear"></div>
-                    </div>--}}
-
-
-
-
 
                 </div>
                 <div class="information-blocks">
@@ -382,7 +311,7 @@
                                                 <div class="price">
                                                     @if($promotion->custom_discount != null)
                                                         <div class="prev">${{$promotion->price}}</div> |
-                                                        <div class="current">${{ number_format($promotion->price - (($promotion->price/100) * $promotion->custom_discount), 2) }}</div>
+                                                        <div class="current">${{ $promotion->discounted_price }}</div>
                                                     @else
                                                         <div class="current">${{$promotion->price}}</div>
                                                     @endif

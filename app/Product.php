@@ -30,7 +30,12 @@ class Product extends Model
      *
      * @var array
      */
-     protected $appends = ['path', 'featured_image', 'discounted_price'];
+     protected $appends = [
+         'path',
+         'featured_image',
+         'discounted_price',
+         'category_name'
+     ];
 
 
 
@@ -47,8 +52,13 @@ class Product extends Model
 
     public function getDiscountedPriceAttribute()
     {
-        return  $this->price - (($this->price / 100) * $this->custom_discount);
+        return  number_format($this->price - (($this->price / 100) * $this->custom_discount), 2);
 
+    }
+
+    public function getCategoryNameAttribute()
+    {
+        return Category::where('id', '=', $this->category_id)->firstOrFail()->title;
     }
 
 

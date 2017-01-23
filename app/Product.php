@@ -30,7 +30,7 @@ class Product extends Model
      *
      * @var array
      */
-     protected $appends = ['path', 'featured_image'];
+     protected $appends = ['path', 'featured_image', 'discounted_price'];
 
 
 
@@ -45,10 +45,10 @@ class Product extends Model
         return $this->hasOne('App\Category');
     }
 
-    public function discountedPrice()
+    public function getDiscountedPriceAttribute()
     {
-        $discounted_price = $this->price - (($this->price / 100) * $this->custom_discount);
-        //return $discounted_price;
+        return  $this->price - (($this->price / 100) * $this->custom_discount);
+
     }
 
 

@@ -12,10 +12,8 @@ class TagsController extends Controller
     {
         $products_list = Tag::where('slug', '=', $tags)->firstOrFail();
 
-
         $url = $request->url();
 
-        //dd($products_list);
         return view('products.tagShow', compact('products_list', 'url'));
 
     }

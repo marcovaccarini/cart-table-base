@@ -76,7 +76,8 @@
                                             <div class="price">
                                                 @if($product->custom_discount != null)
                                                     <div class="prev">${{$product->price}}</div> |
-                                                    <div class="current">${{ number_format($product->price - (($product->price/100) * $product->custom_discount), 2) }}</div>
+                                                    {{--<div class="current">${{ number_format($product->price - (($product->price/100) * $product->custom_discount), 2) }}</div>--}}
+                                                    <div class="current">${{ $product->discounted_price }}</div>
                                                 @else
                                                     <div class="current">${{$product->price}}</div>
                                                 @endif

@@ -82,7 +82,7 @@
                                         <?php
                                         $subcategory_path = dirname($product->path);
                                         ?>
-                                        {{--<a class="tag" href="{{$subcategory_path}}">{{$product->category_id}}</a>--}}
+                                        <a class="tag" href="{{$subcategory_path}}">{{$product->category_id}}</a>
                                         <a class="title"  href="{{$product->path}}">{{$product->product_name}}</a>
                                         <div class="price">
                                             @if($product->custom_discount != null)

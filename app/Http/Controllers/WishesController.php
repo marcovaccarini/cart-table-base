@@ -20,8 +20,6 @@ class WishesController extends Controller
     {
         $cart_id = $request->cookie('cart_id');
         $wishes = Wish::where('cart_id', '=', $cart_id)
-            ->with('product')
-            ->with('ProductImages')
             ->orderBy('updated_at', 'desc')
             ->get();
 //dd($wishes);

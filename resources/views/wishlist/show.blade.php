@@ -46,7 +46,10 @@
                                             <a class="image" href="{{$wish->product->path}}"><img alt="{{$wish->product->product_name}}" src="/img/small/{{$wish->ProductImages->filename}}" /></a>
                                             <div class="content">
                                                 <div class="cell-view">
-                                                    <a class="tag" href="#">woman clothing</a>
+                                                    <?php
+                                                    $subcategory_path = dirname($wish->product->path);
+                                                    ?>
+                                                    <a class="tag" href="{{ $subcategory_path }}">{{$wish->product->category_name}}</a>
                                                     <a class="title" href="{{$wish->product->path}}">{{$wish->product->product_name}}</a>
                                                     <div class="inline-description">Product code: {{ $wish->product->specification }}</div>
 

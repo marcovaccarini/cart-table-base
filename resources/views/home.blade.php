@@ -306,7 +306,6 @@
                                                 $subcategory_path = dirname($promotion->path);
                                                 ?>
                                                 <a class="tag" href="{{$subcategory_path}}">{{$promotion->category_name}}</a>
-
                                                 <a class="title"  href="{{$promotion->path}}">{{$promotion->product_name}}</a>
                                                 <div class="price">
                                                     @if($promotion->custom_discount != null)

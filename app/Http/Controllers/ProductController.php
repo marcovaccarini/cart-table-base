@@ -99,11 +99,10 @@ class ProductController extends Controller
         $product = Product::where(function($q) use ($productSlug, $subCategoryId) {
             $q->whereSlug($productSlug);
             $q->where('category_id', '=', $subCategoryId);
-        })->with('images')->with('sizes')->with('tags')->firstOrFail();
+        })->firstOrFail();
 
         $url = $request->url();
-
-
+        
         return view('products.show',compact('mainCategory', 'category', 'subCategory', 'product', 'url'));
 
     }

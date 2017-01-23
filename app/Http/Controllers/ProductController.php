@@ -102,7 +102,7 @@ class ProductController extends Controller
         })->firstOrFail();
 
         $url = $request->url();
-        
+
         return view('products.show',compact('mainCategory', 'category', 'subCategory', 'product', 'url'));
 
     }

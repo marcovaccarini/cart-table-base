@@ -72,13 +72,16 @@
                                                         <a class="bottom-line-a open-product" data-id="{{$product->id}}"><i class="fa fa-shopping-cart"></i> Add to bag</a>
                                                     </div>
                                                 </div>
-                                                {{--<a class="tag" href="#">{{$product->category->title}}</a>--}}
+                                                <?php
+                                                $subcategory_path = dirname($product->path);
+                                                ?>
+                                                <a class="tag" href="{{ $subcategory_path }}">{{ $product->category_name }}</a>
 
                                                 <a class="title"  href="{{$product->path}}">{{$product->product_name}}</a>
                                                 <div class="price">
                                                     @if($product->custom_discount != null)
                                                         <div class="prev">${{$product->price}}</div> |
-                                                        <div class="current">${{ number_format($product->price - (($product->price/100) * $product->custom_discount), 2) }}</div>
+                                                        <div class="current">${{ $product->discounted_price }}</div>
                                                     @else
                                                         <div class="current">${{$product->price}}</div>
                                                     @endif

@@ -75,7 +75,7 @@ class CategoryController extends Controller
             foreach ($subCategories as $key => $value) {
                 $q->orWhere('category_id', '=', $value->id);
             }
-        })->with('images')->with('sizes')->with('tags')
+        })
         ->inRandomOrder()
         ->get();
 //dd($products);

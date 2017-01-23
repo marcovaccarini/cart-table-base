@@ -49,7 +49,7 @@ class MainCategoryController extends Controller
             ->with('images')->with('sizes')->with('tags')
             ->inRandomOrder()
             ->get();*/
-
+/*TODO: refactoring this*/
         $featureds = Product::where('products.featured', '=', 1)
             ->join('categories', function ($join) {
                 $join->on('products.category_id', '=', 'categories.id');

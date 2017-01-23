@@ -8,7 +8,7 @@
 
 @section('og_description', '')
 
-{{--@section('og_url', $url)--}}
+@section('og_url', '/cart')
 
 @section('content')
 
@@ -20,9 +20,8 @@
     <div class="wide-center">
         <div class="content-push">
             <div class="breadcrumb-box" style="margin: 36px 0;">
-                <a href="#">Home</a>
-                <a href="#">Shop</a>
-                <a href="#">Shopping Cart</a>
+                <a href="">Home</a>
+                <a href="/cart">Shopping Cart</a>
             </div>
         </div>
     </div>
@@ -46,7 +45,10 @@
                                 <div class="content">
                                     <div class="cell-view">
                                         {{--TODO: add categories here--}}
-                                        <a class="tag" href="#">woman clothing</a>
+                                        <?php
+                                        $subcategory_path = dirname($cart_item->product->path);
+                                        ?>
+                                        <a class="tag" href="{{ $subcategory_path }}">{{$cart_item->product->category_name}}</a>
                                         <a class="title" href="{{$cart_item->product->path}}">{{$cart_item->product->product_name}}</a>
                                         <div class="inline-description">Product code: {{ $cart_item->product->specification }} </div>
                                         <div class="inline-description">Size {{$cart_item->sizenames->name}} </div>
@@ -54,7 +56,7 @@
                                             @if($cart_item->product->custom_discount != null)
                                                 <div class="prev">${{$cart_item->product->price*$cart_item->qty}}</div> |
                                                 <span class="sale-price" style="color: #d50f02;margin:0 10px;"> -{{number_format($cart_item->product->custom_discount, 0)}}%</span>
-                                                <div class="current">${{ number_format(($cart_item->product->price - (($cart_item->product->price/100) * $cart_item->product->custom_discount))*$cart_item->qty, 2) }}</div>
+                                                <div class="current">${{ number_format($cart_item->product->discounted_price*$cart_item->qty, 2) }}</div>
                                             @else
                                                 <div class="current">${{ number_format($cart_item->product->price*$cart_item->qty, 2)}}</div>
                                             @endif
@@ -84,7 +86,7 @@
 
 
 
-
+{{--TODO: what about this?--}}
                     <div class="row">
                         <div class="information-entry col-md-6">
                             <div class="sale-entry">
@@ -146,6 +148,7 @@
             </div>
 
             <div class="information-blocks">
+                {{--TODO: add product to this partial--}}
                 @include ('partials._base')
             </div>
         </div>

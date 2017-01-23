@@ -15,6 +15,7 @@ use Carbon\Carbon;
 
 class CartController extends Controller
 {
+    /*TODO: refactor retrieve the card_id from cookie*/
     /**
      * Display a listing of the resource.
      *
@@ -26,13 +27,9 @@ class CartController extends Controller
         //  retrieve the card_id from cookie
         $cart_id = $request->cookie('cart_id');
         $cart_items = Cart::where('cart_id', '=', $cart_id)
-            ->with('product')
-            ->with('ProductImages')
-            ->with('sizenames')
             ->orderBy('updated_at', 'desc')
             ->get();
 
-//dd($cart_items);
         return view('cart.show', compact('cart_items'));
 
     }
@@ -66,6 +63,8 @@ class CartController extends Controller
         $qty = Input::get('qty');
 
         $product = Product::find($product_id);
+
+        /*TODO: move this to the model*/
         $total = $qty*$product->price;
 
         //  retrieve the card_id from cookie
@@ -92,12 +91,7 @@ class CartController extends Controller
         else{
 
         // TODO: user_id is really necessary here?
-        /*Cart::create([
-            'cart_id' => $cart_id,
-            'product_id' => $product_id,
-            'size_id' => $size_id,
-            'qty' => $qty,
-        ]);*/
+
             $last_cart_item = Cart::insertGetId([
                 'cart_id' => $cart_id,
                 'product_id' => $product_id,
@@ -106,23 +100,10 @@ class CartController extends Controller
                 'created_at' =>  Carbon::now(),
                 'updated_at' => Carbon::now(),
             ]);
-            //dd($last_cart_item);
 
-            //return response()->json($last_cart_item,  201);
             return response()->json(['success' => true, 'last_cart_item' => $last_cart_item], 201);
-            //return Response::json(array('success' => true,'last_id'=>$last_cart_item), 200);
+
         }
-        /*$cart_items = Cart::where('cart_id', '=', $cart_id)
-            ->with('product')
-            ->with('ProductImages')
-            ->with('sizenames')
-            ->orderBy('updated_at', 'desc')
-            ->get();
-
-
-
-        return $cart_items;*/
-
 
     }
 

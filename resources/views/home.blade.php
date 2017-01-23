@@ -36,20 +36,23 @@
             </div>
         </div>
         <div class="row nopadding">
-            <div class="col-sm-4 nopadding creative-square-box">
-                <div class="background-box" style="background-image: url(img/wide-4.jpg);"></div>
+            @foreach($favorite_tags as $favorite_tag)
+                <div class="col-sm-4 nopadding creative-square-box">
+                <div class="background-box" style="background-image: url(/img/{{ $favorite_tag->tag_img }});"></div>
                 <div class="cell-view">
                     <div class="parallax-article">
-                        <h2 class="subtitle">product category</h2>
-                        <h1 class="title">for him</h1>
-                        <div class="description">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore.</div>
+                        {{--<h2 class="subtitle">product category</h2>--}}
+                        <h1 class="title">{{ $favorite_tag->title }}</h1>
+                        <div class="description">{{ $favorite_tag->description }}</div>
                         <div class="info">
-                            <a href="#" class="button style-8">shop now</a>
+                            <a href="/special/{{ $favorite_tag->slug }}" class="button style-8">shop now</a>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-sm-4 nopadding creative-square-box">
+            @endforeach
+
+            {{--<div class="col-sm-4 nopadding creative-square-box">
                 <div class="background-box" style="background-image: url(img/wide-5.jpg);"></div>
                 <div class="cell-view">
                     <div class="parallax-article">
@@ -74,7 +77,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>--}}
         </div>
 
         <div class="wide-center">
@@ -285,6 +288,28 @@
                 <div class="clear"></div>
                 <div class="mozaic-banners-wrapper type-2">
                     <div class="row">
+                        @foreach($favorite_categories as $favorite_category)
+                        <div class="banner-column col-sm-4">
+                            <a href="{{ $favorite_category->path_category }}" style="background-image: url(/img/{{ $favorite_category->home_image }});
+                                    background-size: cover; background-position: right top;" class="mozaic-banner-entry type-3">
+                                    <span class="mozaic-banner-content">
+                                        <span class="subtitle">Category</span>
+                                        <span class="title">{{ $favorite_category->title }}</span>
+                                        <span class="view">view category</span>
+                                    </span>
+                            </a>
+                        </div>
+                            @unless($loop->iteration%3)
+                            <div class="clear"></div>
+                        </div>
+                        <div class="row">
+                            @endunless
+                        @endforeach
+
+
+                        <div class="clear"></div>
+                    </div>
+{{--                    <div class="row">
                         <div class="banner-column col-sm-4">
                             <a style="background-image: url(img/mini-3.jpg); background-size: cover; background-position: right top;" class="mozaic-banner-entry type-3">
                                     <span class="mozaic-banner-content">
@@ -315,39 +340,7 @@
 
 
                         <div class="clear"></div>
-                    </div>
-                    <div class="row">
-                        <div class="banner-column col-sm-4">
-                            <a style="background-image: url(img/mini-3.jpg); background-size: cover; background-position: right top;" class="mozaic-banner-entry type-3">
-                                    <span class="mozaic-banner-content">
-                                        <span class="subtitle">Category</span>
-                                        <span class="title">Leather</span>
-                                        <span class="view">view category</span>
-                                    </span>
-                            </a>
-                        </div>
-                        <div class="banner-column col-sm-4">
-                            <a style="background-image: url(img/mini-4.jpg); background-size: cover; background-position: right top;" class="mozaic-banner-entry type-3">
-                                <span class="mozaic-banner-content">
-                                    <span class="subtitle">New Collection</span>
-                                    <span class="title">For Her</span>
-                                    <span class="view">read more</span>
-                                </span>
-                            </a>
-                        </div>
-                        <div class="banner-column col-sm-4">
-                            <a style="background-image: url(img/mini-3.jpg); background-size: cover; background-position: right top;" class="mozaic-banner-entry type-3">
-                                <span class="mozaic-banner-content">
-                                    <span class="subtitle">New Collection</span>
-                                    <span class="title">For Him</span>
-                                    <span class="view">read more</span>
-                                </span>
-                            </a>
-                        </div>
-
-
-                        <div class="clear"></div>
-                    </div>
+                    </div>--}}
 
 
 

@@ -53,37 +53,28 @@ class SubCategoryController extends Controller
             $q->whereSlug($mainCategorySlug);
             $q->where('parent_id', '=', 0);
         })->firstOrFail();
-
         $mainCategoryId = $mainCategory->id;
-
 
         //  tops
         $category = Category::where(function($q) use ($categorySlug, $mainCategoryId) {
             $q->whereSlug($categorySlug);
             $q->where('parent_id', '=', $mainCategoryId);
         })->firstOrFail();
-
         $categoryId = $category->id;
-
 
         //  polos
         $subCategory = Category::where(function($q) use ($subCategorySlug, $categoryId) {
             $q->whereSlug($subCategorySlug);
             $q->where('parent_id', '=', $categoryId);
         })->firstOrFail();
-
         $subCategoryId = $subCategory->id;
 
-
         //  AND FINALLY THE PRODUCT
-        $products = Product::where(function($q) use ($subCategoryId) {
-            $q->where('category_id', '=', $subCategoryId);
-        })->with('images')->with('sizes')->with('tags')->get();
+        $products = Category::where('id', '=', $subCategoryId)->firstOrFail();
 
         $url = $request->url();
 
-//dd($subCategory);
-        return view('products.subCategoryShow',compact('mainCategory', 'category', 'subCategory', 'products', 'url'));
+        return view('products.subCategoryShow', compact('mainCategory', 'category', 'products', 'url'));
     }
 
     /**

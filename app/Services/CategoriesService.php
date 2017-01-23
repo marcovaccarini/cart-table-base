@@ -25,7 +25,6 @@ class CategoriesService extends Model
 
         $mainCategoryId = $mainCategory->id;
 
-
         $categories = Category::where('parent_id', '=', $mainCategoryId)->get();
 
         return $categories;

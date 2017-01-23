@@ -513,6 +513,14 @@ header .icon-entry:hover .image .fa{color: #fff;}
 header .icon-entry .text{margin-left: 60px; font-size: 13px; line-height: 18px; color: #747474; padding-top: 5px; display: block;}
 header .icon-entry .text b{font-size: 16px; line-height: 18px; font-weight: 600; color: #404040;}
 
+
+.center-block {
+    max-width:600px;
+    padding:0px;
+}
+.center-block img {
+    width: 600px;
+}
 /*Desktops (>=992px)*/
 @media (max-width: 1199px) {
     #content-block header{position: fixed; padding: 0 30px; top: 0;}

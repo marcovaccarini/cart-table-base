@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Product;
 use App\Category;
 use App\ProductImage;
+use App\Tag;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\DB;
@@ -58,6 +59,9 @@ class HomeController extends Controller
             ->take(5)
             ->get();
 
+        $favorite_tags = Tag::where('favorite', '=', 1)->get();
+
+        $favorite_categories = Category::where('favorite', '=', 1)->get();
 
 
 
@@ -68,7 +72,8 @@ class HomeController extends Controller
             ->with('category')
             ->get();*/
 //dd($promotions);
-        return view('home', compact('newarrivals', 'featureds', 'promotions'));
+//        dd($favorite_categories);
+        return view('home', compact('newarrivals', 'featureds', 'promotions', 'favorite_tags', 'favorite_categories', 'path_category'));
 
 
 

@@ -11,10 +11,12 @@ class Category extends Model
         'description',
         'parent_id',
         'slug',
-        'path',
         'home_image',
         'header_image',
+        'favorite'
     ];
+
+    protected $appends = ['path_category'];
 
     /**
      * One subcategory belong to a Main category
@@ -42,6 +44,27 @@ class Category extends Model
      */
     public function product()
     {
-        return $this->hasMany('Product', 'id');
+        /*return $this->hasMany('Product', 'id');*/
+        return $this->hasMany('App\Product');
+    }
+/*TODO: use this also in category page*/
+    public function getPathCategoryAttribute()
+    {
+        $path_category = '';
+
+        $parentId = $this::find($this->id)->parent_id;
+
+        do {
+            $ancestor = $this::find($parentId);
+            if($ancestor){
+            $path_category = '/'. $ancestor->slug . $path_category;
+            $parentId = $ancestor->parent_id;
+                //dd($parentId);
+            }
+        } while ($ancestor);
+
+        $path_category .= '/'.$this->slug;
+
+        return $path_category;
     }
 }

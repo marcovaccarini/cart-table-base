@@ -42,7 +42,7 @@ class Product extends Model
 
     public function category()
     {
-        return $this->hasOne('App\Category', 'id');
+        return $this->hasOne('App\Category');
     }
 
     public function discountedPrice()

@@ -1,26 +1,26 @@
 @extends('layouts.app')
 
-@section('title', $subCategory->title)
+@section('title', $products->title)
 
-@section('metadescription', $subCategory->title)
+@section('metadescription', $products->title)
 
-@section('og_title', $subCategory->title)
+@section('og_title', $products->title)
 
-@section('og_description', $subCategory->title)
+@section('og_description', $products->title)
 
 @section('og_url', $url)
 
 @section('content')
     <div class="parallax-slide-subcategory">
         <div class="parallax-clip">
-            <div class="fixed-parallax" style="background-image: url(/img/header_subcategory/{{$subCategory->header_image}});">
+            <div class="fixed-parallax" style="background-image: url(/img/header_subcategory/{{$products->header_image}});">
 
             </div>
             <div class="position-center">
                 <div class="parallax-vertical-align">
                     <div class="parallax-article">
                         {{--<h2 class="subtitle">Check out this weekend</h2>--}}
-                        <h1 class="title">{{$subCategory->title}}</h1>
+                        <h1 class="title">{{$products->title}}</h1>
                         {{--<div class="description">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore.</div>
                         <div class="info">
                             <a class="button style-6" href="#">shop now</a>
@@ -41,15 +41,13 @@
                 <a href="/">Home</a>
                 <a href="/{{ $mainCategory->slug }}" class="text-uppercase">{{ $mainCategory->title }}</a>
                 <a href="/{{ $mainCategory->slug }}/{{ $category->slug }}">{{ $category->title }}</a>
-                <a href="/{{ $mainCategory->slug }}/{{ $category->slug }}/{{ $subCategory->slug }}">{{ $subCategory->title }}</a>
+                <a href="/{{ $mainCategory->slug }}/{{ $category->slug }}/{{ $products->slug }}">{{ $products->title }}</a>
             </div>
-
             <div class="information-blocks">
                 <div class="row">
                     <div class="col-md-9 col-md-push-3 col-sm-8 col-sm-push-4">
-
                         <div class="row shop-grid grid-view">
-                            @foreach($products as $product)
+                            @foreach ($products->product as $product)
                                 <div class="col-md-3 col-sm-4 shop-grid-item">
                                     <div class="products-slider-banner">
                                         <div class="paddings-container">
@@ -110,7 +108,7 @@
                     <div class="col-md-3 col-md-pull-9 col-sm-4 col-sm-pull-8 blog-sidebar">
                         <div class="information-blocks categories-border-wrapper">
                             @include('partials._categories')
-                    </div>{{--end accordeon categories--}}
+                    </div>
 
 
                 </div>

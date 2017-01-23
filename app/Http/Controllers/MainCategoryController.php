@@ -62,8 +62,6 @@ class MainCategoryController extends Controller
             ->take(5)
             ->get();
 
-        /*->toSql();*/
-//dd($featureds);
         $url = $request->url();
         /*TODO: not return all the collection but only what needed*/
         /*TODO: add pagination*/

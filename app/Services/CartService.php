@@ -29,15 +29,12 @@ class CartService extends Model
             ->with('product')
             ->get();
 
-      //  \App\Cart::where('cart_id', '=', '585d5ad0803033.74700789')->with('product')->get();
-
         $total=0;
         foreach($cart as $item){
             if($item->product->custom_discount != null){
                 $total += ($item->product->price - ($item->product->price/100)*$item->product->custom_discount)*$item->qty;
             }
             else{
-
                 $total +=$item->product->price*$item->qty;
             }
         }

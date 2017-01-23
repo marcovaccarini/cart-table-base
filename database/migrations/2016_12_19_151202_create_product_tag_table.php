@@ -18,6 +18,7 @@ class CreateProductTagTable extends Migration
             $table->integer('product_id')->unsigned()->index();
             $table->integer('tag_id')->unsigned()->index();
 
+
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
             $table->foreign('tag_id')->references('id')->on('tags')->onDelete('cascade');
 

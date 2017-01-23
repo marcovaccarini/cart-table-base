@@ -16,13 +16,11 @@ class CategoriesMenuService extends Model
         return $categoriesMenu;
     }
 
+    public function get_all_categories_menu()
+    {
+        $allCategoriesMenu = Category::pluck('title','slug','id')->get();
 
-
-        public function get_all_categories_menu()
-        {
-            $allCategoriesMenu = Category::pluck('title','slug','id')->get();
-
-            return $allCategoriesMenu;
-        }
+        return $allCategoriesMenu;
+    }
 
 }

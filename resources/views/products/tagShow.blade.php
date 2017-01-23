@@ -2,11 +2,11 @@
 
 @section('title', $products_list->title)
 
-@section('metadescription', $products_list->title)
+@section('metadescription', $products_list->description)
 
 @section('og_title', $products_list->title)
 
-@section('og_description', $products_list->title)
+@section('og_description', $products_list->description)
 
 @section('og_url', $url)
 
@@ -17,33 +17,43 @@
 
 
 @section('content')
-    <div class="parallax-slide-subcategory">
+    {{--<div class="parallax-slide-subcategory">
         <div class="parallax-clip">
             <div class="fixed-parallax" style="background-image: url(/img/header_subcategory/{{ $products_list->tag_img }});">
 
             </div>
             <div class="position-center">
+
                 <div class="parallax-vertical-align">
                     <div class="parallax-article">
-                        {{--<h2 class="subtitle">Check out this weekend</h2>--}}
-                        <h1 class="title">{{$products_list->title}}</h1>
-                        {{--<div class="description">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore.</div>
-                        <div class="info">
+                        --}}{{--<h2 class="subtitle">Check out this weekend</h2>--}}{{--
+
+                        --}}{{--<div class="info">
                             <a class="button style-6" href="#">shop now</a>
                             <a class="button style-7" href="#">features</a>
-                        </div>--}}
+                        </div>--}}{{--
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="row nopadding" style="height: 30px; margin-bottom: 24px;">
+    </div>--}}
+    <div class="row nopadding" style="height: 115px; margin-bottom: 24px; background: #262626">
 
     </div>
     <div class="wide-center">
         <div class="content-push">
             <div class="information-blocks">
                 <div class="row">
+                    <div class="information-blocks">
+                    <div class="center-block">
+                        <img src="/img/{{ $products_list->tag_img }}" alt="" class="responsive">
+                        <div class="block-header">
+                            <h1 class="title">{{$products_list->title}}</h1>
+                            <div class="description">{{$products_list->description}}</div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
                     <div class="row shop-grid grid-view">
                     @foreach ($products_list->products as $product)
                         {{--productId: {{ $product->id }} -
@@ -94,7 +104,7 @@
 
 
                     </div>
-                </div>
+
             </div>
             @include('partials._beforeFooter')
         </div>

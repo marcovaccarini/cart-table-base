@@ -42,8 +42,8 @@ class HomeController extends Controller
 
         $favorite_categories = Category::where('favorite', '=', 1)->get();
 
-        return view('home', compact('newarrivals', 'featureds', 'promotions', 'favorite_tags', 'favorite_categories'));
+        return view('home', compact('newarrivals', 'featureds', 'promotions', 'favorite_tags', 'favorite_categories', 'path_category'));
 
     }
-    
+
 }

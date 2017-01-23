@@ -193,9 +193,9 @@
                                                     </div>
                                                 </div>
                                                 <?php
-                                                $subcategory_path = dirname($newarrival->path);
+                                                $subcategory_path = dirname($featured->path);
                                                 ?>
-                                                <a class="tag" href="{{$subcategory_path}}">{{$newarrival->title}}</a>
+                                                <a class="tag" href="{{$subcategory_path}}">{{$newarrival->category_name}}</a>
 
                                                 <a class="title"  href="{{$newarrival->path}}">{{$newarrival->product_name}}</a>
                                                 <div class="price">
@@ -305,7 +305,7 @@
                                                 <?php
                                                 $subcategory_path = dirname($promotion->path);
                                                 ?>
-                                                <a class="tag" href="{{$subcategory_path}}">{{$promotion->title}}</a>
+                                                <a class="tag" href="{{$subcategory_path}}">{{$promotion->category_name}}</a>
 
                                                 <a class="title"  href="{{$promotion->path}}">{{$promotion->product_name}}</a>
                                                 <div class="price">

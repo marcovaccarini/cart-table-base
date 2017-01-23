@@ -47,7 +47,7 @@ class Category extends Model
         /*return $this->hasMany('Product', 'id');*/
         return $this->hasMany('App\Product');
     }
-/*TODO: use this also in category page*/
+/*TODO: use this also in other page*/
     public function getPathCategoryAttribute()
     {
         $path_category = '';

@@ -16,7 +16,7 @@ class Category extends Model
         'favorite'
     ];
 
-    protected $appends = ['path_category'];
+    protected $appends = ['path_category', 'slider_images'];
 
     /**
      * One subcategory belong to a Main category
@@ -66,5 +66,15 @@ class Category extends Model
         $path_category .= '/'.$this->slug;
 
         return $path_category;
+    }
+
+    public function getSliderImagesAttribute()
+    {
+
+        $images = $this::find($this->id)->header_image;
+
+        $slider_images = explode('|', $images);
+
+        return $slider_images;
     }
 }

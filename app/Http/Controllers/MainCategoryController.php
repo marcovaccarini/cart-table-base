@@ -56,13 +56,9 @@ class MainCategoryController extends Controller
         $url = $request->url();
 
         /*TODO: add pagination*/
-
-        //  moved to a specific service
-        /*$categories = Category::where('parent_id', '=', $mainCategoryId)->get();
-        */
         $allCategories = Category::pluck('title','slug','id')->all();
 
-        //dd($categories);
+        //dd($mainCategory);
 
         return view('products.mainCategoryShow',compact('mainCategory', 'category', 'featureds', 'url'));
     }

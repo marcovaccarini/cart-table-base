@@ -1,7 +1,7 @@
 <div class="popup-container">
     <div id="cart-item-container">
         @forelse($latest as $cart_item)
-            <div class="cart-entry" data-id="{{$cart_item->id}}"
+            <div class="cart-entry" data-id="{{$cart_item->id}}-item"
                  data-qty="{{$cart_item->qty}}"
                  data-sizeid="{{$cart_item->sizenames->id}}"
                  data-custom_discount="{{$cart_item->product->custom_discount}}"

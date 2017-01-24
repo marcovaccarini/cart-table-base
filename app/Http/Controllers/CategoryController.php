@@ -80,7 +80,7 @@ class CategoryController extends Controller
         ->get();
 //dd($products);
         $url = $request->url();
-        /*TODO: not return all the collection but only what needed*/
+
         /*TODO: add pagination*/
 
         //  moved to a specific service

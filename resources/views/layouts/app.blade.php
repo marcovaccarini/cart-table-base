@@ -13,7 +13,7 @@
     <!--[if IE 9]>
     <link href="/css/ie9.css" rel="stylesheet" type="text/css" />
     <![endif]-->
-    {{--TODO change the favicon--}}
+    {{--TODO change the favicon make the file .ico --}}
     <link rel="shortcut icon" href="/img/fav-icon.png" />
     {{--<link rel="shortcut icon" href="/img/favicon-4.ico" />--}}
 

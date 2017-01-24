@@ -18,7 +18,7 @@ class Cart extends Model
         'qty',
     ];
 
-
+    protected $appends = ['total_price'];
 
 
     /**
@@ -62,6 +62,11 @@ class Cart extends Model
         return $this->belongsTo('App\Size', 'size_id');
     }
 
+    public function getTotalPriceAttribute()
+    {
+        return  number_format($this->product->price - (($this->product->price / 100) * $this->custom_discount)*$this->qty, 2);
+
+    }
 
 
 

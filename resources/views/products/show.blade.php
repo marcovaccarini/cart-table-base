@@ -106,12 +106,6 @@
                                             active
                                         @endif--}}">{{$size->name}}</div>
                                 @endforeach
-                                    {{--<div class="entry">s</div>
-                                    <div class="entry">m</div>
-                                    <div class="entry">l</div>
-                                    <div class="entry">xl</div>
-                                    <div class="spacer"></div>--}}
-
                             </div>
                             {{--<div class="color-selector detail-info-entry">
                                 <div class="detail-info-entry-title">Color</div>

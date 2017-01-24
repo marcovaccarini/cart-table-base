@@ -20,8 +20,8 @@
     <div class="wide-center">
         <div class="content-push">
             <div class="breadcrumb-box" style="margin: 36px 0;">
-                <a href="">Home</a>
-                <a href="/cart">Shopping Cart</a>
+                <a href="/">Home</a>
+                <a href="/cart">Shopping Bag</a>
             </div>
         </div>
     </div>
@@ -36,7 +36,7 @@
                     @forelse($cart_items as $cart_item)
                         <div class="traditional-cart-entry style-1">
                             <div class="product-detail-box cart-entry"
-                                 data-id="{{ $cart_item->id }}"
+                                 data-id="{{ $cart_item->id }}-item"
                                  data-price="{{ $cart_item->product->price }}"
                                  data-custom_discount="{{ $cart_item->product->custom_discount }}"
                                  data-qty="{{ $cart_item->qty }}"
@@ -44,7 +44,6 @@
                                 <a class="image" href="{{$cart_item->product->path}}"><img alt="" src="/img/{{$cart_item->ProductImages->filename}}"></a>
                                 <div class="content">
                                     <div class="cell-view">
-                                        {{--TODO: add categories here--}}
                                         <?php
                                         $subcategory_path = dirname($cart_item->product->path);
                                         ?>

@@ -40,16 +40,7 @@ class MainCategoryController extends Controller
             ->get();
 
         //  AND FINALLY THE PRODUCT
-        /*$featureds = Product::where(function($q) use ($subCategories) {
-            foreach ($subCategories as $key => $value) {
-                $q->orWhere('category_id', '=', $value->id);
-            }
-        })
-            ->where('products.featured', '=', 1)
-            ->with('images')->with('sizes')->with('tags')
-            ->inRandomOrder()
-            ->get();*/
-/*TODO: refactoring this*/
+        /*TODO: refactoring this*/
         $featureds = Product::where('products.featured', '=', 1)
             ->join('categories', function ($join) {
                 $join->on('products.category_id', '=', 'categories.id');
@@ -63,7 +54,7 @@ class MainCategoryController extends Controller
             ->get();
 
         $url = $request->url();
-        /*TODO: not return all the collection but only what needed*/
+
         /*TODO: add pagination*/
 
         //  moved to a specific service

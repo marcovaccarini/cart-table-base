@@ -23,9 +23,9 @@ class CartController extends Controller
      */
     public function index(Request $request)
     {
+        $cart_id = $this->find_cart_id($request);
 
-        //  retrieve the card_id from cookie
-        $cart_id = $request->cookie('cart_id');
+
         $cart_items = Cart::where('cart_id', '=', $cart_id)
             ->orderBy('updated_at', 'desc')
             ->get();
@@ -64,11 +64,11 @@ class CartController extends Controller
 
         $product = Product::find($product_id);
 
-        /*TODO: move this to the model*/
+
         $total = $qty*$product->price;
 
         //  retrieve the card_id from cookie
-        $cart_id = $request->cookie('cart_id');
+        $cart_id = $this->find_cart_id($request);
 
         if($cart_id == null){
             $cart_id = uniqid('',TRUE);
@@ -129,7 +129,7 @@ class CartController extends Controller
     public function edit(Request $request, $id)
     {
         //  retrieve the card_id from cookie
-        $cart_id = $request->cookie('cart_id');
+        $cart_id = $this->find_cart_id($request);
 
         $item = Cart::where('id', '=', $id)->where('cart_id', '=', $cart_id)->firstOrFail();
 
@@ -174,7 +174,7 @@ class CartController extends Controller
      */
     public function destroy(Request $request, $id)
     {
-        $cart_id = $request->cookie('cart_id');
+        $cart_id = $this->find_cart_id($request);
         $item = Cart::where('id', '=', $id)->where('cart_id', '=', $cart_id)->firstOrFail();
 
         $item->delete();
@@ -195,7 +195,7 @@ class CartController extends Controller
      */
     public function json_destroy(Request $request, $id)
     {
-        $cart_id = $request->cookie('cart_id');
+        $cart_id = $this->find_cart_id($request);
         $item = Cart::where('id', '=', $id)->where('cart_id', '=', $cart_id)->firstOrFail();
 
         $item->delete();
@@ -205,5 +205,16 @@ class CartController extends Controller
 
 
        // return redirect()->action('CartController@index');
+    }
+
+    /**
+     * @param Request $request
+     * @return array|string
+     */
+    public function find_cart_id(Request $request)
+    {
+//  retrieve the card_id from cookie
+        $cart_id = $request->cookie('cart_id');
+        return $cart_id;
     }
 }

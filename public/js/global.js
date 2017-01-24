@@ -571,7 +571,7 @@ $(function() {
 
            // e.preventDefault();
 
-            var uid = $(this).attr('data-id');
+            var uid = $(this).attr('data-id').replace('-item', '');
             var data = [];
 
             $.ajax({
@@ -579,7 +579,7 @@ $(function() {
                 type: 'GET',
                 data: '',
                 dataType: 'json',
-                delay: 250,
+              /*  delay: 250,*/
             })
 
                 .done(function(data){
@@ -738,7 +738,7 @@ $(function() {
         old_grandtotal = Number($grandtotal.text().replace('$', '').replace(',', ''));
 
         // select the div where are the data
-        $cart_entry = $("div.cart-entry[data-id$=" + id + "]");
+        $cart_entry = $("div.cart-entry[data-id$=" + id + "-item]");
 
         old_qty = Number($cart_entry.attr("data-qty"));
 
@@ -818,7 +818,7 @@ $(function() {
             type: 'POST',
             data: formData,
             dataType: 'json',
-            complete: function(xhr, textStatus) {
+            complete: function(xhr) {
                 var custom_discount, price, img, product_name, path, id, jsonResponse;
                 if(xhr.status == 201){
                     jsonResponse = JSON.parse(xhr.responseText);
@@ -835,7 +835,7 @@ $(function() {
 
                     $( ".no-item" ).remove();
 
-                    // building and append cart entry on modal cart
+                    // build and append cart entry on modal cart
                     if (custom_discount != 0) {
                         html_price = '<div class=\"prev\">$ </div> <div class=\"current\">$ </div>';
                     }
@@ -843,7 +843,7 @@ $(function() {
                         html_price = '<div class=\"current\">$ </div>';
                     }
                     $('#cart-item-container:first').prepend('<div class=\"cart-entry\" data-custom_discount=\"'+custom_discount+'\" ' +
-                        'data-price=\"'+ price +'\" data-id=\"'+ id +'\" data-qty="0" data-sizeid=\"'+ sizeId +'\">' +
+                        'data-price=\"'+ price +'\" data-id=\"'+ id +'-item\" data-qty="0" data-sizeid=\"'+ sizeId +'\">' +
                         '<a class=\"image\" href=\"'+ path +'\"><img src=\"'+ img +'\" alt=\"\" /></a>' +
                         '<div class=\"content\">' +
                         '<a class=\"title\" href=\"'+ path +'\">'+ product_name +'</a>' +
@@ -880,8 +880,11 @@ $(function() {
                     }
                     closecartTimeout = setTimeout(function(){closePopups();}, 4000);
                 }
-                var $cart_entry = $( "div.cart-entry[data-id$="+id+"]" );
+                var $cart_entry = $( "div.cart-entry[data-id$="+id+"-item]" );
+                /*TODO: move the id number in front to not animate all the 1-11*/
                 $cart_entry.addClass('animated bounceIn');
+
+                $cart_entry.removeClass('active')
 
             }
 
@@ -983,7 +986,7 @@ $(function() {
     $("#cart-item-container").on("click", ".btn-delete-cart-item", function (e) {
 
         var formData, qty, id;
-        id = $(this).parent('.cart-entry').data('id'); // $(this) refers to button that was clicked
+        id = $(this).parent('.cart-entry').data('id').replace('-item', ''); // $(this) refers to button that was clicked
         qty = $(this).parent('.cart-entry').data('qty');
 
         var _method = 'DELETE';
@@ -1007,7 +1010,7 @@ $(function() {
             complete: function(xhr, textStatus) {
                 //  TODO: fix the animation on dynamics cart entry on delete
                 if(xhr.status == 200){
-                    $('[data-id="' + id + '"]').fadeOut("slow", function () {
+                    $('[data-id="' + id + '-item"]').fadeOut("slow", function () {
                         // Animation complete.
                         changeModalCart(id, 'sub', qty);
                         $(this).remove();

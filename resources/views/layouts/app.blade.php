@@ -434,8 +434,53 @@
     </div>
 </div>
 
+<!-- MODAL FOR LOGIN -->
+<div id="subscribe-popup" class="overlay-popup">
+    <div class="overflow">
+        <div class="table-view">
+            <div class="cell-view">
+                <div class="close-layer"></div>
+                <div class="popup-container">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="login-box">
+                                <div class="article-container style-1">
+                                    <h3>New Customers</h3>
+                                    <p>By creating an account with our store, you will be able to move through the checkout process faster, store multiple shipping addresses, view and track your orders in your account and more.</p>
+                                </div>
+                                <form>
+                                    <label>Email Address</label>
+                                    <input class="simple-field" type="text" placeholder="Enter Email Address" value="" />
+                                    <div class="button style-12">Login Page<input type="submit" value="" /></div>
+                                </form>
+
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="login-box">
+                                <div class="article-container style-1">
+                                    <h3>Registered Customers</h3>
+                                    <p>Lorem ipsum dolor amet, conse adipiscing, eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                                </div>
+                                <form>
+                                    <label>Email Address</label>
+                                    <input class="simple-field" type="text" placeholder="Enter Email Address" value="" />
+                                    <label>Password</label>
+                                    <input class="simple-field" type="password" placeholder="Enter Password" value="" />
+                                    <div class="button style-10">Login Page<input type="submit" value="" /></div>
+                                </form>
+                            </div>
+                        </div>
+
+                    </div>
 
 
+                    <div class="close-popup"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 

@@ -1932,7 +1932,7 @@ select{background: #fff!important;}
 /*-------------------------------------------------------------------------------------------------------------------------------*/
 /* 17 - LOGIN */
 /*-------------------------------------------------------------------------------------------------------------------------------*/
-.login-box{background: #fcfcfc; border: 1px #ebebeb solid; padding: 50px 55px; min-height: 470px;}
+.login-box{background: #fcfcfc; border: 1px #ebebeb solid; padding: 30px 35px; min-height: 470px;}
 /* Tablets (>=768px)*/
 @media (max-width: 991px) {
     .login-box{padding: 20px 25px;}
@@ -3168,7 +3168,7 @@ body.teaser-3 .teaser-title{font-size: 72px; line-height: 62px; border-top: 4px 
 .close-popup:before, .close-popup:after{width: 19px; height: 2px; top: 50%; margin-top: -1px; left: -2px; content: ""; background: #292929; transform: rotate(45deg); -moz-transform: rotate(45deg); -webkit-transform: rotate(45deg); -ms-transform: rotate(45deg); position: absolute;}
 .close-popup:after{transform: rotate(-45deg); -moz-transform: rotate(-45deg); -webkit-transform: rotate(-45deg); -ms-transform: rotate(-45deg);}
 #product-popup .popup-container{max-width: 860px; width: 100%;}
-#subscribe-popup .popup-container{max-width: 830px; width: 100%; padding: 80px 330px 80px 70px;}
+#subscribe-popup .popup-container{max-width: 830px; width: 100%; padding: 40px 40px 40px 40px;}
 .popup-background{position: absolute; right: 0; top: 0; height: 100%; width: auto;}
 .newsletter-title{font-size: 36px; line-height: 48px; color: #3d3d3d; font-weight: 400; position: relative;}
 .newsletter-text{font-size: 14px; line-height: 26px; color: #808080; font-weight: 300; margin-bottom: 25px; position: relative;}

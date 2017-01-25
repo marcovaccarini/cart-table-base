@@ -39,7 +39,7 @@
             <div class="clear"></div>
         </div>
         <div class="column">
-            <a class="button style-4">checkout</a>
+            <a class="button style-4 open-subscribe">checkout</a>
             <div class="clear"></div>
         </div>
         <div class="clear"></div>

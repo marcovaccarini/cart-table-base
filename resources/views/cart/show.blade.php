@@ -25,8 +25,7 @@
             </div>
         </div>
     </div>
-
-
+    
     <div class="wide-center">
         <div class="content-push">
             <div class="information-blocks">

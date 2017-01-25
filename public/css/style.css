@@ -1932,7 +1932,7 @@ select{background: #fff!important;}
 /*-------------------------------------------------------------------------------------------------------------------------------*/
 /* 17 - LOGIN */
 /*-------------------------------------------------------------------------------------------------------------------------------*/
-.login-box{background: #fcfcfc; border: 1px #ebebeb solid; padding: 30px 35px; min-height: 470px;}
+.login-box{background: #fcfcfc; border: 1px #ebebeb solid; padding: 30px 35px; min-height: 355px;}
 /* Tablets (>=768px)*/
 @media (max-width: 991px) {
     .login-box{padding: 20px 25px;}
@@ -3228,6 +3228,8 @@ body.teaser-3 .teaser-title{font-size: 72px; line-height: 62px; border-top: 4px 
 .article-container h5 .fa, .h5 .fa{font-size: 20px; color: #d14242; display: inline-block; vertical-align: middle; position: relative; top: -3px; margin-right: 5px;}
 .article-container h6, .h6{font-size: 11px; line-height: 18px; color: #262626; font-weight: 700; margin-bottom: 15px;}
 .article-container.style-1{font-size: 14px; line-height: 25px; font-weight: 300;}
+.article-container.style-1 p{margin-top: 24px;}
+
 /*Phones (<768px)*/
 @media (max-width: 767px) {
     .article-container.columns-2, .article-container.columns-3{-webkit-column-count: 1; -moz-column-count: 1; column-count: 1; -webkit-column-gap: 0px; -moz-column-gap: 0px; column-gap: 0px;}

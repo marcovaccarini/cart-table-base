@@ -16,6 +16,8 @@
 });*/
 Route::get('/', 'HomeController@index');
 
+Route::resource('/checkout', 'CheckoutController');
+
 Route::get('/json/product/{id}', 'ProductController@json_show');
 
 Route::delete('/json/cart/{id}/', 'CartController@json_destroy');

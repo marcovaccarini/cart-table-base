@@ -287,6 +287,7 @@
 
     @include ('partials.cart')
 
+
 </div>
 
 <!-- MODAL FOR PRODUCT -->

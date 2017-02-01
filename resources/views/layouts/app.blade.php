@@ -62,7 +62,7 @@
                 <div class="navigation-vertical-align">
                     <div class="cell-view logo-container">
                         {{--TODO: change the logo in white--}}
-                        <a id="logo" href="#"><img src="/img/logo.svg" alt="" /></a>
+                        <a id="logo" href="/"><img src="/img/logo.svg" alt="" /></a>
                     </div>
                     <div class="cell-view nav-container">
                         <div class="navigation">
@@ -142,35 +142,33 @@
                                                 </div>
                                             </div>
                                         </li>
-                                        <li class="column-1">
-                                            <a href="blog.html">Blog</a><i class="fa fa-chevron-down"></i>
-                                            <div class="submenu">
-                                                <div class="full-width-menu-items-left">
-                                                    <img class="submenu-background" src="/img/product-menu-8.jpg" alt="" />
-                                                    <div class="row">
-                                                        <div class="col-md-12">
-                                                            <div class="submenu-list-title"><a href="blog.html">Blog <span class="menu-label blue">new</span></a><span class="toggle-list-button"></span></div>
-                                                            <ul class="list-type-1 toggle-list-container">
-                                                                <li><a href="blog.html"><i class="fa fa-angle-right"></i>Blog Default</a></li>
-                                                                <li><a href="blog-grid.html"><i class="fa fa-angle-right"></i>Blog Grid</a></li>
-                                                                <li><a href="blog-timeline.html"><i class="fa fa-angle-right"></i>Blog Timeline</a></li>
-                                                                <li><a href="blog-list.html"><i class="fa fa-angle-right"></i>Blog List</a></li>
-                                                                <li><a href="blog-biggrid.html"><i class="fa fa-angle-right"></i>Blog Big Grid</a></li>
-                                                                <li><a href="blog-detail.html"><i class="fa fa-angle-right"></i>Single Post</a></li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="submenu-links-line">
-                                                    <div class="submenu-links-line-container">
-                                                        <div class="cell-view">
-                                                            <div class="line-links"><b>Quicklinks:</b>  <a href="shop.html">Blazers</a>, <a href="shop.html">Jackets</a>, <a href="shop.html">Shoes</a>, <a href="shop.html">Bags</a></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </li>
+                                        <!-- Authentication Links -->
+                                        @if (Auth::guest())
+                                            <li><a href="{{ url('/login') }}">Login</a></li>
+                                            <li><a href="{{ url('/register') }}">Register</a></li>
+                                        @else
+                                            <li class="simple-list">
+                                                <a href="#">
+                                                    {{ Auth::user()->name }}
+                                                </a><i class="fa fa-chevron-down"></i>
+                                                <div class="submenu">
+                                                    <ul class="simple-menu-list-column">
+                                                        <li><a href="/orders">Orders</a></li>
+                                                        <li><a href="/orders">Account</a></li>
+                                                    <li>
+                                                        <a href="{{ url('/logout') }}"
+                                                           onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                                            Logout
+                                                        </a>
 
+                                                        <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
+                                                            {{ csrf_field() }}
+                                                        </form>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                        @endif
                                         <li class="fixed-header-visible">
                                             {{--TODO: implement search --}}
                                             <a class="fixed-header-square-button open-search-popup"><i class="fa fa-search"></i></a>
@@ -284,10 +282,7 @@
 
 <!-- MODAL FOR CART -->
 <div class="cart-box popup">
-
     @include ('partials.cart')
-
-
 </div>
 
 <!-- MODAL FOR PRODUCT -->
@@ -447,17 +442,22 @@
                             <div class="login-box">
                                 <div class="article-container style-1">
                                     <h3>Checkout as a Guest </h3>
-
                                 </div>
-                                <form>
+                                <form role="form" method="POST" action="{{ url('/checkout') }}">
+                                    {{ csrf_field() }}
                                     {{--<label>Email Address</label>--}}
-                                    <input class="simple-field" type="text" placeholder="Email Address *" value="" />
+                                    <input class="simple-field" type="email" id="email" name="email" placeholder="Email Address *" required value="" />
+                                    @if ($errors->has('email'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('email') }}</strong>
+                                        </span>
+                                    @endif
                                     {{--<label>Password</label>
                                     <input class="simple-field" type="password" placeholder="Password *" value="" />--}}
                                     <div class="button style-18">Continue<input type="submit" value="" /></div>
                                 </form>
                                 <div class="article-container style-1">
-                                    <p><a class="continue-link" href="/register">Create a new account</a></p>
+                                    <p><a class="forgot-password" href="/register">Create a new account</a></p>
                                 </div>
                             </div>
                         </div>
@@ -465,17 +465,41 @@
                             <div class="login-box">
                                 <div class="article-container style-1">
                                     <h3>Returnig Customers</h3>
-
                                 </div>
-                                <form>
-                                    {{--<label>Email Address</label>--}}
-                                    <input class="simple-field" type="text" placeholder="Email Address *" value="" />
-                                    {{--<label>Password</label>--}}
-                                    <input class="simple-field" type="password" placeholder="Password *" value="" />
-                                    <div class="button style-10">Log in<input type="submit" value="" /></div>
+                                <form role="form" method="POST" action="{{ url('/login') }}">
+                                    {{ csrf_field() }}
+
+                                    <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
+                                        {{--<label for="email" class="col-md-4 control-label">E-Mail Address</label>--}}
+                                            <input id="email" type="email" class="simple-field" type="text" placeholder="Email Address" name="email" value="{{ old('email') }}" required autofocus>
+                                            @if ($errors->has('email'))
+                                                <span class="help-block">
+                                                    <strong>{{ $errors->first('email') }}</strong>
+                                                </span>
+                                            @endif
+                                    </div>
+
+                                    <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
+                                        {{--<label for="password" class="col-md-4 control-label">Password</label>--}}
+
+                                            <input id="password" type="password" placeholder="Password" class="simple-field" name="password" required>
+
+                                            @if ($errors->has('password'))
+                                                <span class="help-block">
+                                                    <strong>{{ $errors->first('password') }}</strong>
+                                                </span>
+                                            @endif
+
+                                    </div>
+                                    <label>
+                                        <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> Remember Me
+                                    </label>
+
+                                    <button type="submit" class="button style-10">Login</button>
+
                                 </form>
                                 <div class="article-container style-1">
-                                    <p><a class="forgot-password" href="/forgot">Forgot Password?</a></p>
+                                    <p><a class="forgot-password" href="{{ url('/password/reset') }}">Forgot Your Password?</a></p>
                                 </div>
                             </div>
                         </div>

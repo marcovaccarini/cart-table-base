@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Cart;
 
 class CheckoutController extends Controller
 {
@@ -13,7 +14,7 @@ class CheckoutController extends Controller
      */
     public function index()
     {
-        //
+        return 'Prrrr!!!';
     }
 
     /**
@@ -21,9 +22,17 @@ class CheckoutController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        return view('checkout.create');
+        $cart_id = $request->cookie('cart_id');
+        $count = Cart::where('cart_id', '=', $cart_id)->count();
+        if($count) {
+            return view('checkout.create');
+        }
+        else{
+            return redirect('/');
+        }
+
     }
 
     /**
@@ -34,7 +43,10 @@ class CheckoutController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $email = request('email');
+
+        return view('checkout.create', compact('email'));
     }
 
     /**

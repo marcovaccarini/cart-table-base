@@ -19,8 +19,8 @@
     <div class="wide-center">
         <div class="content-push">
             <div class="breadcrumb-box" style="margin: 36px 0;">
-                <a href="#">Home</a>
-                <a href="#">Checkput</a>
+                <a href="/">Home</a>
+                <a href="#">Checkout</a>
             </div>
         </div>
     </div>
@@ -31,7 +31,7 @@
             <div class="information-blocks">
                 <div class="row">
                     <div class="col-sm-9 information-entry">
-                        <h3 class="cart-column-title size-1" id="shopping-bag">Shopping Bag</h3>
+                        <h3 class="cart-column-title size-1" id="shopping-bag">Checkout</h3>
                         <div class="tabs-container style-1">
                     <div class="swiper-tabs tabs-switch">
                         <div class="title">Product info</div>
@@ -44,11 +44,15 @@
                         </div>
                     </div>
                     <div>
+                        <form>
+
                         <div class="tabs-entry">
 
                                     <div class="information-blocks">
                                         <h3 class="block-title main-heading">Shipping Address</h3>
-                                        <form>
+                                        @if($email)
+                                            <input type="hidden" name="email" value="{{ $email }}">
+                                        @endif
                                             <div class="row">
                                                 <div class="col-sm-6">
                                                     <label>First Name <span>*</span></label>
@@ -313,7 +317,7 @@
                 </div>
                     </div>
                     <div class="col-sm-3 information-entry">
-                        <h3 class="cart-column-title size-1" style="text-align: center;">Subtotal</h3>
+                        <h3 class="cart-column-title size-1" style="text-align: center;">Order Summary</h3>
                         <div class="sidebar-subtotal">
                             <div class="price-data">
                                 @inject('total', 'App\Services\CartService')

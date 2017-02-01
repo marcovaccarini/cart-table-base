@@ -11,7 +11,12 @@
             <div class="clear"></div>
         </div>
         <div class="column">
-            <a class="button style-4 open-subscribe">checkout</a>
+            @if (Auth::guest())
+                <a class="button style-4 open-subscribe">checkout</a>
+            @else
+                <a href="/checkout/create" class="button style-4">checkout</a>
+            @endif
+
             <div class="clear"></div>
         </div>
         <div class="clear"></div>

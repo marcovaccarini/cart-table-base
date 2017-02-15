@@ -6,16 +6,27 @@ use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
 {
-    protected $table = 'orders';
 
     protected $fillable = [
         'user_id',
-        'billing_address',
-        'total'
-        ];
+        'cart_id',
+        'email',
+        'has_billing_address',
+        'subtotal',
+        'shipping_cost',
+        'total',
+    ];
+
 
     public function orderItems()
     {
-        return $this->belongsToMany('Product')->withPivot('qty', 'total');
+        return $this->belongsToMany(Product::class)->withPivot('size_id', 'qty', 'price', 'sub_total', 'discount');
     }
+
+    public function addresses()
+    {
+        return $this->hasMany(Address::class);
+    }
+
+
 }

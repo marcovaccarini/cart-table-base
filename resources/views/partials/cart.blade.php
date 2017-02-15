@@ -3,7 +3,7 @@
     <div class="summary" id="cart_total">
         {{--<div class="subtotal">Subtotal: $990,00</div>--}}
         @inject('total', 'App\Services\CartService')
-        <div class="grandtotal">Total <span>${{ $total->get_total_cart() }}</span></div>
+        <div class="grandtotal" data-total="{{ $total->get_total_cart() }}">Total <span>${{ $total->get_total_cart() }}</span></div>
     </div>
     <div class="cart-buttons">
         <div class="column">

@@ -18,9 +18,9 @@
                 @endif
             </div>
         </div>
-        <div class="button-x btn-delete-cart-item"><i class="fa fa-trash"></i></div>
+            <div class="button-x btn-delete-cart-item"><i class="fa fa-trash"></i></div>
     </div>
 @empty
-    <div class="summary"><div class="grandtotal text-left"><h3 class="no-item">You have no items in your shopping cart.</h3></div></div>
+    <div class="summary"><div class="block-title main-heading text-left"><h3 class="no-item">You have no items in your shopping cart.</h3></div></div>
 @endforelse
 </div>

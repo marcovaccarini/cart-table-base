@@ -22,7 +22,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
 
-        view()->composer('partials._cartItems', function($view){
+        view()->composer(['partials._cartItems', 'partials._checkoutItems', 'partials._confirmItems'], function($view){
             $request = app(\Illuminate\Http\Request::class);
             $cart_id = $request->cookie('cart_id');
             $view->with('latest', \App\Cart::where('cart_id', '=', $cart_id)

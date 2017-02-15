@@ -16,8 +16,17 @@
 });*/
 Route::get('/', 'HomeController@index');
 
+
+
+
+//Route::resource('/orders', 'OrdersController');
+Route::post('/orders', 'OrdersController@store');
+
+
+
 Route::resource('/checkout', 'CheckoutController');
-//Route::post('/checkout/create', 'CheckoutController@create');
+/*Route::get('/checkout', 'CheckoutController@index');
+Route::post('/checkout', 'CheckoutController@store');*/
 
 Route::get('/json/product/{id}', 'ProductController@json_show');
 

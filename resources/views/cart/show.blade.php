@@ -116,7 +116,12 @@
                         <div class="additional-data">
                             <div class="title"><span class="inline-label red">Promotion</span> Additional Notes</div>
                             <textarea class="simple-field size-1"></textarea>
-                            <a class="button style-10">Checkout</a>
+
+                            @if (Auth::guest())
+                                <a class="button style-10 open-subscribe">checkout</a>
+                            @else
+                                <a href="/checkout/create" class="button style-10">checkout</a>
+                            @endif
                         </div>
                     </div>
                     <div class="block-title size-1">Get shipping estimates</div>

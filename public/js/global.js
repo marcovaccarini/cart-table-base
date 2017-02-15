@@ -318,7 +318,8 @@ $(function() {
 
     /*tabs*/
     var tabsFinish = 0;
-    $('.tab-switcher').on('click', function(){
+    $(".list").on("click", "a.tab-switcher", function (e) {
+    //$('a.tab-switcher').on('click', function(){
         if($(this).hasClass('active') || tabsFinish) return false;
         tabsFinish = 1;
         var thisIndex = $(this).parent().find('.tab-switcher').index(this);
@@ -729,13 +730,13 @@ $(function() {
     function changeModalCart(id, operator, new_qty) {
 
         // this is the total quantity in cart on the menu header
-        var grandtotal, old_cart_qty, price, $grandtotal, old_grandtotal, $cart_entry, old_qty, old_prev, custom_discount, discounted_price, old_current, new_current, qty, prev, current;
+        var grandtotal, old_cart_qty, price, old_grandtotal, $cart_entry, old_qty, old_prev, custom_discount, discounted_price, old_current, new_current, qty, prev, current;
         old_cart_qty = parseInt($('#cart_qty').text().replace(/\D/g, ''), 10);
 
         // total inside cart modal
-        $grandtotal = $('.grandtotal').find('span');
+        grandtotal = parseFloat($('.grandtotal').attr("data-total"));
 
-        old_grandtotal = Number($grandtotal.text().replace('$', '').replace(',', ''));
+        old_grandtotal = grandtotal;
 
         // select the div where are the data
         $cart_entry = $("div.cart-entry[data-id$=" + id + "-item]");
@@ -772,7 +773,9 @@ $(function() {
         //  assign the new value
         $('#cart_qty').html('('+ cart_qty +')');
 
-        $grandtotal.html('$' + grandtotal);
+        $('.grandtotal').html('$' + grandtotal);
+        //  edit the data-attribute of the div .grandtotal
+        $('.grandtotal').attr('data-total', grandtotal);
 
         $('.main').html('$' + grandtotal);
 
@@ -1092,10 +1095,106 @@ $(function() {
             });
 
     });
+    var billing_address;
+    billing_address = $("#billing_address").detach();
+    $('#check_billing_address').on('click', function(e){
+    //    $('#billing_address').toggleClass('display_none');
+        if ( billing_address ) {
+            billing_address.appendTo("#container_billing_adress");
+            billing_address = null;
+        } else {
+            billing_address = $("#billing_address").detach();
+        }
+    });
+
+    /*==========================================*/
+    /* 10.1 - validation form checkout via AJAX */
+    /*==========================================*/
+
+
+    $("#btn-shipping, #btn-delivery, #btn-confirm").click(function (e) {
+
+        var container = $(this).parents('div').eq(0);
+
+        var curInputs = container.find("input[type='text'], input[type='tel'], select, input:radio[name=shipping_method]"),
+            isValid = true;
+
+//alert(document.getElementById('phone').willValidate);
+  //      alert(document.getElementById('phone').validity.patternMismatch);
+
+
+        $(".form-group").removeClass("has-error");
+        for(var i=0; i<curInputs.length; i++){
+
+
+            if (!curInputs[i].validity.valid){
+
+                isValid = false;
+
+                $(curInputs[i]).closest(".form-group").addClass("has-error");
+
+            }
+        }
+        $('#size-error').hide();
+        var curRadio = container.find("input:radio[name=shipping_method]");
+        if(curRadio.length > 0 && container.find(".shipping_method:checked").length == 0){
+            $('#size-error').show();
+            isValid = false;
+        }
 
 
 
 
+        if (isValid){
+
+            var tabsFinish = 0;
+            var indice = $('.list').parent().find('.active').index();
+
+            var activeTab = $('.list').parent().find('.active');
+            var nextTab = activeTab.next();
+            activeTab.removeClass('active');
+
+            nextTab.replaceWith(function (e) {
+                return $('<a/>', {
+                    class: 'tab-switcher active',
+                    html: this.innerHTML
+                });
+            });
+
+            $(this).closest('.tabs-container').find('.tabs-entry:visible').animate({'opacity':'0'}, 300, function(){
+                $(this).hide();
+                var showTab = $(this).parent().find('.tabs-entry').eq(indice+1);
+
+                showTab.show().css({'opacity':'0'});
+                if(showTab.find('.swiper-container').length) {
+                    swipers['swiper-'+showTab.find('.swiper-container').attr('id')].resizeFix();
+                    if(!showTab.find('.swiper-active-switch').length) showTab.find('.swiper-pagination-switch:first').addClass('swiper-active-switch');
+                }
+                showTab.animate({'opacity':'1'}, function(){tabsFinish = 0;});
+            });
+
+            $('html, body').animate({
+                scrollTop: $("#shopping-bag").offset().top
+            }, 1500);
+
+        }
+        else {
+            $('html, body').animate({
+                scrollTop: $('.has-error:first').offset().top - 80
+            }, 1000);
+        }
 
 
+    });
+
+
+    $("#method_standard, #method_express").click(function (e) {
+        var shipping = Number($(this).val());
+        $('#tot_shipping').html(shipping);
+        var grandtotal = Number($('.grandtotal').attr('data-total'));
+        $('#total_confirm').html((shipping + grandtotal).toFixed(2));
+
+
+    });
 });
+

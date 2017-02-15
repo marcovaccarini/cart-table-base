@@ -7,6 +7,9 @@ use App\Cart;
 
 class CheckoutController extends Controller
 {
+
+
+
     /**
      * Display a listing of the resource.
      *
@@ -15,6 +18,7 @@ class CheckoutController extends Controller
     public function index()
     {
         return 'Prrrr!!!';
+
     }
 
     /**
@@ -24,13 +28,17 @@ class CheckoutController extends Controller
      */
     public function create(Request $request)
     {
+
         $cart_id = $request->cookie('cart_id');
+
         $count = Cart::where('cart_id', '=', $cart_id)->count();
         if($count) {
             return view('checkout.create');
+            //return redirect('/bravo');
+            // cosa cazzo c'entri?????????
         }
         else{
-            return redirect('/');
+            return back();
         }
 
     }
@@ -41,12 +49,16 @@ class CheckoutController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store()
     {
+        $this->validate(request(), [
+            'email' => 'required|email'
+            ]);
 
         $email = request('email');
 
         return view('checkout.create', compact('email'));
+
     }
 
     /**

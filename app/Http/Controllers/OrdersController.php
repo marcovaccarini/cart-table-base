@@ -47,6 +47,8 @@ class OrdersController extends Controller
     public function store(Order $order)
     {
 
+
+
         /*$this->validate(request(), [
             'email' => 'required|email',
             'first_name' => 'required|min:2',
@@ -80,7 +82,7 @@ class OrdersController extends Controller
         // find cart_id
         $cart_id = request()->cookie('cart_id');
 
-        if(request('has_billing_address')) {
+        if(request('has_billing_address') == 0) {
             $has_billing_address = 0;
         }
         else {
@@ -107,35 +109,39 @@ class OrdersController extends Controller
             'total' => $total
         ])->id;
 
-        $this->addShippingAddress(
-            $user_id,
-            $lastOrderId,
-            request('first_name'),
-            request('last_name'),
-            request('street'),
-            request('apartment'),
-            request('city'),
-            request('state'),
-            request('zip_code'),
-            request('phone')
-        );
 
 
+        Address::create([
+            'id_type_address' => 1,
+            'user_id' => $user_id,
+            'order_id' => $lastOrderId,
+            'first_name' => request('first_name'),
+            'last_name' => request('last_name'),
+            'street' => request('street'),
+            'apartment' => request('apartment'),
+            'city' => request('city'),
+            'state' => request('state'),
+            'zip_code' => request('zip_code'),
+            'phone' => request('phone'),
+        ]);
+        //dd(request()->all());
         //  addBillingAddress();
-        if(!request('has_billing_address')) {
+        if(request('has_billing_address') != 0) {
 
-            $this->addBillingAddress(
-                $user_id,
-                $lastOrderId,
-                request('bill_first_name'),
-                request('bill_last_name'),
-                request('bill_street'),
-                request('bill_apartment'),
-                request('bill_city'),
-                request('bill_state'),
-                request('bill_zip_code'),
-                request('bill_phone')
-            );
+            Address::create([
+                'id_type_address' => 1,
+                'user_id' => $user_id,
+                'order_id' => $lastOrderId,
+                'first_name' => request('bill_first_name'),
+                'last_name' => request('bill_last_name'),
+                'street' => request('bill_street'),
+                'apartment' => request('bill_apartment'),
+                'city' => request('bill_city'),
+                'state' => request('bill_state'),
+                'zip_code' => request('bill_zip_code'),
+                'phone' => request('bill_phone'),
+            ]);
+
         }
 
 
@@ -158,9 +164,9 @@ class OrdersController extends Controller
         Cart::where('cart_id', '=', $cart_id)->delete();
 
 
-        dd(request()->all());
 
-        
+return 'Bravo!';
+
 
     }
 
@@ -209,37 +215,10 @@ class OrdersController extends Controller
         //
     }
 
-    public function addShippingAddress($user_id, $lastOrderId, $first_name, $last_name, $street, $apartment, $city, $state, $zip_code, $phone)
-    {
-        Address::create([
-            'id_type_address' => 1,
-            'user_id' => $user_id,
-            'order_id' => $lastOrderId,
-            'first_name' => $first_name,
-            'last_name' => $last_name,
-            'street' => $street,
-            'apartment' => $apartment,
-            'city' => $city,
-            'state' => $state,
-            'zip_code' => $zip_code,
-            'phone' => $phone,
-        ]);
-    }
+
 
     public function addBillingAddress($user_id, $lastOrderId, $bill_first_name, $bill_last_name, $bill_street, $bill_apartment, $bill_city, $bill_state, $bill_zip_code, $bill_phone)
     {
-        Address::create([
-            'id_type_address' => 1,
-            'user_id' => $user_id,
-            'order_id' => $lastOrderId,
-            'first_name' => $bill_first_name,
-            'last_name' => $bill_last_name,
-            'street' => $bill_street,
-            'apartment' => $bill_apartment,
-            'city' => $bill_city,
-            'state' => $bill_state,
-            'zip_code' => $bill_zip_code,
-            'phone' => $bill_phone,
-        ]);
+
     }
 }

@@ -24,4 +24,5 @@ class Tag extends Model
         return $this->belongsToMany('App\Product');
 
     }
+
 }

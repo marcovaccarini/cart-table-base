@@ -169,7 +169,7 @@
                                                 @inject('total', 'App\Services\CartService')
                                                 <div class="sub-total">Subtotal: <span class="main">${{ $total->get_total_cart() }}</span></div>
                                                 <div class="sub-total">Shipping: $<span id="tot_shipping">6.99</span></div>
-                                                <div class="grand-total">Grand Total $<span id="total_confirm">1029.79</span></div>
+                                                <div class="grand-total">Grand Total $<span id="total_confirm">{{ $total->get_total_cart() }}</span></div>
                                             </div>
                                         </div>
                                         <div class="clear" style="margin-bottom: 20px"></div>

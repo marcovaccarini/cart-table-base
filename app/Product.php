@@ -6,10 +6,16 @@ use Illuminate\Database\Eloquent\Model;
 use App\Category;
 use App\ProductImage;
 use App\Tag;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
 
 class Product extends Model
 {
+    use SoftDeletes;
+
     protected $table = 'products';
+
+    protected $dates = ['deleted_at'];
 
     protected $fillable = [
         'product_name',
@@ -34,7 +40,7 @@ class Product extends Model
          'path',
          'featured_image',
          'discounted_price',
-         'category_name'
+         'category_name',
      ];
 
 
@@ -92,7 +98,7 @@ class Product extends Model
         return $this->belongsToMany('App\Size')->withPivot('product_id', 'size_id');
 
     }
-    
+
     /**
      * A product belong to many carts
      * 
@@ -108,8 +114,6 @@ class Product extends Model
      */
     public function ProductImages()
     {
-
-        //return $this->hasManyThrough('App\ProductImage', 'App\Product');
         return $this->hasManyThrough('App\ProductImage', 'App\Product');
     }
 
@@ -154,5 +158,9 @@ class Product extends Model
         return $this->belongsToMany(Order::class);
     }
 
+    public function getSizeNameAttribute()
+    {
+        return Size::withTrashed()->where('id', '=', $this->pivot->size_id)->firstOrFail()->name;
+    }
 
 }

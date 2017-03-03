@@ -21,7 +21,8 @@ Route::get('/', 'HomeController@index');
 
 //Route::resource('/orders', 'OrdersController');
 Route::post('/orders', 'OrdersController@store');
-
+Route::get('/orders', 'OrdersController@index');
+Route::get('/orders/{id}', 'OrdersController@show');
 
 
 Route::resource('/checkout', 'CheckoutController');

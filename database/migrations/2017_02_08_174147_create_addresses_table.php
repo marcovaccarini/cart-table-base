@@ -25,7 +25,7 @@ class CreateAddressesTable extends Migration
             $table->string('city');
             $table->string('state');
             $table->integer('zip_code');
-            $table->integer('phone');
+            $table->string('phone');
             $table->timestamps();
 
             $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');

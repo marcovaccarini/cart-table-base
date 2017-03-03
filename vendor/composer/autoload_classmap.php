@@ -13,6 +13,7 @@ return array(
     'CreateProductSizeTable' => $baseDir . '/database/migrations/2016_12_19_104125_create_product_size_table.php',
     'CreateProductTagTable' => $baseDir . '/database/migrations/2016_12_19_151202_create_product_tag_table.php',
     'CreateSizesTable' => $baseDir . '/database/migrations/2016_12_19_104946_create_sizes_table.php',
+    'CreateStatusesTable' => $baseDir . '/database/migrations/2017_02_20_094940_create_statuses_table.php',
     'CreateTagsTable' => $baseDir . '/database/migrations/2016_12_19_145401_create_tags_table.php',
     'CreateUsersTable' => $baseDir . '/database/migrations/2014_10_12_000000_create_users_table.php',
     'CreateWishesTable' => $baseDir . '/database/migrations/2017_01_10_084420_create_wishes_table.php',

@@ -250,6 +250,7 @@ class ComposerStaticInitd80a27d0fba8daec8c8586dc9727f0f2
         'CreateProductSizeTable' => __DIR__ . '/../..' . '/database/migrations/2016_12_19_104125_create_product_size_table.php',
         'CreateProductTagTable' => __DIR__ . '/../..' . '/database/migrations/2016_12_19_151202_create_product_tag_table.php',
         'CreateSizesTable' => __DIR__ . '/../..' . '/database/migrations/2016_12_19_104946_create_sizes_table.php',
+        'CreateStatusesTable' => __DIR__ . '/../..' . '/database/migrations/2017_02_20_094940_create_statuses_table.php',
         'CreateTagsTable' => __DIR__ . '/../..' . '/database/migrations/2016_12_19_145401_create_tags_table.php',
         'CreateUsersTable' => __DIR__ . '/../..' . '/database/migrations/2014_10_12_000000_create_users_table.php',
         'CreateWishesTable' => __DIR__ . '/../..' . '/database/migrations/2017_01_10_084420_create_wishes_table.php',

@@ -40,7 +40,16 @@
                                 <div class="clear"></div>
                             </div>
                         </div>
-                        <form id="checkout_form" method="POST" action="/orders">
+                        @if($errors->any())
+                            <ul>
+                        @foreach($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                            </ul>
+                        @endif
+                        <form id="checkout_form" method="POST" action="/orders"
+                              data-cc-on-file="false"
+                              data-stripe-publishable-key="{{ config('services.stripe.key') }}">
 
                             <div class="tabs-entry form-group">
                                 <div class="information-blocks">
@@ -54,36 +63,56 @@
 
                                     <div class="row">
                                         <div class="col-sm-6">
-                                            <div class="form-group">
+                                            <div class="form-group{{ $errors->has('first_name') ? ' has-error' : '' }}">
                                                 <label class="control-label">First Name <span>*</span></label>
-                                                <input class="form-control simple-field" autofocus type="text" name="first_name" id="first_name" placeholder="First Name (required)" required value="" />
+                                                <input class="form-control simple-field" autofocus type="text" name="first_name" id="first_name" placeholder="First Name (required)" required value="{{ old('first_name') }}" />
+                                                @if ($errors->has('first_name'))
+                                                    <span class="help-block">
+                                                        <strong>{{ $errors->first('first_name') }}</strong>
+                                                    </span>
+                                                @endif
                                             </div>
                                             <div class="clear"></div>
                                         </div>
                                         <div class="col-sm-6">
-                                            <div class="form-group">
+                                            <div class="form-group{{ $errors->has('last_name') ? ' has-error' : '' }}">
                                                 <label class="control-label">Last Name <span>*</span></label>
-                                                <input class="form-control simple-field" id="last_name" name="last_name" type="text" placeholder="Last Name (required)" required value="" />
+                                                <input class="form-control simple-field" id="last_name" name="last_name" type="text" placeholder="Last Name (required)" required value="{{ old('last_name') }}" />
+                                                @if ($errors->has('last_name'))
+                                                    <span class="help-block">
+                                                        <strong>{{ $errors->first('last_name') }}</strong>
+                                                    </span>
+                                                @endif
                                             </div>
                                             <div class="clear"></div>
                                         </div>
                                         <div class="col-sm-12">
-                                            <div class="form-group">
+                                            <div class="form-group{{ $errors->has('street') ? ' has-error' : '' }}">
                                                 <label class="control-label">Street Address <span>*</span></label>
-                                                <input class="form-control simple-field" name="street" type="text" placeholder="Street address (required)" required value="" />
+                                                <input class="form-control simple-field" name="street" type="text" placeholder="Street address (required)" value="{{ old('street') }}" />
+                                                @if ($errors->has('street'))
+                                                    <span class="help-block">
+                                                        <strong>{{ $errors->first('street') }}</strong>
+                                                    </span>
+                                                @endif
                                             </div>
                                             <div class="form-group">
                                                 <label>Apartment/Suite </label>
-                                                <input class="form-control simple-field" name="apartment" type="text" placeholder="Apartment/Suite" value="" />
+                                                <input class="form-control simple-field" name="apartment" type="text" placeholder="Apartment/Suite" value="{{ old('apartment') }}" />
                                             </div>
-                                            <div class="form-group">
+                                            <div class="form-group{{ $errors->has('city') ? ' has-error' : '' }}">
                                                 <label class="control-label">City <span>*</span></label>
-                                                <input class="form-control simple-field" name="city" type="text" placeholder="City (required)" required value="" />
+                                                <input class="form-control simple-field" name="city" type="text" placeholder="City (required)" required value="{{ old('city') }}" />
+                                                @if ($errors->has('city'))
+                                                    <span class="help-block">
+                                                        <strong>{{ $errors->first('city') }}</strong>
+                                                    </span>
+                                                @endif
                                             </div>
                                             <div class="clear"></div>
                                         </div>
                                         <div class="col-sm-6">
-                                            <div class="form-group">
+                                            <div class="form-group{{ $errors->has('state') ? ' has-error' : '' }}">
                                                 <label class="control-label">State <span>*</span></label>
                                                 <div class="simple-drop-down simple-field">
                                                     <select class="form-control" name="state" required>
@@ -92,20 +121,35 @@
                                                         <option>Canada</option>
                                                     </select>
                                                 </div>
+                                                @if ($errors->has('state'))
+                                                    <span class="help-block">
+                                                        <strong>{{ $errors->first('state') }}</strong>
+                                                    </span>
+                                                @endif
                                             </div>
                                             <div class="clear"></div>
                                         </div>
                                         <div class="col-sm-6">
-                                            <div class="form-group">
+                                            <div class="form-group{{ $errors->has('zip_code') ? ' has-error' : '' }}">
                                                 <label class="control-label">Zip code <span>*</span></label>
-                                                <input class="form-control simple-field" type="text" name="zip_code" placeholder="Zip code (required)" required value="" />
+                                                <input class="form-control simple-field" type="text" name="zip_code" placeholder="Zip code (required)" required value="{{ old('zip_code') }}" />
+                                                @if ($errors->has('zip_code'))
+                                                    <span class="help-block">
+                                                        <strong>{{ $errors->first('zip_code') }}</strong>
+                                                    </span>
+                                                @endif
                                             </div>
                                             <div class="clear"></div>
                                         </div>
                                         <div class="col-sm-12">
-                                            <div class="form-group">
+                                            <div class="form-group{{ $errors->has('phone') ? ' has-error' : '' }}">
                                                 <label class="control-label">Phone <span>*</span></label>
-                                                <input class="form-control simple-field" id="phone" name="phone" type="tel" placeholder="Phone (required)" required value="" />
+                                                <input class="form-control simple-field" id="phone" name="phone" type="tel" placeholder="Phone (required)" required value="{{ old('phone') }}" />
+                                                @if ($errors->has('phone'))
+                                                    <span class="help-block">
+                                                        <strong>{{ $errors->first('phone') }}</strong>
+                                                    </span>
+                                                @endif
                                             </div>
                                             <div class="clear"></div>
                                         </div>
@@ -202,6 +246,7 @@
                                     <div class="detail-info-lines border-box" style="margin: 20px 0">
                                         <div class="row" style="margin-top: 20px">
                                             <div class="col-sm-12">
+
                                                 <label>Name on card <span>*</span></label>
                                                 <input class="simple-field" type="text" placeholder="Name on card (required)" required value="" />
                                             </div>
@@ -239,44 +284,96 @@
                                         <div id="billing_address" class="address-block">
                                         <div class="row">
                                             <div class="col-sm-6">
-                                                <label>First Name <span>*</span></label>
-                                                <input class="simple-field" type="text" name="bill_first_name" placeholder="First Name (required)" required value="" />
-                                                <div class="clear"></div>
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <label>Last Name <span>*</span></label>
-                                                <input class="simple-field" type="text" name="bill_last_name" placeholder="Last Name (required)" required value="" />
-                                                <div class="clear"></div>
-                                            </div>
-                                            <div class="col-sm-12">
-                                                <label>Street Address <span>*</span></label>
-                                                <input class="simple-field" type="text" name="bill_street" placeholder="Street address (required)" required value="" />
-                                                <label>Apartment/Suite </label>
-                                                <input class="simple-field" type="text" name="bill_apartment" placeholder="Apartment/Suite" value="" />
-                                                <label>City <span>*</span></label>
-                                                <input class="simple-field" type="text" name="bill_city" placeholder="City (required)" required value="" />
-                                                <div class="clear"></div>
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <label>State <span>*</span></label>
-                                                <div class="simple-drop-down simple-field">
-                                                    <select class="form-control" name="bill_state" required>
-                                                        <option>United States</option>
-                                                        <option>Great Britain</option>
-                                                        <option>Canada</option>
-                                                    </select>
+                                                <div class="form-group{{ $errors->has('bill_first_name') ? ' has-error' : '' }}">
+                                                    <label>First Name <span>*</span></label>
+                                                    <input class="simple-field" type="text" name="bill_first_name" placeholder="First Name (required)" required value="{{ old('bill_first_name') }}" />
+                                                    @if ($errors->has('bill_first_name'))
+                                                        <span class="help-block">
+                                                            <strong>{{ $errors->first('bill_first_name') }}</strong>
+                                                        </span>
+                                                    @endif
                                                 </div>
                                                 <div class="clear"></div>
                                             </div>
                                             <div class="col-sm-6">
-                                                <label>Zip code <span>*</span></label>
-                                                <input class="simple-field" type="text" name="bill_zip_code" placeholder="Zip code (required)" required value="" />
+                                                <div class="form-group{{ $errors->has('bill_last_name') ? ' has-error' : '' }}">
+                                                    <label>Last Name <span>*</span></label>
+                                                    <input class="simple-field" type="text" name="bill_last_name" placeholder="Last Name (required)" required value="{{ old('bill_last_name') }}" />
+                                                    @if ($errors->has('bill_last_name'))
+                                                        <span class="help-block">
+                                                            <strong>{{ $errors->first('bill_last_name') }}</strong>
+                                                        </span>
+                                                    @endif
+                                                </div>
+                                                <div class="clear"></div>
+
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="form-group{{ $errors->has('bill_street') ? ' has-error' : '' }}">
+                                                    <label>Street Address <span>*</span></label>
+                                                    <input class="simple-field" type="text" name="bill_street" placeholder="Street address (required)" required value="{{ old('bill_street') }}" />
+                                                    @if ($errors->has('bill_street'))
+                                                        <span class="help-block">
+                                                            <strong>{{ $errors->first('bill_street') }}</strong>
+                                                        </span>
+                                                    @endif
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Apartment/Suite </label>
+                                                    <input class="simple-field" type="text" name="bill_apartment" placeholder="Apartment/Suite" value="{{ old('bill_apartment') }}" />
+                                                </div>
+                                                <div class="form-group{{ $errors->has('bill_city') ? ' has-error' : '' }}">
+                                                    <label>City <span>*</span></label>
+                                                    <input class="simple-field" type="text" name="bill_city" placeholder="City (required)" required value="{{ old('bill_city') }}" />
+                                                    @if ($errors->has('bill_city'))
+                                                        <span class="help-block">
+                                                            <strong>{{ $errors->first('bill_city') }}</strong>
+                                                        </span>
+                                                    @endif
+                                                </div>
+                                                <div class="clear"></div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="form-group{{ $errors->has('bill_state') ? ' has-error' : '' }}">
+                                                    <label>State <span>*</span></label>
+                                                    <div class="simple-drop-down simple-field">
+                                                        <select class="form-control" name="bill_state" required>
+                                                            <option>United States</option>
+                                                            <option>Great Britain</option>
+                                                            <option>Canada</option>
+                                                        </select>
+                                                    </div>
+                                                    @if ($errors->has('bill_state'))
+                                                        <span class="help-block">
+                                                            <strong>{{ $errors->first('bill_state') }}</strong>
+                                                        </span>
+                                                    @endif
+                                                </div>
+                                                <div class="clear"></div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="form-group{{ $errors->has('bill_zip_code') ? ' has-error' : '' }}">
+                                                    <label>Zip code <span>*</span></label>
+                                                    <input class="simple-field" type="text" name="bill_zip_code" placeholder="Zip code (required)" required value="{{ old('bill_zip_code') }}" />
+                                                    @if ($errors->has('bill_zip_code'))
+                                                        <span class="help-block">
+                                                            <strong>{{ $errors->first('bill_zip_code') }}</strong>
+                                                        </span>
+                                                    @endif
+                                                </div>
                                                 <div class="clear"></div>
                                             </div>
 
                                             <div class="col-sm-12">
-                                                <label>Phone <span>*</span></label>
-                                                <input class="simple-field" type="tel" name="bill_phone" placeholder="Phone (required)" required value="" />
+                                                <div class="form-group{{ $errors->has('bill_phone') ? ' has-error' : '' }}">
+                                                    <label>Phone <span>*</span></label>
+                                                    <input class="simple-field" type="tel" name="bill_phone" placeholder="Phone (required)" required value="{{ old('bill_phone') }}" />
+                                                    @if ($errors->has('bill_phone'))
+                                                        <span class="help-block">
+                                                            <strong>{{ $errors->first('bill_phone') }}</strong>
+                                                        </span>
+                                                    @endif
+                                                </div>
                                                 <div class="clear"></div>
                                             </div>
                                         </div>

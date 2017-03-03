@@ -2461,8 +2461,8 @@ select{background: #fff!important;}
 /*-------------------------------------------------------------------------------------------------------------------------------*/
 .cart-table{width: 100%; font-size: 14px; line-height: 28px; color: #2e2e2e; font-weight: 600;}
 .cart-table .column-1{}
-.cart-table .column-2{width: 150px;}
-.cart-table .column-3{width: 180px;}
+.cart-table .column-2{width: 250px;}
+.cart-table .column-3{width: 100px;}
 .cart-table .column-4{width: 130px;}
 .cart-table .column-5{width: 35px;}
 .cart-table .subtotal{font-size: 20px; line-height: 28px; font-weight: 600;}

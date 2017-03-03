@@ -22,7 +22,7 @@
             <div class="breadcrumb-box" style="margin: 36px 0;">
                 <a href="#">Home</a>
                 <a href="#">Shop</a>
-                <a href="#">Wishlist</a>
+                <a href="#">My Wishlist</a>
             </div>
         </div>
     </div>
@@ -33,7 +33,7 @@
             <div class="information-blocks">
                 <div class="row">
                     <div class="col-sm-9 col-sm-push-3">
-                        <div class="block-title size-3">Wishlist</div>
+                        <div class="block-title size-3">My Wishlist</div>
                         <div class="wishlist-header hidden-xs">
                             <div class="title-1">Product Name</div>
                             <div class="title-2">Purchase Product</div>
@@ -103,11 +103,7 @@
             </div>
             <div class="information-blocks">
                 @include ('partials._base')
-
             </div>
         </div>
     </div>
-
-
-
 @stop

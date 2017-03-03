@@ -7,7 +7,9 @@ use App\Order;
 use App\Address;
 use Auth;
 use App\Cart;
+use App\Status;
 use App\Services\CartService;
+
 
 
 class OrdersController extends Controller
@@ -15,7 +17,6 @@ class OrdersController extends Controller
 
    public function __construct()
     {
-        //$this->middleware('auth', ['except' => 'store']);
         $this->middleware('auth')->except('store');
     }
     /**
@@ -23,9 +24,17 @@ class OrdersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Order $order)
     {
-        //
+        // display all orders of a user
+        $orders = Order::where('user_id', '=', auth()->id())
+            /*->join('statuses', 'orders.status_id'  , '=', 'statuses.id')*/
+            ->orderBy('created_at', 'desc')
+            ->get();
+       // dd($orders);
+
+        return view('orders.index', compact('orders'));
+
     }
 
     /**
@@ -49,7 +58,7 @@ class OrdersController extends Controller
 
 
 
-        /*$this->validate(request(), [
+        $this->validate(request(), [
             'email' => 'required|email',
             'first_name' => 'required|min:2',
             'last_name' => 'required|min:2',
@@ -57,16 +66,15 @@ class OrdersController extends Controller
             'city' => 'required|min:2',
             'state' => 'required|min:2',
             'zip_code' => 'required|numeric|min:5',
-            'phone' => 'required|min:2',
-            'shipping_method' => 'required|boolean',
+            'phone' => 'required|numeric|min:2',
             'bill_first_name' => 'sometimes|required|min:2',
             'bill_last_name' => 'sometimes|required|min:2',
             'bill_street' => 'sometimes|required|min:2',
             'bill_city' => 'sometimes|required|min:2',
             'bill_state' => 'sometimes|required|min:2',
             'bill_zip_code' => 'sometimes|required|numeric|min:5',
-            'bill_phone' => 'sometimes|required|min:2',
-        ]);*/
+            'bill_phone' => 'sometimes|required|numeric|min:2',
+        ]);
 
 
 
@@ -89,13 +97,8 @@ class OrdersController extends Controller
             $has_billing_address = 1;
         }
 
-        //  calculate sub total
         $cartService = new cartService();
-        $subtotal = $cartService->get_total_cart();
-
-        //dd($subtotal);
-        $total = $subtotal + request('shipping_method');
-
+        $total = $cartService->get_total_cart() + request('shipping_method');
 
         // set payment here
 
@@ -104,12 +107,11 @@ class OrdersController extends Controller
             'cart_id' => $cart_id,
             'email' => request('email'),
             'has_billing_address' => $has_billing_address,
-            'subtotal' => $subtotal,
+            'subtotal' => $cartService->get_total_cart(),
             'shipping_cost' => request('shipping_method'),
-            'total' => $total
+            'total' => $total,
+            'status_id' => 1
         ])->id;
-
-
 
         Address::create([
             'id_type_address' => 1,
@@ -124,10 +126,9 @@ class OrdersController extends Controller
             'zip_code' => request('zip_code'),
             'phone' => request('phone'),
         ]);
-        //dd(request()->all());
+       // dd(request()->all());
         //  addBillingAddress();
         if(request('has_billing_address') != 0) {
-
             Address::create([
                 'id_type_address' => 1,
                 'user_id' => $user_id,
@@ -150,7 +151,7 @@ class OrdersController extends Controller
         $cart_products = Cart::with('product')->where('cart_id', '=', $cart_id)->get();
         foreach ($cart_products as $order_products) {
 
-            $order->orderItems()->attach($order_products->id, array(
+            $order->orderItems()->attach($order_products->product_id, array(
                 'order_id' => $lastOrderId,
                 'size_id' => $order_products->size_id,
                 'qty'    => $order_products->qty,
@@ -178,7 +179,21 @@ return 'Bravo!';
      */
     public function show($id)
     {
-        //
+        $userId = auth()->id();
+        $order = Order::where(function($q) use ($id, $userId) {
+            $q->where('user_id', '=', $userId);
+            $q->where('id', '=', $id);
+        })
+            /*->with('addresses', 'orderItems.orderSize')*/
+            ->with('addresses', 'orderItems')
+            ->firstOrFail();
+
+        //        dd($order);
+        //return $order->toSql();
+        //return $order->toJson();
+
+        return view('orders.show', compact('order'));
+
     }
 
     /**
@@ -217,8 +232,4 @@ return 'Bravo!';
 
 
 
-    public function addBillingAddress($user_id, $lastOrderId, $bill_first_name, $bill_last_name, $bill_street, $bill_apartment, $bill_city, $bill_state, $bill_zip_code, $bill_phone)
-    {
-
-    }
 }

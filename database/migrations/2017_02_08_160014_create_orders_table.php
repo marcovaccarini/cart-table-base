@@ -23,6 +23,7 @@ class CreateOrdersTable extends Migration
             $table->decimal('shipping_cost', 10, 2)->unsigned();
             $table->decimal('total', 10, 2)->unsigned();
             $table->timestamps();
+            $table->softDeletes();
 
             Schema::enableForeignKeyConstraints();
         });

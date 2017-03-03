@@ -128,7 +128,9 @@ class OrdersController extends Controller
         ]);
        // dd(request()->all());
         //  addBillingAddress();
-        if(request('has_billing_address') != 0) {
+        if (!request()->has('has_billing_address')) {
+
+        //if(request('has_billing_address') != 0) {
             Address::create([
                 'id_type_address' => 1,
                 'user_id' => $user_id,

@@ -43,7 +43,7 @@ Route::get('special/{tags}', 'TagsController@index');
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index');
+//Route::get('/home', 'HomeController@index');
 
 Route::pattern('mainCategorySlug', '[a-z0-9_\-]+');
 Route::pattern('categorySlug', '[a-z0-9_\-]+');

@@ -531,6 +531,8 @@
 <script src="/js/jquery.mousewheel.js"></script>
 <script src="/js/jquery.jscrollpane.min.js"></script>
 
-
+<!-- stripe -->
+<!-- Inlude Stripe.js -->
+<script type="text/javascript" src="https://js.stripe.com/v2/"></script>
 </body>
 </html>

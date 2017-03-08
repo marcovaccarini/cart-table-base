@@ -47,9 +47,7 @@
                         @endforeach
                             </ul>
                         @endif
-                        <form id="checkout_form" method="POST" action="/orders"
-                              data-cc-on-file="false"
-                              data-stripe-publishable-key="{{ config('services.stripe.key') }}">
+                        <form id="checkout_form" method="POST" action="/orders">
 
                             <div class="tabs-entry form-group">
                                 <div class="information-blocks">
@@ -216,6 +214,19 @@
                                                 <div class="grand-total">Grand Total $<span id="total_confirm">{{ $total->get_total_cart() }}</span></div>
                                             </div>
                                         </div>
+
+                                        <div class="col-md-12 information-entry">
+                                            <div class="clear" style="margin-bottom: 20px"></div>
+                                            <div class="additional-data">
+                                                <div class="block-title size-1">Additional Notes
+                                                    <textarea name="note" class="simple-field size-1"></textarea>
+                                                </div>
+
+
+
+
+                                            </div>
+                                        </div>
                                         <div class="clear" style="margin-bottom: 20px"></div>
                                         <div id="btn-confirm" class="button style-10">Continue to billing</div>
                                     </div>
@@ -254,18 +265,23 @@
                                         <div class="row" style="margin-top: 20px">
                                             <div class="col-sm-6">
                                                 <label>Card Number <span>*</span></label>
-                                                <input class="simple-field" type="text" placeholder="Card Number (required)" required value="" />
+                                                <input class="simple-field" data-stripe="number" type="text" placeholder="Card Number (required)" required value="" />
                                                 <div class="clear"></div>
                                             </div>
 
-                                            <div class="col-sm-3">
-                                                <label>MM/YY <span>*</span></label>
-                                                <input class="simple-field" type="text" placeholder="MM/YY (required)" required value="" />
+                                            <div class="col-sm-2">
+                                                <label>Exp. MM <span>*</span></label>
+                                                <input class="simple-field" data-stripe="exp-month" type="text" placeholder="MM (required)" required value="" />
                                                 <div class="clear"></div>
                                             </div>
-                                            <div class="col-sm-3">
+                                            <div class="col-sm-2">
+                                                <label>Exp. YYYY <span>*</span></label>
+                                                <input class="simple-field" data-stripe="exp-year" type="text" placeholder="YYYY (required)" required value="" />
+                                                <div class="clear"></div>
+                                            </div>
+                                            <div class="col-sm-2">
                                                 <label>CVC <span>*</span></label>
-                                                <input class="simple-field" type="text" placeholder="CVC (required)" required value="" />
+                                                <input class="simple-field" data-stripe="cvc" type="text" placeholder="CVC (required)" required value="" />
                                                 <div class="clear"></div>
                                             </div>
                                         </div>
@@ -306,7 +322,6 @@
                                                     @endif
                                                 </div>
                                                 <div class="clear"></div>
-
                                             </div>
                                             <div class="col-sm-12">
                                                 <div class="form-group{{ $errors->has('bill_street') ? ' has-error' : '' }}">
@@ -381,15 +396,23 @@
                                     </div>
                                     <div class="clear" style="margin-bottom: 20px"></div>
                                     {{ csrf_field() }}
-                                    <div class="button style-10">Pay<input type="submit" value="" /></div>
+                                    {{--<div class="button style-10">Pay<input id="submitBtn" type="submit" value="" /></div>--}}
+                                    <button id="submitBtn" type="submit" class="button style-10">Buy Now</button>
                                     <div class="text-widget">
                                         <div class="description">
                                             <p> </p>
                                         </div>
                                     </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <span class="payment-errors" style="color: red;margin-top:10px;"></span>
+                                        </div>
+                                    </div>
+
                                 </div>
                             </div>
                         </form>
+
                     </div>
                 </div>
                 <div class="col-sm-3 information-entry">

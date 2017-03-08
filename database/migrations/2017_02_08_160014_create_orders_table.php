@@ -22,6 +22,8 @@ class CreateOrdersTable extends Migration
             $table->decimal('subtotal', 10, 2)->unsigned();
             $table->decimal('shipping_cost', 10, 2)->unsigned();
             $table->decimal('total', 10, 2)->unsigned();
+            $table->string('note');
+            $table->string('transaction_id');
             $table->timestamps();
             $table->softDeletes();
 

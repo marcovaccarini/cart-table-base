@@ -16,7 +16,9 @@ class Order extends Model
         'subtotal',
         'shipping_cost',
         'total',
-        'status_id'
+        'status_id',
+        'note',
+        'transaction_id'
     ];
 
     protected $dates = ['deleted_at'];

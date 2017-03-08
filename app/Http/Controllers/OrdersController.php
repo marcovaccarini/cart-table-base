@@ -9,6 +9,7 @@ use Auth;
 use App\Cart;
 use App\Status;
 use App\Services\CartService;
+use Stripe\Stripe;
 
 
 
@@ -99,8 +100,43 @@ class OrdersController extends Controller
 
         $cartService = new cartService();
         $total = $cartService->get_total_cart() + request('shipping_method');
+        $total = number_format($total, 2);
+        $charge_amount = number_format($total, 2) * 100;
+
 
         // set payment here
+        $token = request('stripeToken');
+        //dd($token);
+        //$token =  $_POST['stripeToken'];
+
+
+        //\Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
+        // Set your API key
+        Stripe::setApiKey(env('STRIPE_SECRET'));
+
+        try {
+            $charge = \Stripe\Charge::create([
+                'amount' => $charge_amount, // this is in cents
+                'currency' => 'usd',
+                'card' => $token,
+                'description' => 'Order on Marco.tk',
+                'metadata' => [
+                    'customer_first_name' => request('first_name'),
+                    'customer_last_name' => request('last_name'),
+                    'customer_email' => request('email'),
+                ]
+            ]);
+        } catch(\Stripe\Error\Card $e) {
+            // Declined. Don't process their purchase.
+            // Go back, and tell the user to try a new card
+            return redirect()->back()
+                ->withErrors($e->getMessage())
+                ->withInput();
+        }
+
+
+
+
 
         $lastOrderId = Order::create([
             'user_id' => $user_id,
@@ -110,7 +146,9 @@ class OrdersController extends Controller
             'subtotal' => $cartService->get_total_cart(),
             'shipping_cost' => request('shipping_method'),
             'total' => $total,
-            'status_id' => 1
+            'status_id' => 1,
+            'note' => request('note'),
+            'transaction_id' => $charge->id
         ])->id;
 
         Address::create([
@@ -126,7 +164,7 @@ class OrdersController extends Controller
             'zip_code' => request('zip_code'),
             'phone' => request('phone'),
         ]);
-       // dd(request()->all());
+        //dd(request()->all());
         //  addBillingAddress();
         if (!request()->has('has_billing_address')) {
 

@@ -103,6 +103,24 @@
                                     </div>
                                 </div>
                                 <div class="clear" style="margin-bottom: 20px"></div>
+                                <div class="col-md-12 information-entry">
+                                    <div class="information-blocks">
+                                        <h3 class="block-title inline-product-column-title">
+                                            Additional note
+                                        </h3>
+                                        <div class="text-widget">
+                                            <div class="article-container">
+                                                @if($order->note == '')
+                                                    none
+                                                @else
+                                                    {{ $order->note }}
+                                                @endif
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="clear" style="margin-bottom: 20px"></div>
                                 @foreach($order->addresses as $address)
                                 <div class="col-md-6 information-entry">
                                     <div class="information-blocks">

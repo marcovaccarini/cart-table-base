@@ -82,17 +82,18 @@
                     <div class="col-sm-3 col-sm-pull-9 blog-sidebar">
                         <div class="information-blocks">
                             <div class="categories-list account-links">
-                                <div class="block-title size-3">Client account</div>
-                                <ul>
-                                    <li><a href="#">Overview</a></li>
-                                    <li><a href="#">Account/Password </a></li>
-                                    <li><a href="#">Address Book</a></li>
-                                    <li><a href="#">Newsletter</a></li>
-                                    <li><a href="#">Order History</a></li>
-                                    <li><a href="#">My Wishlist</a></li>
-                                    <li><a href="#">My Reviews</a></li>
-                                    <li><a href="#">My Tags</a></li>
-                                </ul>
+                                @if (Auth::guest())
+                                    <a href="#" class="sale-entry vertical">
+                                        <span class="hot-mark yellow">hot</span>
+                                        <span class="sale-price"><span>-40%</span> Valentine <br> Underwear Sale</span>
+                                        <span class="sale-description">Lorem ipsum dolor sitamet, conse adipisc sed do eiusmod tempor.</span>
+                                        <img src="img/text-widget-image-3.jpg" class="sale-image" style="" alt="">
+                                    </a>
+                                @else
+                                    <div class="block-title size-3">Client account</div>
+                                    @include ('partials._accountMenu')
+                                @endif
+
                             </div>
                             <div class="article-container">
                                 <br/>Custom CMS block displayed below the one page account panel block. Put your own content here.

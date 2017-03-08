@@ -124,6 +124,7 @@ class OrdersController extends Controller
                     'customer_first_name' => request('first_name'),
                     'customer_last_name' => request('last_name'),
                     'customer_email' => request('email'),
+                    'customer_id' => $user_id,
                 ]
             ]);
         } catch(\Stripe\Error\Card $e) {

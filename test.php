@@ -36,6 +36,23 @@ try {
     print "Error!: " . $e->getMessage() . "<br/>";
     die();
 }
+
+  /*=============================*/
+/* Add Active Navigation Class */
+/*=============================*/
+/*
+$(function(){
+    var current = location.pathname;
+    $('.sidebar-menu li a').each(function(){
+        var $this = $(this);
+        if($this.attr('href').indexOf(current) !== -1){
+            $this.parents('li').addClass('active');
+        }
+    })
+    })
+*/
+/*END DOCUMENT READY*/
+
 ?>
 
 

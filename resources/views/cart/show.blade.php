@@ -40,7 +40,7 @@
                                  data-custom_discount="{{ $cart_item->product->custom_discount }}"
                                  data-qty="{{ $cart_item->qty }}"
                                  data-sizeid="{{ $cart_item->sizenames->id }}">
-                                <a class="image" href="{{$cart_item->product->path}}"><img alt="" src="/img/{{$cart_item->ProductImages->filename}}"></a>
+                                <a class="image" href="{{$cart_item->product->path}}"><img alt="" src="/img/medium/{{$cart_item->ProductImages->filename}}"></a>
                                 <div class="content">
                                     <div class="cell-view">
                                         <?php

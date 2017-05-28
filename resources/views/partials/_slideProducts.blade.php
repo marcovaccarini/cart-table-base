@@ -7,7 +7,7 @@
                         <div class="product-slide-entry">
                             <div class="product-image">
 
-                                <img src="/img/{{$featured->filename}}" alt="{{$featured->product_name}}" />
+                                <img src="/img/medium/{{$featured->filename}}" alt="{{$featured->product_name}}" />
 
                                 @if($featured->custom_discount != null)
                                     <div class="product-image-label type-2"><span>{{number_format($featured->custom_discount), 0}}% OFF</span></div>

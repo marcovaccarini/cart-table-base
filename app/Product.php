@@ -29,6 +29,7 @@ class Product extends Model
         'category_id',
         'new',
         'featured',
+        'promotion',
     ];
 
     /**
@@ -36,12 +37,12 @@ class Product extends Model
      *
      * @var array
      */
-     protected $appends = [
-         'path',
-         'featured_image',
-         'discounted_price',
-         'category_name',
-     ];
+    protected $appends = [
+        'path',
+        'featured_image',
+        'discounted_price',
+        'category_name',
+    ];
 
 
 
@@ -101,13 +102,13 @@ class Product extends Model
 
     /**
      * A product belong to many carts
-     * 
+     *
      * @return
      */
-   /* public function carts()
-    {
-        return $this->belongsToMany('App\Cart');
-    }*/
+    /* public function carts()
+     {
+         return $this->belongsToMany('App\Cart');
+     }*/
 
     /**
      * Get all of the product_images for the product.

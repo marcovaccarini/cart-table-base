@@ -70,7 +70,7 @@
                                         <div class="product-slide-entry">
                                             <div class="product-image">
 
-                                                <img src="/img/{{$featured->featured_image->filename}}" alt="{{$featured->product_name}}" />
+                                                <img src="/img/medium/{{$featured->featured_image->filename}}" alt="{{$featured->product_name}}" />
 
                                                 @if($featured->custom_discount != null)
                                                     <div class="product-image-label type-2"><span>{{number_format($featured->custom_discount), 0}}% OFF</span></div>
@@ -177,7 +177,7 @@
                                         <div class="product-slide-entry">
                                             <div class="product-image">
 
-                                                <img src="/img/{{$newarrival->featured_image->filename}}" alt="{{$newarrival->product_name}}" />
+                                                <img src="/img/medium/{{$newarrival->featured_image->filename}}" alt="{{$newarrival->product_name}}" />
 
                                                 @if($newarrival->custom_discount != null)
                                                     <div class="product-image-label type-2"><span>{{number_format($newarrival->custom_discount), 0}}% OFF</span></div>
@@ -289,9 +289,12 @@
                                     <div class="paddings-container">
                                         <div class="product-slide-entry">
                                             <div class="product-image">
-                                                <img src="/img/{{$promotion->featured_image->filename}}" alt="{{$promotion->product_name}}" />
-                                                @if($promotion->new != null)
+                                                <img src="/img/medium/{{$promotion->featured_image->filename}}" alt="{{$promotion->product_name}}" />
+                                                {{--@if($promotion->new != null)
                                                     <div class="product-image-label type-1"><span>NEW</span></div>
+                                                @endif--}}
+                                                @if($promotion->custom_discount != null)
+                                                    <div class="product-image-label type-2"><span>{{number_format($promotion->custom_discount), 0}}% OFF</span></div>
                                                 @endif
                                                 <form novalidate="" method="post">
                                                     <input type="hidden" class="product_id" name="product_id" value="{{$promotion->id}}" />

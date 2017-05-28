@@ -34,8 +34,7 @@ class CheckoutController extends Controller
         $count = Cart::where('cart_id', '=', $cart_id)->count();
         if($count) {
             return view('checkout.create');
-            //return redirect('/bravo');
-            // cosa cazzo c'entri?????????
+
         }
         else{
             return back();

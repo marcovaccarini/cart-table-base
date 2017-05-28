@@ -29,6 +29,7 @@ class Order extends Model
     {
         return $this->belongsToMany(Product::class)->withPivot('size_id', 'qty', 'price', 'sub_total', 'discount');
 
+
     }
 
     public function addresses()
@@ -42,5 +43,10 @@ class Order extends Model
     {
         //return $this->belongsTo(Size::class)->where('id', '=', $this->size_id)->firstOrFail();
         return $this->belongsTo(Size::class, 'size_id');
+    }
+
+    public function status()
+    {
+        return $this->belongsTo('App\Status');
     }
 }

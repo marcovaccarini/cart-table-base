@@ -39,13 +39,30 @@ class OrdersController extends Controller
     }
 
     /**
+     * Display a listing of the resource for the admin area.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function admin_index(Order $order)
+    {
+        // display all orders of a user
+        $orders = Order::with('status', 'addresses')->get()
+            ->sortByDesc('created_at');
+        //var_dump($orders);
+        //dd($orders);
+
+        return view('admin.orders.index', compact('orders'));
+
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function create()
     {
-        //
+
     }
 
     /**
@@ -56,8 +73,6 @@ class OrdersController extends Controller
      */
     public function store(Order $order)
     {
-
-
 
         $this->validate(request(), [
             'email' => 'required|email',
@@ -76,9 +91,6 @@ class OrdersController extends Controller
             'bill_zip_code' => 'sometimes|required|numeric|min:5',
             'bill_phone' => 'sometimes|required|numeric|min:2',
         ]);
-
-
-
 
         // Set the $user_id the the currently authenticated user
         if (Auth::check()){
@@ -106,11 +118,7 @@ class OrdersController extends Controller
 
         // set payment here
         $token = request('stripeToken');
-        //dd($token);
-        //$token =  $_POST['stripeToken'];
 
-
-        //\Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
         // Set your API key
         Stripe::setApiKey(env('STRIPE_SECRET'));
 
@@ -134,10 +142,6 @@ class OrdersController extends Controller
                 ->withErrors($e->getMessage())
                 ->withInput();
         }
-
-
-
-
 
         $lastOrderId = Order::create([
             'user_id' => $user_id,
@@ -166,10 +170,9 @@ class OrdersController extends Controller
             'phone' => request('phone'),
         ]);
         //dd(request()->all());
-        //  addBillingAddress();
+
         if (!request()->has('has_billing_address')) {
 
-        //if(request('has_billing_address') != 0) {
             Address::create([
                 'id_type_address' => 1,
                 'user_id' => $user_id,
@@ -186,8 +189,6 @@ class OrdersController extends Controller
 
         }
 
-
-
         //  addProductFromCart(); // Attach all cart items to the pivot table with their fields
         $cart_products = Cart::with('product')->where('cart_id', '=', $cart_id)->get();
         foreach ($cart_products as $order_products) {
@@ -198,14 +199,13 @@ class OrdersController extends Controller
                 'qty'    => $order_products->qty,
                 'price'  => $order_products->product->price,
                 'discount'  => $order_products->product->custom_discount,
-                'sub_total'  => ($order_products->product->price - (($order_products->product->price / 100) * $order_products->custom_discount))*$order_products->qty
+                'sub_total'  => ($order_products->product->price - ($order_products->product->price/100*$order_products->product->custom_discount))*$order_products->qty
             ));
+//'sub_total'  => ($40.07 - 6,0105)*2
         }
 
         // Delete all the items in the cart after transaction successful
         Cart::where('cart_id', '=', $cart_id)->delete();
-
-
 
 return 'Bravo!';
 
@@ -225,17 +225,33 @@ return 'Bravo!';
             $q->where('user_id', '=', $userId);
             $q->where('id', '=', $id);
         })
-            /*->with('addresses', 'orderItems.orderSize')*/
-            ->with('addresses', 'orderItems')
-            ->firstOrFail();
-
-        //        dd($order);
-        //return $order->toSql();
-        //return $order->toJson();
+        ->with('addresses', 'orderItems')
+        ->firstOrFail();
 
         return view('orders.show', compact('order'));
 
     }
+
+
+    /**
+     * Display the specified resource for admin area.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function admin_show($id)
+    {
+
+        $order = Order::where('id', '=', $id)
+            ->with('addresses', 'orderItems', 'status')
+            ->firstOrFail();
+
+        $allStatuses = Status::pluck('status_name', 'id');
+
+        return view('admin.orders.show', compact('order', 'allStatuses'));
+
+    }
+
 
     /**
      * Show the form for editing the specified resource.

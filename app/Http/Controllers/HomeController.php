@@ -36,14 +36,12 @@ class HomeController extends Controller
             ->take(5)
             ->get();
 
-
         $newarrivals = Product::where('new', '=', 1)
             ->inRandomOrder()
             ->take(5)
             ->get();
 
-
-        $promotions = Product::where('custom_discount', '!=', null)
+        $promotions = Product::where('promotion', '=', 1)
             ->inRandomOrder()
             ->take(5)
             ->get();
